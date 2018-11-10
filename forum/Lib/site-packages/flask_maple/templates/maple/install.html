@@ -1,0 +1,84 @@
+{% macro form(key, value) -%}
+{% set default = value.get("default","") %}
+{% if default is in [true, false] %}
+<input class="form-control" name="{{ key }}" type="checkbox" {% if default %}checked{% endif %} style="margin:auto 0;">
+{% elif default is sequence and default is not string %}
+<select class="form-control" name="{{ key }}">
+  {% for i in default %}
+  <option>{{ i }}</option>
+  {% endfor %}
+</select>
+{% elif default is number %}
+<input type="number" class="form-control" name="{{ key }}" placeholder="{{ key }}" {% if default %}value="{{ default }}{% endif %}">
+{% else %}
+<input type="text" class="form-control" name="{{ key }}" placeholder="{{ key }}" {% if default %}value="{{ default }}{% endif %}">
+{% endif %}
+{%- endmacro %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Flask Install</title>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+         $(".next a").click(function() {
+             $('.nav-tabs > .active').next('li').find('a').trigger('click');
+         })
+         $(".previous a").click(function() {
+             $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+         })
+     })
+    </script>
+  </head>
+  <body>
+    <style>
+     .input-width {
+         min-width:150px;
+     }
+     .submit {
+         float:right;
+     }
+    </style>
+    <div class="col-md-offset-2 col-md-8">
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs nav-justified" role="tablist">
+        {% for role in config %}
+        <li role="presentation" {% if loop.index == 1 %}class="active"{% endif %}>
+          <a href="#{{ role }}" aria-controls="{{ role }}" role="tab" data-toggle="tab">{{ role }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+      <!-- Tab panes -->
+      <form class="tab-content" method="POST" action="/install">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+        {% for role,values in config.items() %}
+        <div role="tabpanel" class="tab-pane {% if loop.index == 1 %}active{% endif %}" id="{{ role }}">
+          {% for key,value in values.items() %}
+          <div class="input-group">
+            {% set alias = value.get('alias') %}
+            <span class="input-group-addon input-width">{% if alias %}{{ alias }}{% else %}{{ key }}{% endif %}</span>
+            {{ form(key, value) }}
+          </div>
+          {% endfor %}
+
+          <ul class="pager">
+            {% if loop.index > 1 %}
+            <li class="previous"><a class="btn"><span aria-hidden="true">&larr;</span> Older</a></li>
+            {% endif %}
+            {% if loop.last %}
+            <li class="submit"><button class="btn" type="submit">提交</button></li>
+            {% else %}
+            <li class="next"><a class="btn">Newer <span aria-hidden="true">&rarr;</span></a></li>
+            {% endif %}
+          </ul>
+
+        </div>
+        {% endfor %}
+      </form>
+
+    </div>
+  </body>
+</html>
