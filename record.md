@@ -367,4 +367,5 @@ login_manager.anonymous_user = MyAnonymousUser
 ### login_user的使用
 如果密码正确，调用 Flask-Login 的 login_user() 函数，在用户会话中 把用户标记为已登录。login_user() 函数的参数是要登录的用户，以及可选的“记住我” 布尔值，“记住我”也在表单中勾选。如果这个字段的值为 False，关闭浏览器后用户会话 就过期了，所以下次用户访问时要重新登录。如果值为 True，那么会在用户浏览器中写入 一个长期有效的 cookie，使用这个 cookie 可以复现用户会话。cookie 默认记住一年，可以 使用可选的 REMEMBER_COOKIE_DURATION 配置选项更改这个值。
 
-### 
+### 登录时使用的重定向机制 next
+用户在访问未授权的页面时会跳转到登录页面，Flask_login中利用next来存储原URL，next是一个字符串参数，这个参数可以从request.args字典中读取，若查询字符串中没有next参数，则会重定向到首页。next参数中的url会经过验证，确保是相对URL，防止恶意用户利用这个参数把不知情的用户重定向到其他网站。
