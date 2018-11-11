@@ -15,7 +15,8 @@ from flask import render_template, flash, redirect, request, url_for
 from flask_login import login_required, logout_user, current_user, login_user
 from . import authority
 from ..models import User
-from ..forms import Loginform
+from ..forms import Loginform, Registerform
+from .. import db
 
 
 @authority.route('/login', methods=['GET', 'POST'])
@@ -44,3 +45,17 @@ def logout():
     flash(u'您已退出登录！', 'success')
     # 注意url_for()的使用，里面参数是蓝本.视图函数的形式，可以传递参数
     return redirect(url_for('main.index'))
+
+@authority.route('/register', methods=['GET', 'POST'])
+def register():
+    # 如果用户已经登录则跳转到主页面
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form = Registerform()
+    if form.validate_on_submit():
+        user = User(email = form.email.data, name = form.name.data, password = form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('注册成功', 'success')
+        return redirect(url_for('authority.login'))#重定向到登陆页面
+    return render_template('authority/register.html', form=form)
