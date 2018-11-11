@@ -15,6 +15,7 @@
 from . import db
 from . import login_manager
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Role(db.Model):
@@ -38,3 +39,24 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return '<User %r>' % self.name
+
+    #使用了@property修饰器其作用是：使用property来定义公有或者是私有的方法，其能够提供一种更安全便捷的方式来与类的相关属性进行交互
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
+
+    @password.setter
+    def password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def verify_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
+
+
+
+# 该函数用于flask_login扩展需要从数据库中获取指定标识符的用户，login_manager装饰器将这个函数注册给Flask_login
+@login_manager.user_loader
+def user_loader(user_id):
+    return User.querry.get(int(user_id))
