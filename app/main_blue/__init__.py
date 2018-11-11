@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # **************************************************************************
 # Copyright ©
-# File Name: __init__.py
+# File Name: ~/main_blue/__init__.py
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
 # Created: 2018-11-10 14:45:50 (CST)

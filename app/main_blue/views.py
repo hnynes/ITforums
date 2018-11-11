@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # **************************************************************************
 # Copyright © superliuliuliu1
-# File Name: views.py
+# File Name: ~/main_blue/views.py
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
 # Created: 2018-11-10 15:45:40 (CST)
