@@ -1,4 +1,20 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# **************************************************************************
+# Copyright © superliuliuliu1
+# File Name: models.py
+# Author: superliuliuliu1
+# Email: superliuliuliu1@gmail.com
+# Created: 2018-11-11 10:12:50 (CST)
+# Last Update:
+#          By:
+# Description:数据库模型
+# **************************************************************************
+
+
 from . import db
+from . import login_manager
+from flask_login import UserMixin
 
 
 class Role(db.Model):
@@ -12,10 +28,12 @@ class Role(db.Model):
         return '<Role %r>' % self.name
 
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(64), unique = True, index = True)#除此之外还需要为name创建索引
+    email = db.Column(db.String(64), unique = True, index = True)#用户的邮箱信息，但是登录的时候并不需要输入邮箱
+    password_hash = db.Column(db.String(128))
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id')) #增加一个外键用来将其与roles表连接起来
 
     def __repr__(self):
