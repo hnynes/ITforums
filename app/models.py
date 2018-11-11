@@ -59,4 +59,4 @@ class User(UserMixin, db.Model):
 # 该函数用于flask_login扩展需要从数据库中获取指定标识符的用户，login_manager装饰器将这个函数注册给Flask_login
 @login_manager.user_loader
 def user_loader(user_id):
-    return User.querry.get(int(user_id))
+    return User.query.get(int(user_id))

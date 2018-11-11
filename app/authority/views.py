@@ -11,7 +11,7 @@
 # Description:登录注册蓝本下的路由
 # **************************************************************************
 
-from flask import render_template, flash, redirect, request
+from flask import render_template, flash, redirect, request, url_for
 from flask_login import login_required, logout_user, current_user, login_user
 from . import authority
 from ..models import User
@@ -25,7 +25,7 @@ def login():
         return redirect(url_for('main.index'))
     form = Loginform()
     if form.validate_on_submit():
-        user = User.querry.filter_by(email = form.email.data).first()
+        user = User.query.filter_by(email = form.email.data).first()
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember.data)
             next = request.args.get('next')

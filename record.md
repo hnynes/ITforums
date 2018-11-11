@@ -369,3 +369,11 @@ login_manager.anonymous_user = MyAnonymousUser
 
 ### 登录时使用的重定向机制 next
 用户在访问未授权的页面时会跳转到登录页面，Flask_login中利用next来存储原URL，next是一个字符串参数，这个参数可以从request.args字典中读取，若查询字符串中没有next参数，则会重定向到首页。next参数中的url会经过验证，确保是相对URL，防止恶意用户利用这个参数把不知情的用户重定向到其他网站。
+
+
+### 数据库迁移
+(1) 对模型类做必要的修改。
+(2) 执行 flask db migrate 命令，自动创建一个迁移脚本。
+(3) 检查自动生成的脚本，根据对模型的实际改动进行调整。
+(4) 把迁移脚本纳入版本控制。
+(5) 执行 flask db upgrade 命令，把迁移应用到数据库中。
