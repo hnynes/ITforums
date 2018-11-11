@@ -276,7 +276,7 @@ def make_context():
 使用指南 在发送邮件之时，需要先导入环境变量
 export FLASK_APP=hello.py
 export MAIL_USERNAME=734190426@qq.com
-export MAIL_PASSWORD=xxxxxxx
+export MAIL_PASSWORD=irptfbwxnrvkbcig
 export FLASKY_ADMIN=<the mail address you want to send> 在实现注册功能时，这个地方的数据由用户填写的表格中获取
 
 

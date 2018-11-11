@@ -24,7 +24,7 @@ class Config:
     MAIL_USE_SSL = True
     #用户名和密码采取导入环境变量的形式防止密码泄露
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')  # '734190426@qq.com'
-    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') #
+    MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD') # 'irptfbwxnrvkbcig'
     FLASKY_MAIL_SENDER = '734190426@qq.com'  # this is the sender email
     FLASKY_MAIL_SUBJECT_PREFIX = '[FORUMIT]' # the part of the subject of the mail
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
@@ -42,16 +42,16 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://xxxxxxxxxx@47.94.211.34:3306/forumit?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://lgy:test-lgy-734190L@47.94.211.34:3306/forumit?charset=utf8'
 
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://xxxxxxxxxx@47.94.211.34:3306/test_forum?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://lgy:test-lgy-734190L@47.94.211.34:3306/test_forum?charset=utf8'
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://xxxxxxxxxx@47.94.211.34:3306/forumit?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://lgy:test-lgy-734190L@47.94.211.34:3306/forumit?charset=utf8'
 
 
 # 创建一个json形式的数据字典 在导入环境配置时使用
