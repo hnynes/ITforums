@@ -29,20 +29,18 @@ def login():
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember.data)
             next = request.args.get('next')
-            
+            # 即如果next为空或者是绝对路径
+            if next is None or not next.startswith('/'):
+                next = url_for('main.index')
+            return redirect(next)
+        flash('Invalid username or password.', 'warning')
+    return render_template('authority/login.html', form=form)
 
-
-
-
-
-
-
-    return render_template('authority/login.html')
 
 @authority.route('/logout')
 @login_required #我们需要注意这个修饰器的位置，位置互换会导致出错
 def logout():
     logout_user()
-    flash('您已退出登录！')
+    flash(u'您已退出登录！', 'success')
     # 注意url_for()的使用，里面参数是蓝本.视图函数的形式，可以传递参数
     return redirect(url_for('main.index'))
