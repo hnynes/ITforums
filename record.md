@@ -324,3 +324,47 @@ export FLASKY_ADMIN=<the mail address you want to send> 在实现注册功能时
 LoginManager中的login_view属性文档之中是这样定义的
 login_view (str) – The name of the login view. (Alternately, the actual URL to the login view.)
 即指向登录路由，因此在工厂函数中这样声明：login_manager.login_view = 'authority.login' 即使用蓝本.登录路由的形式
+
+flask_login的工作原理：
+在使用flask_login时，需要我们提供一个user_loader()回调，用来从根据用户ID从会话中存储的用户中重新加载用户对象。它应该接受一个用户的 unicode ID 作为参数，并且返回相应的用户对象。
+
+如果 ID 无效的话，它应该返回 None (而不是抛出异常)。(在这种情况下，ID 会被手动从会话中移除且处理会继续)
+在文档中user_loader的定义如下：
+user_loader(callback)[source]
+This sets the callback for reloading a user from the session. The function you set should take a user ID (a unicode) and return a user object, or None if the user does not exist.
+
+Parameters:	callback (callable) – The callback for retrieving a user object.
+这个回调在models.py中设置
+
+login_manager.user_loader 装饰器把这个函数注册给 Flask-Login，在这个扩展需要获取已 登录用户的信息时调用。传入的用户标识符是个字符串，因此这个函数先把标识符转换成 整数，然后传给 Flask-SQLAlchemy 查询，加载用户。正常情况下，这个函数的返回值必 须是用户对象；如果用户标识符无效，或者出现了其他错误，则返回 None
+
+
+在使用用户类之时要求实现下列的属性与方法
+- is_authenticated
+当用户通过验证时，也即提供有效证明时返回 True 。（只有通过验证的用户会满足 login_required 的条件。）
+- is_active
+如果这是一个活动用户且通过验证，账户也已激活，未被停用，也不符合任何你 的应用拒绝一个账号的条件，返回 True 。不活动的账号可能不会登入（当然， 是在没被强制的情况下）。
+- is_anonymous
+如果是一个匿名用户，返回 True 。（真实用户应返回 False 。）
+- get_id()
+返回一个能唯一识别用户的，并能用于从 user_loader 回调中加载用户的 unicode 。注意着 必须 是一个 unicode —— 如果 ID 原本是 一个 int 或其它类型，你需要把它转换为 unicode 。
+除此之外要简便地实现用户类，你可以从 UserMixin 继承，它提供了对所有这些方法的默认实现，基本上能够满足需求。（虽然这不是必须的。）
+
+匿名用户
+默认情况下，当一个用户没有真正地登录，current_user 被设置成一个 AnonymousUserMixin 对象。它由如下的属性和方法:
+
+is_active 和 is_authenticated 的值为 False
+is_anonymous 的值为 True
+get_id() 返回 None
+如果需要为匿名用户定制一些需求(比如，需要一个权限域)，你可以向 LoginManager 提供一个创建匿名用户的回调（类或工厂函数）:
+
+login_manager.anonymous_user = MyAnonymousUser
+
+
+### 保护路由
+使用login_required装饰器，如果未经过身份验证的用户访问这个路由，flask_login将拦截这个请求，并且重定向到登录页面，**我们可以在需要用户登录的的视图用 login_required 装饰器来装饰。**
+
+### login_user的使用
+如果密码正确，调用 Flask-Login 的 login_user() 函数，在用户会话中 把用户标记为已登录。login_user() 函数的参数是要登录的用户，以及可选的“记住我” 布尔值，“记住我”也在表单中勾选。如果这个字段的值为 False，关闭浏览器后用户会话 就过期了，所以下次用户访问时要重新登录。如果值为 True，那么会在用户浏览器中写入 一个长期有效的 cookie，使用这个 cookie 可以复现用户会话。cookie 默认记住一年，可以 使用可选的 REMEMBER_COOKIE_DURATION 配置选项更改这个值。
+
+### 
