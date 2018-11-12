@@ -1,0 +1,9 @@
+您好 {{ user.username }},
+
+欢迎您使用ITFORUM论坛,我们将为您提供最前沿的IT资讯!
+
+请访问以下链接去确认您的邮箱(如果您没有注册请忽略本邮件):
+
+    {{ url_for('authority.confirm', token=token, _external=True) }}
+
+(请不要回复本邮件！)
