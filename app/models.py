@@ -15,6 +15,8 @@
 from . import db
 from . import login_manager
 from flask_login import UserMixin
+from flask import current_app
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
@@ -35,7 +37,8 @@ class User(UserMixin, db.Model):
     name = db.Column(db.String(64), unique = True, index = True)#除此之外还需要为name创建索引
     email = db.Column(db.String(64), unique = True, index = True)#用户的邮箱信息，但是登录的时候并不需要输入邮箱
     password_hash = db.Column(db.String(128))
-    role_id = db.Column(db.Integer, db.ForeignKey('roles.id')) #增加一个外键用来将其与roles表连接起来
+    role_id = db.Column(db.Integer, db.ForeignKey('roles.id'), default = 2) #增加一个外键用来将其与roles表连接起来,，默认注册的用户都是普通用户，管理员用户用命令行生成
+    confirmed = db.Column(db.Boolean, default = False)
 
     def __repr__(self):
         return '<User %r>' % self.name
@@ -52,7 +55,23 @@ class User(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+    # 设置生成的令牌的有效期为10分钟
+    def generate_confirm_token(self, expiration=600):
+        s = Serializer(current_app.config['SECRET_KEY'], expiration) # 设置加密方式，与令牌的有效时间
+        # dumps() 方法为指定的数据生成一个加密签名，然后再对数据和签名进行序列化 (在这里是对用户的id进行加密，因为用户的id是独一无二的)
+        return s.dumps({'confirm' : self.id})
 
+    def confirm(self, token):
+        s = Serializer(current_app.config['SECRET_KEY'])
+        try:
+            data = s.loads(token)#解密
+        except:
+            return False
+        if data.get('confirm') != self.id:
+            return False
+        self.confirmed = True
+        db.session.add(self)
+        return True
 
 
 
