@@ -29,3 +29,11 @@ def send_mail(to, subject, template, **kwargs):
     thr = Thread(target=send_async_email, args=(app, msg))
     thr.start()
     return thr
+
+# 发送注册确认邮件
+def send_confirm_email(user, token):
+    send_mail(to = user.email, subject = app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + 'Email Confirm', template = 'authority/email/confirm', user=user, token=token)
+
+# 发送重置密码邮件
+def send_reset_eamil(user, token):
+    send_mail(to = user.email, subject = app.config['FLASKY_MAIL_SUBJECT_PREFIX'] + 'Reset password', template = 'authority/email/repassword', user=user, token=token)

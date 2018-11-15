@@ -16,7 +16,7 @@ from flask import render_template, flash, redirect, request, url_for, Blueprint
 from flask_login import login_required, logout_user, current_user, login_user
 from ..models import User
 from ..forms import Loginform, Registerform
-from ..mail import send_mail
+from ..mail import send_confirm_email, send_reset_eamil
 from .. import db
 
 bp = Blueprint('frontstage', __name__)
@@ -49,7 +49,7 @@ def login():
 @login_required #我们需要注意这个修饰器的位置，位置互换会导致出错
 def logout():
     logout_user()
-    flash(u'您已退出登录！', 'success')
+    flash(u'您已退出登录！', 'info')
     # 注意url_for()的使用，里面参数是蓝本.视图函数的形式，可以传递参数
     return redirect(url_for('frontstage.index'))
 
@@ -65,8 +65,8 @@ def register():
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirm_token()
-        send_mail(user.email, '账号确认', 'authority/email/confirm', user=user, token=token)
-        flash('确认邮件已经发送至您的注册邮箱，请您在10分钟内完成注册！', 'light')
+        send_confirm_email(user=user, token=token)
+        flash('确认邮件已经发送至您的注册邮箱，请您在10分钟内完成注册！', 'info')
         return redirect(url_for('frontstage.login'))#重定向到登陆页面
     return render_template('authority/register.html', form=form)
 
