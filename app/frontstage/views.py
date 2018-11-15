@@ -96,8 +96,8 @@ def internal_server_error(e):
 # (1) 用户已登录（current_user.is_authenticated 的值为 True）。 (2) 用户的账户还未确认。 (3) 请求的 URL 不在身份验证蓝本中，而且也不是对静态文件的请求。要赋予用户访问身 份验证路由的权限，因为这些路由的作用是让用户确认账户或执行其他账户管理操作。
 @bp.before_app_request
 def before_request():
-    if current_user.is_authenticated and not current_user.confirmed and request.blueprint != 'authority' and request.endpoint != 'static':
-        return redirect(url_for('authority/unconfirmed'))
+    if current_user.is_authenticated and not current_user.confirmed and request.blueprint != 'frontstage' and request.endpoint != 'static':
+        return redirect(url_for('frontstage.unconfirmed'))
 
 @bp.route('/unconfirmed')
 def unconfirmed():
