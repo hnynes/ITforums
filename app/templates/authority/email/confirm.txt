@@ -4,6 +4,6 @@
 
 请访问以下链接去确认您的邮箱(如果您没有注册请忽略本邮件):
 
-    {{ url_for('authority.confirm', token=token, _external=True) }}
+    {{ url_for('frontstage.confirm', token=token, _external=True) }}
 
 (请不要回复本邮件！)

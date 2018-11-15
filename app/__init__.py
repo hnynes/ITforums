@@ -25,7 +25,7 @@ mail = Mail()
 login_manager = LoginManager()
 
 #当有匿名用户想要访问受保护的页面之时
-login_manager.login_view = 'authority.login'
+login_manager.login_view = 'frontstage.login'
 
 
 def create_app(config_name):
@@ -41,10 +41,13 @@ def create_app(config_name):
     login_manager.init_app(app)
 
     #在此处添加路由
-    from .main_blue import main as main_blueprint
-    from .authority import authority as authority_blueprint
-    app.register_blueprint(main_blueprint)
-    app.register_blueprint(authority_blueprint, url_prefix = '/auth')
+    from .frontstage import bp as front_bp
+    from .cms import bp as cms_bp
+    from .common import bp as common_bp
+    # 注册路由
+    app.register_blueprint(front_bp)
+    app.register_blueprint(cms_bp, url_prefix = '/cms')
+    app.register_blueprint(common_bp)
 
 
     return app
