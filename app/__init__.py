@@ -31,6 +31,7 @@ login_manager.login_view = 'frontstage.login'
 def create_app(config_name):
     #需注意create_app方法中的参数config_name在使用时要使用config配置文件中数据字典中的值，从而达到使用不同配置选项的目的
     app = Flask(__name__)
+    #将配置文件加载到app之中
     app.config.from_object(config[config_name])
 
     config[config_name].init_app(app)
@@ -46,7 +47,7 @@ def create_app(config_name):
     from .common import bp as common_bp
     # 注册路由
     app.register_blueprint(front_bp)
-    app.register_blueprint(cms_bp, url_prefix = '/cms')
+    app.register_blueprint(cms_bp)
     app.register_blueprint(common_bp)
 
 
