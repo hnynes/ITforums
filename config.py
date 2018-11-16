@@ -13,9 +13,15 @@
 
 import os
 
+class Operations:
+    CONFIRM = 'confirm'
+    RESET_PASSWORD = 'reset_password'
+    CHANGE_EMAIL = 'change_email'
+
+
 #在配置文件中使用类和继承能够很好的实现不同环境的应用的配置文件的迭代
 class Config:
-    SECRET_KEY = 'LGY DE MISHI'
+    SECRET_KEY = os.urandom(24)
     #SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://xxxxxxxxxx@47.94.211.34:3306/forumit?charset=utf8'
     #将SQLALCHEMY_TRACK_MODIFICATIONS设置为fasle以便在 不需要跟踪对象变化时降低内存消耗
     SQLALCHEMY_TRACK_MODIFICATIONS = False

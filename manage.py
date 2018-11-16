@@ -16,10 +16,14 @@ from app import create_app, db
 from app.models import User, Role
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
+from app.cms import models as cms_models
+
 
 app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 manager = Manager(app)
 migrate = Migrate(app, db)
+
+CMSUser = cms_models.CMSUser
 
 
 def make_shell_context():
@@ -27,13 +31,15 @@ def make_shell_context():
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
-
-@manager.command
-def test():
-    """Run the unit tests."""
-    import unittest
-    tests = unittest.TestLoader().discover('tests')
-    unittest.TextTestRunner(verbosity=2).run(tests)
+# 利用命令行来生成后台超级用户
+@manager.option('-u','--username',dest='username')
+@manager.option('-p','--password',dest='password')
+@manager.option('-e','--email',dest='email')
+def create_cms_user(username,password,email):
+    user = CMSUser(username=username,password=password,email=email)
+    db.session.add(user)
+    db.session.commit()
+    print(u'cms用户添加成功！')
 
 
 if __name__ == '__main__':
