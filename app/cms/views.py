@@ -15,12 +15,15 @@
 from flask import Blueprint, views, render_template, request, session, redirect, url_for
 from .forms import LoginForm
 from .models import CMSUser
+from .decorators import login_required
+from config import config
 
 bp = Blueprint('cms', __name__, url_prefix='/cms')
 
 @bp.route('/')
+@login_required
 def index():
-    return 'cms page'
+    return render_template('cms/cms_index.html')
 
 
 class LoginView(views.MethodView):
@@ -37,7 +40,7 @@ class LoginView(views.MethodView):
             remember = form.remember.data
             user = CMSUser.query.filter_by(email = email).first()
             if user and user.check_password(password):
-                session['user_id'] = user.id
+                session[config['development'].CMS_USER_ID] = user.id
                 if remember:
                     session.permanent = True #点击记住我的话 会保持cookie
                 return redirect(url_for('cms.index'))
