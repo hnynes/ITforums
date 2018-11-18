@@ -21,6 +21,8 @@
     <!-- Custom styles for this template -->
     <link href="{{ url_for('static', filename='cms/css/dashboard.css') }}" rel="stylesheet">
 
+    <link href="{{ url_for('static', filename='cms/css/footer.css') }}" rel="stylesheet">
+
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
     <script src="{{ url_for('static', filename='cms/js/ie-emulation-modes-warning.js') }}"></script>
@@ -239,6 +241,11 @@
         </div>
       </div>
     </div>
+    <footer class="footer">
+     <div class="container">
+       <p style="text-align: center;" class="text-muted">Copyright &copy; 2018 ITforum  <a href="https://github.com/superliuliuliu/ITforums.git">Fork me on the Github </a></p>
+     </div>
+    </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -250,3 +257,7 @@
     <script src="{{ url_for('static', filename='cms/js/holder.min.js') }}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{{ url_for('static', filename='cms/js/ie10-viewport-bug-workaround.js') }}"></script>
+
+  </body>
+
+</html>
