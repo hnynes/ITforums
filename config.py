@@ -39,6 +39,8 @@ class Config:
     BABEL_DEFAULT_LOCALE = 'zh'
     BABEL_DEFAULT_TIMEZONE = 'CST'
 
+    CMS_USER_ID = 'ASDJASJDFFSAD'
+
     PER_PAGE = 12
 
     @staticmethod
