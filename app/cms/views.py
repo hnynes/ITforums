@@ -12,11 +12,12 @@
 # **************************************************************************
 
 
-from flask import Blueprint, views, render_template, request, session, redirect, url_for
+from flask import Blueprint, views, render_template, request, session, redirect, url_for, g
 from .forms import LoginForm
 from .models import CMSUser
 from .decorators import login_required
 from config import config
+from flask_login import logout_user
 
 bp = Blueprint('cms', __name__, url_prefix='/cms')
 
@@ -50,8 +51,22 @@ class LoginView(views.MethodView):
             message = form.errors.popitem()[1][0] #form.errors 当表单提交出错的时候是一个列表的形式，
             #利用popitem获取列表中的第一个错误信息[1]代表错误信息的value,[0]代表将错误信息以字符串的形式提取出来
             return self.get(message=message)
+            
+
+@bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('cms.login'))
 
 
+@bp.before_request
+def before_request():
+    if config['development'].CMS_USER_ID in session:
+        user_id = session.get(config['development'].CMS_USER_ID)
+        user = CMSUser.query.get(user_id)
+        if user:
+            g.cms_user = user
 
 
 bp.add_url_rule('/login', view_func=LoginView.as_view('login'))
