@@ -5,10 +5,10 @@
 # File Name: cms/views.py
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
-# Created: 2018-11-10 14:45:50 (CST)
+# Created: 2018-11-19 23:39:50 (CST)
 # Last Update:
 #          By:
-# Description:cms模块的路由函数
+# Description:增加了退出登录  以及钩子函数
 # **************************************************************************
 
 
@@ -51,7 +51,7 @@ class LoginView(views.MethodView):
             message = form.errors.popitem()[1][0] #form.errors 当表单提交出错的时候是一个列表的形式，
             #利用popitem获取列表中的第一个错误信息[1]代表错误信息的value,[0]代表将错误信息以字符串的形式提取出来
             return self.get(message=message)
-            
+
 
 @bp.route('/logout')
 @login_required
