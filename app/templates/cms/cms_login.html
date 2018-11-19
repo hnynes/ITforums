@@ -8,7 +8,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="{{ url_for('static', filename='picture/favicon.ico') }}">
+    <link rel="icon" href="{{ findstatic('picture/favicon.ico') }}">
 
     <title>ITFORUM论坛后台登录</title>
 
@@ -16,11 +16,11 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{{ url_for('static', filename='cms/css/signin.css') }}" rel="stylesheet">
+    <link href="{{ findstatic('cms/css/signin.css') }}" rel="stylesheet">
 
-    <link href="{{ url_for('static', filename='cms/css/footer.css') }}" rel="stylesheet">
+    <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
 
-    <script src="{{ url_for('static', filename='cms/js/ie-emulation-modes-warning.js') }}"></script>
+    <script src="{{ findstatic('cms/js/ie-emulation-modes-warning.js') }}"></script>
 
   </head>
 
@@ -53,7 +53,7 @@
     </footer>
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{{ url_for('static', filename='cms/js/ie10-viewport-bug-workaround.js') }}"></script>
+    <script src="{{ findstatic('cms/js/ie10-viewport-bug-workaround.js') }}"></script>
   </body>
 
 </html>

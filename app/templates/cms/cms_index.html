@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% from "common/macro.html" import findstatic %}
 <!-- saved from url=(0043)https://v3.bootcss.com/examples/dashboard/# -->
 <html lang="zh-CN" data-blockbyte-bs-uid="90250">
 
@@ -10,25 +11,25 @@
   <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="{{ url_for('static', filename='picture/favicon.ico') }}">
+  <link rel="icon" href="{{ findstatic('picture/favicon.ico') }}">
 
   <title>后台管理系统</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="{{ url_for('static', filename='cms/css/bootstrap.min.css') }}" rel="stylesheet">
+  <link href="{{ findstatic('cms/css/bootstrap.min.css') }}" rel="stylesheet">
 
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <link href="{{ url_for('static', filename='cms/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
+  <link href="{{ findstatic('cms/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
 
 
   <!-- Custom styles for this template -->
-  <link href="{{ url_for('static', filename='cms/css/dashboard.css') }}" rel="stylesheet">
+  <link href="{{ findstatic('cms/css/dashboard.css') }}" rel="stylesheet">
 
-  <link href="{{ url_for('static', filename='cms/css/footer.css') }}" rel="stylesheet">
+  <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
 
   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
   <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-  <script src="{{ url_for('static', filename='cms/js/ie-emulation-modes-warning.js') }}"></script>
+  <script src="{{ findstatic('cms/js/ie-emulation-modes-warning.js') }}"></script>
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -260,15 +261,15 @@
   <!-- Bootstrap core JavaScript
     ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="{{ url_for('static', filename='cms/js/jquery.min.js') }}"></script>
+  <script src="{{ findstatic('cms/js/jquery.min.js') }}"></script>
   <script>
     window.jQuery
   </script>')</script>
-  <script src="{{ url_for('static', filename='cms/js/bootstrap.min.js') }}"></script>
+  <script src="{{ findstatic('cms/js/bootstrap.min.js') }}"></script>
   <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-  <script src="{{ url_for('static', filename='cms/js/holder.min.js') }}"></script>
+  <script src="{{ findstatic('cms/js/holder.min.js') }}"></script>
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-  <script src="{{ url_for('static', filename='cms/js/ie10-viewport-bug-workaround.js') }}"></script>
+  <script src="{{ findstatic('cms/js/ie10-viewport-bug-workaround.js') }}"></script>
 
 </body>
 
