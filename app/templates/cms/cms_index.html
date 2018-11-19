@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% from "common/macro.html" import findstatic %}
-<!-- saved from url=(0043)https://v3.bootcss.com/examples/dashboard/# -->
+<!-- saved from url=(0043)https://www.liugaoyang.xin# -->
 <html lang="zh-CN" data-blockbyte-bs-uid="90250">
 
 <head>
@@ -56,10 +56,11 @@
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
+
           <li><a href="https://github.com/superliuliuliu/ITforums.git">Star me</a></li>
-          <li><a href="https://github.com/superliuliuliu/ITforums.git">Settings</a></li>
           <li><a href="https://www.liugaoyang.xin">Blog</a></li>
-          <li><a href="https://github.com/superliuliuliu/ITforums.git">LogOut</a></li>
+          <li><a href="https://github.com/superliuliuliu/ITforums.git">{{ g.cms_user.username }}</a></li>
+          <li><a href="{{ url_for('cms.logout') }}">退出</a></li>
         </ul>
         <form class="navbar-form navbar-right">
           <input type="text" class="form-control" placeholder="Search...">
@@ -72,22 +73,19 @@
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="active"><a href="https://v3.bootcss.com/examples/dashboard/#">Overview <span class="sr-only">(current)</span></a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/#">Reports</a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/#">Analytics</a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/#">Export</a></li>
+          <li class="active"><a href="https://www.liugaoyang.xin#">Overview <span class="sr-only">(current)</span></a></li>
+          <li><a href="https://www.liugaoyang.xin">个人信息</a></li>
         </ul>
         <ul class="nav nav-sidebar">
-          <li><a href="https://v3.bootcss.com/examples/dashboard/">Nav item</a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/">Nav item again</a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/">One more nav</a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/">Another nav item</a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/">More navigation</a></li>
+          <li><a href="https://www.liugaoyang.xin">帖子管理</a></li>
+          <li><a href="https://www.liugaoyang.xin">评论管理</a></li>
+          <li><a href="https://www.liugaoyang.xin">板块管理</a></li>
         </ul>
         <ul class="nav nav-sidebar">
-          <li><a href="https://v3.bootcss.com/examples/dashboard/">Nav item again</a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/">One more nav</a></li>
-          <li><a href="https://v3.bootcss.com/examples/dashboard/">Another nav item</a></li>
+          <li><a href="https://www.liugaoyang.xin">用户管理</a></li>
+          <li><a href="https://www.liugaoyang.xin">用户组管理</a></li>
+          <li><a href="https://www.liugaoyang.xin">CMS用户管理</a></li>
+          <li><a href="https://www.liugaoyang.xin">CMS用户组管理</a></li>
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

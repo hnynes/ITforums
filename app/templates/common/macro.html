@@ -1,3 +1,3 @@
-{% macro findstatic(filename) %}
+{% macro findstatic(filename) -%}
 {{ url_for('static', filename=filename) }}
-{% endmacro %}
+{%- endmacro %}
