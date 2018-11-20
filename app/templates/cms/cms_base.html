@@ -66,19 +66,19 @@
     <div class="row">
       <div class="col-sm-3 col-md-2 sidebar">
         <ul class="nav nav-sidebar">
-          <li class="active"><a href="{{ url_for('cms.index') }}">首页<span class="sr-only">(current)</span></a></li>
-          <li><a href="https://www.liugaoyang.xin">个人信息</a></li>
+          <li{% block shouye %}{% endblock %}><a href="{{ url_for('cms.index') }}">首页<span class="sr-only">(current)</span></a></li>
+          <li{% block info %}{% endblock %}><a href="{{ url_for('cms.selfinfo') }}">个人信息</a></li>
         </ul>
         <ul class="nav nav-sidebar">
-          <li><a href="https://www.liugaoyang.xin">帖子管理</a></li>
-          <li><a href="https://www.liugaoyang.xin">评论管理</a></li>
-          <li><a href="https://www.liugaoyang.xin">板块管理</a></li>
+          <li{% block tiezi %}{% endblock %}><a href="https://www.liugaoyang.xin">帖子管理</a></li>
+          <li{% block comment %}{% endblock %}><a href="https://www.liugaoyang.xin">评论管理</a></li>
+          <li{% block part %}{% endblock %}><a href="https://www.liugaoyang.xin">板块管理</a></li>
         </ul>
         <ul class="nav nav-sidebar">
-          <li><a href="https://www.liugaoyang.xin">用户管理</a></li>
-          <li><a href="https://www.liugaoyang.xin">用户组管理</a></li>
-          <li><a href="https://www.liugaoyang.xin">CMS用户管理</a></li>
-          <li><a href="https://www.liugaoyang.xin">CMS用户组管理</a></li>
+          <li{% block user %}{% endblock %}><a href="https://www.liugaoyang.xin">用户管理</a></li>
+          <li{% block group %}{% endblock %}><a href="https://www.liugaoyang.xin">用户组管理</a></li>
+          <li{% block cuser %}{% endblock %}><a href="https://www.liugaoyang.xin">CMS用户管理</a></li>
+          <li{% block cgroup %}{% endblock %}><a href="https://www.liugaoyang.xin">CMS用户组管理</a></li>
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

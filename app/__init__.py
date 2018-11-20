@@ -6,9 +6,9 @@
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
 # Created: 2018-11-10 15:34:50 (CST)
-# Update: 2018-11-11 09:46:32 (CST) 增加登录注册路由
+# Update: 2018-11-20 16:11:09 (CST) 增加登录注册路由
 #          By:
-# Description:工厂处理函数 create_app
+# Description:增加登录时的CSRF保护
 # **************************************************************************
 
 from flask import Flask, render_template
@@ -17,6 +17,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from flask_login import LoginManager
 from config import config #导入的即congfig.py中的数据字典
+from flask_wtf import CSRFProtect
 
 #导入使用的应用扩展，由于应用实例还未创建所以在这里创建扩展类的时候并没有向构造函数传入参数
 bootstrap = Bootstrap()
@@ -40,6 +41,7 @@ def create_app(config_name):
     mail.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
+    CSRFProtect(app)
 
     #在此处添加路由
     from .frontstage import bp as front_bp

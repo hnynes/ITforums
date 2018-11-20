@@ -26,6 +26,19 @@ bp = Blueprint('cms', __name__, url_prefix='/cms')
 def index():
     return render_template('cms/cms_index.html')
 
+# 个人信息的路由
+@bp.route('/selfinfo')
+@login_required
+def selfinfo():
+    return render_template('cms/cms_info.html')
+
+
+# 修改邮箱
+@bp.route('/resetemail')
+@login_required
+def resetemail():
+    return render_template('cms/cms_reset_email.html')
+
 
 class LoginView(views.MethodView):
 
@@ -52,6 +65,15 @@ class LoginView(views.MethodView):
             #利用popitem获取列表中的第一个错误信息[1]代表错误信息的value,[0]代表将错误信息以字符串的形式提取出来
             return self.get(message=message)
 
+class ResetPasswordView(views.MethodView):
+    decorators = [login_required]
+    def get(self, message=None):
+        return render_template('cms/cms_reset_password.html')
+
+    def post(self):
+        pass
+
+
 
 @bp.route('/logout')
 @login_required
@@ -62,3 +84,4 @@ def logout():
 
 
 bp.add_url_rule('/login', view_func=LoginView.as_view('login'))
+bp.add_url_rule('/password', view_func=ResetPasswordView.as_view('password'))
