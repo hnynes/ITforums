@@ -19,6 +19,13 @@ from wtforms import ValidationError
 from .models import User
 
 
+class BaseForm(Form):
+
+    def get_error(self):
+        message = self.errors.popitem()[1][0]
+        return message
+
+
 class Nameform(FlaskForm):
     name = StringField(description="What is your name?", validators=[DataRequired()])
     submit = SubmitField("提交")
