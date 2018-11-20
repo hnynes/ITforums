@@ -5,9 +5,9 @@
 # File Name: cms/views.py
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
-# Created: 2018-11-19 23:39:50 (CST)
+# Created: 2018-11-10 14:39:52 (CST)
 # Last Update:
-#          By:
+#          By:2018-11-19 23:39:50 (CST)
 # Description:增加了退出登录  以及钩子函数
 # **************************************************************************
 
@@ -59,14 +59,6 @@ def logout():
     logout_user()
     return redirect(url_for('cms.login'))
 
-
-@bp.before_request
-def before_request():
-    if config['development'].CMS_USER_ID in session:
-        user_id = session.get(config['development'].CMS_USER_ID)
-        user = CMSUser.query.get(user_id)
-        if user:
-            g.cms_user = user
 
 
 bp.add_url_rule('/login', view_func=LoginView.as_view('login'))
