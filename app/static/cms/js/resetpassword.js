@@ -1,6 +1,7 @@
-
+//在这里使用了=jQuery.min.js
+//即$();等价于jQuery();因此在使用此js代码之前要先引入jquery.min.js文件否则会报错。jQuery(function ());可以接收一个函数
 $(function () {
-    //获取按钮
+    //获取按钮  当用户点击提交更改时,会触发event事件
     $("#submit").click(function (event) {
         //因为是以aljx方式提交表单数据，因此需要禁止表单的默认提交
         event.preventDefault();

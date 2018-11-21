@@ -25,5 +25,5 @@ class LoginForm(BaseForm):
 
 class ResetPwdForm(BaseForm):
     oldpwd = PasswordField('旧密码', validators=[DataRequired(), Length(8, 18, message='请输入正确格式的旧密码')])
-    newpwd = PasswordField('新密码', validators=[DataRequired(), Length(8, 18, message='请输入正确格式的旧密码')])
+    newpwd = PasswordField('新密码', validators=[DataRequired(), Length(8, 18, message='请输入正确格式的新密码')])
     newpwd2 = PasswordField('新密码', validators=[DataRequired(), EqualTo("newpwd", message='确认密码必须和新密码保持一致')])
