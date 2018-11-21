@@ -15,7 +15,7 @@ $(function () {
         var newpwd2 = ele3.val();
 
         myajax.post({
-            'url': 'cms/password/',
+            'url': '',
             'data':{
                 'oldpwd': oldpwd,
                 'newpwd': newpwd,
