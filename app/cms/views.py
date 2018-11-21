@@ -19,6 +19,7 @@ from .decorators import login_required
 from config import config
 from flask_login import logout_user
 from .. import db
+from utils import restful
 
 bp = Blueprint('cms', __name__, url_prefix='/cms')
 
@@ -86,12 +87,12 @@ class ResetPasswordView(views.MethodView):
                 # 因为使用的是ajax所以需要返回json数据
                 # 定义的返回码200代表成功，无返回消息
                 # 返回码为400 代表失败，
-                return jsonify({"code": 200, "message": ""})
+                return restful.success()
             else:
-                return jsonify({"code": 400, "message": "原密码错误"})
+                return restful.args_error(message="原密码错误")
         else:
             message = form.get_error()
-            return jsonify({"code": 400, "message": message})
+            return restful.args_error(message=message)
 
 
 @bp.route('/logout')
