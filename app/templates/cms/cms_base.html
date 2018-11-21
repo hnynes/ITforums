@@ -10,6 +10,7 @@
   <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
   <meta name="description" content="ITforum">
   <meta name="author" content="superliuliuliu1">
+
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="icon" href="{{ findstatic('picture/favicon.ico') }}">
 
@@ -21,12 +22,19 @@
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <link href="{{ findstatic('cms/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
 
-
   <!-- Custom styles for this template -->
   <link href="{{ findstatic('cms/css/dashboard.css') }}" rel="stylesheet">
 
+  <!-- 添加网站的底部版权信息框所用的js文件 -->
   <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
 
+  <!-- jquery.min.js 此文件尽量放在前面引用，防止其他文件使用到出错 -->
+  <script src="{{ findstatic('cms/js/jquery.min.js') }}"></script>
+
+   <!-- 封装的自己的ajax.js文件用来提交表单使用 -->
+  <script src="{{ findstatic('common/myajax.js') }}"></script>
+
+  <!-- 在用其他模板继承本基础模板时，可以在本block中添加指定的js、css文件 -->
   {% block head %}{% endblock %}
   <script src="{{ findstatic('cms/js/ie-emulation-modes-warning.js') }}"></script>
 
@@ -83,6 +91,7 @@
         </ul>
       </div>
       <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <!-- 网页模块标题 -->
         <h1 class="page-header">{% block page_header %}{% endblock %}</h1>
         <div class="main_content">
             {% block main_content %}{% endblock %}
@@ -100,7 +109,6 @@
   <!-- Bootstrap core JavaScript
     ================================================== -->
   <!-- Placed at the end of the document so the pages load faster -->
-  <script src="{{ findstatic('cms/js/jquery.min.js') }}"></script>
   <script>
     window.jQuery
   </script>')</script>
