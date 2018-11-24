@@ -19,7 +19,7 @@ from flask_migrate import Migrate, MigrateCommand
 from app.cms import models as cms_models
 
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app('default')
 manager = Manager(app)
 migrate = Migrate(app, db)
 
