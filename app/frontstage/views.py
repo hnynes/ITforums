@@ -16,7 +16,7 @@ from flask import render_template, flash, redirect, request, url_for, Blueprint
 from flask_login import login_required, logout_user, current_user, login_user
 from ..models import User
 from ..forms import Loginform, Registerform
-from ..mail import send_confirm_email, send_reset_eamil
+from ..email import send_mail
 from .. import db
 
 bp = Blueprint('frontstage', __name__)
@@ -65,7 +65,7 @@ def register():
         db.session.add(user)
         db.session.commit()
         token = user.generate_confirm_token()
-        send_confirm_email(user=user, token=token)
+        #send_confirm_email(user=user, token=token)
         flash('确认邮件已经发送至您的注册邮箱，请您在10分钟内完成注册！', 'info')
         return redirect(url_for('frontstage.login'))#重定向到登陆页面
     return render_template('authority/register.html', form=form)
