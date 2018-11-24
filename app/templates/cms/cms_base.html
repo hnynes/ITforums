@@ -19,6 +19,9 @@
   <!-- Bootstrap core CSS -->
   <link href="{{ findstatic('cms/css/bootstrap.min.css') }}" rel="stylesheet">
 
+  <!-- import base.css-->
+  <link rel="stylesheet" href="{{ findstatic('cms/css/base.css') }}">
+
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <link href="{{ findstatic('cms/css/ie10-viewport-bug-workaround.css') }}" rel="stylesheet">
 
@@ -28,11 +31,17 @@
   <!-- 添加网站的底部版权信息框所用的js文件 -->
   <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
 
+  <!-- 添加提示框的css文件 -->
+  <link rel="stylesheet" href="{{ findstatic('common/sweetalert/sweetalert.css') }}">
+
   <!-- jquery.min.js 此文件尽量放在前面引用，防止其他文件使用到出错 -->
   <script src="{{ findstatic('cms/js/jquery.min.js') }}"></script>
 
    <!-- 封装的自己的ajax.js文件用来提交表单使用 -->
   <script src="{{ findstatic('common/myajax.js') }}"></script>
+
+  <script src="{{ findstatic('common/sweetalert/sweetalert.min.js') }}"></script>
+  <script src="{{ findstatic('common/sweetalert/myalert.js') }}"></script>
 
   <!-- 在用其他模板继承本基础模板时，可以在本block中添加指定的js、css文件 -->
   {% block head %}{% endblock %}
