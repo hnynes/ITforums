@@ -25,7 +25,7 @@ def restful_result(code, message, data):
 def success(message = "", data = None):
     return restful_result(code=MessageCode.ok, message=message, data=data)
 
-def args_error(messgae = ""):
+def args_error(message = ""):
     return restful_result(code=MessageCode.argserror, message=message, data=None)
 
 def auth_error(message = ""):
