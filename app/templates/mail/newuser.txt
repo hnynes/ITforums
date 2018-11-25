@@ -1,1 +1,0 @@
-User {{ user.name }} has joined! its id is {{ user.id }}.

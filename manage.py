@@ -13,7 +13,6 @@
 
 import os
 from app import create_app, db
-from app.models import User, Role
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
 from app.cms import models as cms_models
@@ -27,10 +26,6 @@ CMSUser = cms_models.CMSUser
 CMSRole = cms_models.CMSRole
 CMSpower = cms_models.CMSpower
 
-
-def make_shell_context():
-    return dict(app=app, db=db, User=User, Role=Role)
-manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
 # 利用命令行来生成后台用户
