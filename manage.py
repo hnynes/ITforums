@@ -15,6 +15,8 @@ import os
 from app import create_app, db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
+
+from app.frontstage import models as front_models
 from app.cms import models as cms_models
 
 
@@ -25,6 +27,8 @@ migrate = Migrate(app, db)
 CMSUser = cms_models.CMSUser
 CMSRole = cms_models.CMSRole
 CMSpower = cms_models.CMSpower
+
+FrontUser = front_models.FrontUser
 
 manager.add_command('db', MigrateCommand)
 
@@ -74,6 +78,17 @@ def add_user2_role(email, name):
             print("不存在这个角色：%s" %name)
     else:
         print("不存在这个用户：%s" %email)
+
+# 命令行的形式增加前台用户
+@manager.option('-t', '--telephone', dest='telephone')
+@manager.option('-u', '--username', dest='username')
+@manager.option('-p', '--password', dest='password')
+@manager.option('-e', '--eamil', dest='email')
+def add_front_user(telephone, username, password, email):
+    user = FrontUser(telephone = telephone, username = username, password = password, email = email)
+    db.session.add(user)
+    db.session.commit()
+
 
 if __name__ == '__main__':
     manager.run()
