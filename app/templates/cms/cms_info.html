@@ -27,12 +27,22 @@
                 <td>{{ user.email }}</td>
             </tr>
             <tr>
-                <td>所属组</td>
-                <td>暂定</td>
+                <td>角色</td>
+                <td>
+                    {% for role in user.roles %}
+                        {{ role.name }}
+                        {% if not loop.last %}，{% endif %}
+                    {% endfor %}
+                </td>
             </tr>
             <tr>
                 <td>权限</td>
-                <td>暂定</td>
+                <td>
+                    {% for role in user.roles %}
+                        {{ role.description }}
+                        {% if not loop.last %}/{% endif %}
+                    {% endfor %}
+                </td>
             </tr>
             <tr>
                 <td>加入时间</td>
