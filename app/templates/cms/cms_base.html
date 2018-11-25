@@ -89,24 +89,24 @@
         </ul>
         <ul class="nav nav-sidebar">
             {% if g.cms_user.has_power(CMSpower.FORUM) %}
-          <li><a href="https://www.liugaoyang.xin">帖子管理</a></li>
+          <li><a href="{{ url_for('cms.forum') }}">帖子管理</a></li>
           {% endif %}
           {% if g.cms_user.has_power(CMSpower.COMMOENT) %}
-          <li><a href="https://www.liugaoyang.xin">评论管理</a></li>
+          <li><a href="{{ url_for('cms.comment') }}">评论管理</a></li>
           {% endif %}
           {% if g.cms_user.has_power(CMSpower.AREA) %}
-          <li><a href="https://www.liugaoyang.xin">板块管理</a></li>
+          <li><a href="{{ url_for('cms.area') }}">版块管理</a></li>
           {% endif %}
         </ul>
         <ul class="nav nav-sidebar">
             {% if g.cms_user.has_power(CMSpower.FRONTUSER) %}
-          <li><a href="https://www.liugaoyang.xin">用户管理</a></li>
+          <li><a href="{{ url_for('cms.user') }}">用户管理</a></li>
           {% endif %}
           {% if g.cms_user.has_power(CMSpower.CMSUSER) %}
-          <li><a href="https://www.liugaoyang.xin">CMS用户管理</a></li>
+          <li><a href="{{ url_for('cms.mancmsuser') }}">CMS用户管理</a></li>
           {% endif %}
           {% if g.cms_user.is_root %}
-          <li><a href="https://www.liugaoyang.xin">CMS用户组管理</a></li>
+          <li><a href="{{ url_for('cms.auth') }}">CMS用户组管理</a></li>
           {% endif %}
         </ul>
       </div>
