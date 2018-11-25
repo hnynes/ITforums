@@ -32,6 +32,8 @@ class CMSpower(object):
     FRONTUSER = 0b00010000
     # 管理后台用户的权限
     CMSUSER   = 0b00100000
+    # 管理后台管理员权限
+    MANADMIN  = 0b01000000
 
 #定义一个关联表 用来将用户和角色关联起来 对应处理多对多关系
 cms_user_role = db.Table(
@@ -79,3 +81,22 @@ class CMSUser(db.Model):
     # 检验密码
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    @property
+    def powers(self):
+        if not self.roles:
+            return 0
+        total_power = 0
+        for role in self.roles:
+            power = role.power
+            total_power |= power
+        return total_power
+
+    # 进行与运算
+    def has_power(self, test):
+        return (self.powers & test) == test
+
+    # 判断是否是超级用户
+    @property
+    def is_root(self):
+        return self.has_power(CMSpower.ROOTPOWER)
