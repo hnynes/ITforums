@@ -13,8 +13,8 @@
 
 from flask import Blueprint, views, render_template, request, session, redirect, url_for, g, jsonify
 from .forms import LoginForm, ResetPwdForm, ResetEmailForm
-from .models import CMSUser
-from .decorators import login_required
+from .models import CMSUser, CMSpower
+from .decorators import login_required, power_required
 from config import config
 from flask_login import logout_user
 from .. import db
@@ -35,6 +35,49 @@ def index():
 @login_required
 def selfinfo():
     return render_template('cms/cms_info.html')
+
+# 版块管理的路由
+@bp.route('/area/')
+@login_required
+@power_required(CMSpower.AREA)
+def area():
+    return render_template('cms/cms_area.html')
+
+# 管理管理员的路由
+@bp.route('/mancmsuser/')
+@login_required
+@power_required(CMSpower.CMSUSER)
+def mancmsuser():
+    return render_template('cms/cms_cmsuser.html')
+
+# 评论管理的路由
+@bp.route('/comment/')
+@login_required
+@power_required(CMSpower.COMMOENT)
+def comment():
+    return render_template('cms/cms_comment.html')
+
+# 帖子管理的路由
+@bp.route('/forum/')
+@login_required
+@power_required(CMSpower.FORUM)
+def forum():
+    return render_template('cms/cms_forum.html')
+
+# 用户管理的路由
+@bp.route('/user/')
+@login_required
+@power_required(CMSpower.FRONTUSER)
+def user():
+    return render_template('cms/cms_frontuser.html')
+
+# 用户组管理的路由
+@bp.route('/auth/')
+@login_required
+@power_required(CMSpower.ROOTPOWER)
+def auth():
+    return render_template('cms/cms_auth.html')
+
 
 # 注销账户
 @bp.route('/logout/')
