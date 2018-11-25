@@ -374,6 +374,7 @@ login_manager.anonymous_user = MyAnonymousUser
 
 
 ### 数据库迁移
+在进行数据库迁移之前 需要在相关的__init__.py文件中导入相关的角色模型 这样才能成功数据迁移 
 (1) 对模型类做必要的修改。
 (2) 执行 flask db migrate 命令，自动创建一个迁移脚本。
 (3) 检查自动生成的脚本，根据对模型的实际改动进行调整。
