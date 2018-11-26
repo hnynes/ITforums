@@ -10,7 +10,8 @@
 #          By:
 # Description:
 # **************************************************************************
-from flask import Blueprint
+from flask import Blueprint, views, render_template, url_for
+
 
 bp = Blueprint('frontstage', __name__)
 
@@ -18,3 +19,13 @@ bp = Blueprint('frontstage', __name__)
 @bp.route('/')
 def index():
     return render_template('frontstage/front_index.html')
+
+
+# 注册视图类
+class RegisterView(views.MethodView):
+    def get(self):
+        return render_template('frontstage/front_register.html')
+    def post(self):
+        pass
+
+bp.add_url_rule('/register/', view_func=RegisterView.as_view('register'))
