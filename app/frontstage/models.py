@@ -42,7 +42,6 @@ class FrontUser(db.Model):
         # 调用父类自己的构造函数
         super(FrontUser, self).__init__(*args,**kwargs)
 
-
     @property
     def password(self):
         raise AttributeError('password is not a readable attribute')
