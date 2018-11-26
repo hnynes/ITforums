@@ -1,0 +1,98 @@
+{% from 'common/macro.html' import findstatic %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="ITforum">
+    <meta name="author" content="superliuliuliu1">
+    <link rel="icon" href="{{ findstatic('common/images/favicon.ico') }}">
+    <title>ITforum账号注册</title>
+
+    <!--不在使用本地库的js和css文件而是选择使用有CDN加速的相关文件-->
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+    <!-- 添加网站的底部版权信息框所用的js文件 -->
+    <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
+    <style>
+        body{
+            background: #f3f3f3;
+        }
+        .outer-box{
+            width: 854px;
+            background : #f3f3f3;
+            margin: 0 auto;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+        .logo-box{
+            text-align: center;
+            padding-top: 40px;
+        }
+        .logo-box img{
+            width: 180px;
+            height: 88px;
+        }
+        .page-title{
+            text-align: center;
+        }
+        .form-box{
+            width: 436px;
+            height: auto;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="outer-box">
+        <h2 class="page-title">用&nbsp;户&nbsp;注&nbsp;册</h2>
+        <div class="form-box">
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" name="telephone" class="form-control" placeholder="请输入手机号">
+                    <span class="input-group-btn">
+                        <button id="sms-captcha-btn" class="btn btn-default">发送验证码</button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" name="validate" class="form-control" placeholder="短信验证码">
+            </div>
+            <div class="form-group">
+                <input type="text" name="username" class="form-control" placeholder="用户名">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" class="form-control" placeholder="密码">
+            </div>
+            <div class="form-group">
+                <input type="password" name="password2" class="form-control" placeholder="确认密码">
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" name="picture_validate" class="form-control" placeholder="请输入右侧的验证码">
+                    <span class="input-group-btn">
+                        <button id="captcha" class="btn btn-default">验证码</button>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-primary btn-block" id="re_submit">立即注册</button>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p style="text-align: center;" class="text-muted">Copyright &copy; 2018 ITforum <a href="https://github.com/superliuliuliu/ITforums.git">Fork
+                    me on the Github </a></p>
+        </div>
+    </footer>
+</body>
+
+</html>
