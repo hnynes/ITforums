@@ -43,6 +43,12 @@ class Config:
 
     PER_PAGE = 12
 
+    # 阿里云注册账号通知短信服务接口相关信息
+    ACCESSKEY = 'LTAI2cUh4boM8E2f'
+    ACCESSKEYSECRET = 'OHcT62tFGTXdgkF5eaibaUpaDyHRKK'
+    ALIYUN_TEMPLATE_CODE = 'SMS_151910651' #阿里云短信模板code
+    ALIYUN_SIGN_NAME = '个人学习' #阿里云短信签名名称
+
     @staticmethod
     def init_app(app):
         pass
