@@ -10,7 +10,11 @@
 #          By:
 # Description:
 # **************************************************************************
-from flask import Blueprint, views, render_template, url_for, make_response
+from flask import Blueprint, views, render_template, url_for, make_response, request, session, g
+from .forms import RegisterForm
+from .. import db
+from utils import restful, mycache
+from .models import FrontUser
 
 
 bp = Blueprint('frontstage', __name__)
@@ -26,6 +30,23 @@ class RegisterView(views.MethodView):
     def get(self):
         return render_template('frontstage/front_register.html')
     def post(self):
-        pass
+        form = RegisterForm(request.form)
+        if form.validate():
+            telephone = form.telephone.data
+            username = form.username.data
+            password = form.password1.data
+            # 检验用户名
+            usertest = FrontUser.query.filter_by(username=username).first()
+            if usertest:
+                return restful.args_error(message="该用户名已被占用！")
+            user = FrontUser(telephone = telephone, username = username, password = password)
+            db.session.add(user)
+            db.session.commit()
+            return restful.success()
+        else:
+            return restful.args_error(message = form.get_error())
+
+
+
 
 bp.add_url_rule('/register/', view_func=RegisterView.as_view('register'))
