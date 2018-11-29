@@ -30,7 +30,7 @@ class FrontUser(db.Model):
     telephone = db.Column(db.String(20),nullable=False,unique=True) # 手机号码
     username = db.Column(db.String(64), nullable = False, unique = True)
     password_hash = db.Column(db.String(100), nullable = False)
-    email = db.Column(db.String(64), nullable = False, unique = True)
+    email = db.Column(db.String(64), unique = True)
     join_time = db.Column(db.DateTime, default = datetime.now)
     gender = db.Column(db.Enum(Gender), default = Gender.UNKOWN)
 
