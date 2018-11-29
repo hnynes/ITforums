@@ -8,7 +8,7 @@
 # Created: 2018-11-25 15:58:50 (CST)
 # Last Update: 项目重构 将app主要分为三个模块 前台、公共、cms控制
 #          By:
-# Description:
+# Description: 增加功能，注册完成之后调回原来的页面
 # **************************************************************************
 from flask import Blueprint, views, render_template, url_for, make_response, request, session, g
 from .forms import RegisterForm
@@ -28,7 +28,9 @@ def index():
 # 注册视图类
 class RegisterView(views.MethodView):
     def get(self):
-        return render_template('frontstage/front_register.html')
+        Referer = request.referrer
+        return render_template('frontstage/front_register.html', Referer=Referer)
+
     def post(self):
         form = RegisterForm(request.form)
         if form.validate():

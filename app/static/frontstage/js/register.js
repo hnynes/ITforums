@@ -86,6 +86,13 @@ $(function (){
                 if (data['code'] == 200)
                 {
                     lgyalert.alertSuccessToast("注册成功");
+                    var referer = $("#referer").text();
+                    if (referer){
+                        window.location = referer;
+                    }
+                    else{
+                        window.location = '/';
+                    }
                 }
                 else
                 {
