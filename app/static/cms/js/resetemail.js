@@ -13,7 +13,7 @@ $(function () {
             return;
         }
         //以get形式向后台发送数据
-        myajax.get({
+        myajax.post({
             'url' :'/cms/sendcaptcha/',
             'data':{
                 'email': newemail
