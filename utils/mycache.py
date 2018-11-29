@@ -15,7 +15,7 @@ cache = memcache.Client(['127.0.0.1:15000'], debug=True)
 
 
 # 设置缓存的函数，默认过期时间1分钟
-def set(key=None, value=None, timeout=60):
+def set(key=None, value=None, timeout=120):
     if key and value:
         result = cache.set(key, value, timeout)
         return result
