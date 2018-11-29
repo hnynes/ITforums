@@ -41,7 +41,7 @@ def send_sms(phone_numbers, code):
     smsRequest.set_TemplateCode(template_code)
 
     # 短信模板变量参数
-    template_code = json.dumps({'code': code})
+    template_param = json.dumps({'code': code})
     if template_param is not None:
         smsRequest.set_TemplateParam(template_param)
 

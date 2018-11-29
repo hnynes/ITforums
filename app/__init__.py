@@ -52,5 +52,4 @@ def create_app(config_name):
     app.register_blueprint(cms_bp)
     app.register_blueprint(common_bp)
 
-
     return app

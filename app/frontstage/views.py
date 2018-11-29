@@ -11,10 +11,6 @@
 # Description:
 # **************************************************************************
 from flask import Blueprint, views, render_template, url_for, make_response
-from utils.picture import Captcha
-from io import BytesIO
-from utils
-
 
 
 bp = Blueprint('frontstage', __name__)
@@ -23,16 +19,6 @@ bp = Blueprint('frontstage', __name__)
 @bp.route('/')
 def index():
     return render_template('frontstage/front_index.html')
-
-@bp.route('/picture/')
-def growpicture():
-    text, image = Captcha.gene_graph_captcha()
-    out = BytesIO()
-    image.save(out, 'png')
-    out.seek(0)
-    p = make_response(out.read())
-    p.content_type = "image/png"
-    return p
 
 
 # 注册视图类
