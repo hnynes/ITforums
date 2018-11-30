@@ -5,7 +5,7 @@
 # File Name: /frontstage/views.py
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
-# Created: 2018-11-25 15:58:50 (CST)
+# Created: 2018-11-29 13:58:50 (CST)
 # Last Update: 项目重构 将app主要分为三个模块 前台、公共、cms控制
 #          By:
 # Description: 增加功能，注册完成之后调回原来的页面
