@@ -48,7 +48,13 @@ class RegisterView(views.MethodView):
         else:
             return restful.args_error(message = form.get_error())
 
+# 登录视图类
+class LoginView(views.MethodView):
+    def get(self):
+        return render_template('frontstage/front_login.html')
 
+    def post(self):
+        pass
 
-
+bp.add_url_rule('/login/', view_func=LoginView.as_view('login'))
 bp.add_url_rule('/register/', view_func=RegisterView.as_view('register'))

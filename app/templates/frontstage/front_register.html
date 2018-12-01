@@ -6,6 +6,10 @@
 ITforum账号注册
 {%- endblock %}
 
+{% block head %}
+<script src="{{ findstatic('frontstage/js/register.js') }}"></script>
+{% endblock %}
+
 {% block page_title %}
 账&nbsp;号&nbsp;注&nbsp;册
 {% endblock %}
@@ -42,4 +46,5 @@ ITforum账号注册
 <div class="form-group">
     <button type="button" class="btn btn-primary btn-block" id="reg_submit">立即注册</button>
 </div>
+<p>已有账号？<a href="{{ url_for('frontstage.login') }}">前去登录</a></p>
 {% endblock %}
