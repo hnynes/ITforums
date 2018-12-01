@@ -27,3 +27,8 @@ class RegisterForm(BaseForm):
         picturecode = mycache.get(totest)
         if not picturecode or totest.lower() != picturecode.lower():
             raise ValidationError("图形验证码错误！")
+
+class LoginForm(BaseForm):
+    telephone = StringField(validators=[Regexp(r'1[345789]\d{9}')])
+    password = StringField(validators=[Regexp(r'[0-9a-zA-Z_\.]{6,20}', message='请输入正确格式的密码！')])
+    remember = IntegerField()

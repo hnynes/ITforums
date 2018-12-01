@@ -111,10 +111,10 @@ class LoginView(views.MethodView):
 
     # 获取登录所需的html文件
     def get(self, message=None):
-        return render_template('cms/cms_login.html', message = message)
+        return render_template('cms/cms_login.html', message=message)
     # 递交登录表单
     def post(self):
-        form  = LoginForm(request.form)
+        form = LoginForm(request.form)
         if form.validate():
             email = form.email.data
             password = form.password.data

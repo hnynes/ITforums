@@ -5,16 +5,17 @@
 # File Name: /frontstage/views.py
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
-# Created: 2018-11-29 13:58:50 (CST)
-# Last Update: 项目重构 将app主要分为三个模块 前台、公共、cms控制
+# Created: 2018-12-01 23:01:50 (CST)
+# Last Update: 完善前台的登录功能
 #          By:
 # Description: 增加功能，注册完成之后调回原来的页面
 # **************************************************************************
 from flask import Blueprint, views, render_template, url_for, make_response, request, session, g
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from .. import db
 from utils import restful, mycache
 from .models import FrontUser
+from config import config
 
 
 bp = Blueprint('frontstage', __name__)
@@ -54,7 +55,23 @@ class LoginView(views.MethodView):
         return render_template('frontstage/front_login.html')
 
     def post(self):
-        pass
+        form = LoginForm(request.form)
+        if form.validate():
+            telephone = form.telephone.data
+            password = form.password.data
+            remember = form.remeber.data
+            user = FrontUser.query.filter_by(telephone=telephone).first()
+            if user and user.check_password(password):
+                # 将用户的id存储起来用作后面判定用户是否登录
+                session[config['development'].FRONTUSERID] = user.id
+                if remember:
+                    session.permanent = True
+                return restful.success()
+            else:
+                return restful.args_error("手机号或者密码错误！")
+        else:
+            return restful.args_error(message = form.get_error())
+
 
 bp.add_url_rule('/login/', view_func=LoginView.as_view('login'))
 bp.add_url_rule('/register/', view_func=RegisterView.as_view('register'))
