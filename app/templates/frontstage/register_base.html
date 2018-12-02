@@ -16,19 +16,20 @@
 
     <!--不在使用本地库的js和css文件而是选择使用有CDN加速的相关文件-->
     <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
     <script src="{{ findstatic('common/myajax.js') }}"></script>
     <script src="{{ findstatic('common/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ findstatic('common/sweetalert/myalert.js') }}"></script>
-    <link rel="stylesheet" href="{{ findstatic('common/sweetalert/sweetalert.css') }}">
     <script src="{{ findstatic('frontstage/js/param.js') }}"></script>
+
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ findstatic('common/sweetalert/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ findstatic('cms/css/footer.css') }}">
+    <link rel="stylesheet" href="{{ findstatic('frontstage/css/register.css') }}">
+
     <!--网页独有的js、css文件-->
     {% block head %}{% endblock %}
-    <!-- 添加网站的底部版权信息框所用的css文件 -->
-    <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ findstatic('frontstage/css/register.css') }}">
 </head>
 
 <body>

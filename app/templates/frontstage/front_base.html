@@ -1,0 +1,82 @@
+{% from 'common/macro.html' import findstatic %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ findstatic('common/images/favicon.ico') }}">
+
+    <meta name="description" content="ITforum">
+    <meta name="author" content="superliuliuliu1">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ findstatic('common/css/nav.css') }}">
+    <link rel="stylesheet" href="{{ findstatic('cms/css/footer1.css') }}">
+    <link rel="stylesheet" href="{{ findstatic('common/sweetalert/sweetalert.css') }}">
+
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--ajax方式提交表单的js文件-->
+    <script src="{{ findstatic('common/myajax.js') }}"></script>
+    <!--提示框的js文件-->
+    <script src="{{ findstatic('common/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ findstatic('common/sweetalert/myalert.js') }}"></script>
+    <script src="{{ findstatic('frontstage/js/param.js') }}"></script>
+    {% block head %}{% endblock %}
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" style="background:#fff">
+        <div class="container-fluid col-md-offset-1 col-md-10">
+            <div class="navbar-header" style="padding-top:5px;">
+                <a class="navbar-brand" href="/" style="padding:0px">
+                    <img alt="ITforum" src="{{ findstatic('frontstage/images/logo.jpg') }}" style="width:48px;">
+                </a>
+                <div class="navbar-brand" style="padding-top:2;padding-left:16px;margin-top:-12px;">
+                    <span style="font-size:20px;color:#EB5424"><b class="text-capitalize">ITforum</b></span>
+                    <br />
+                    <small style="font-size:10px">综合课题II设计</small>
+                </div>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-header" aria-expanded="false">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="collapse-header">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('frontstage.index') }}">社区</a></li>
+                    <li><a href="https://www.liugaoyang.xin">博客</a></li>
+                    <li><a href="#">精华帖子</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-left:0px;">
+                    <a class="btn btn-default btn-sm navbar-btn" href="{{ url_for('frontstage.register') }}">注册</a>
+                    <a class="btn btn-default btn-sm navbar-btn" href="{{ url_for('frontstage.login') }}">登录</a>
+                </ul>
+                <form action="/search" class="navbar-form navbar-right" style="margin-top:10px;">
+                    <div class="form-group has-feedback">
+                        <input class="form-control input-sm" name="keyword" placeholder="搜索内容" type="text" value="">
+                        <i class="fa fa-search form-control-feedback"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    {% block maincontent %}{% endblock %}
+
+    <!--底部版权框-->
+    <footer class="footer">
+        <div class="container">
+            <p style="text-align: center;" class="text-muted">Copyright &copy; 2018 ITforum <a href="https://github.com/superliuliuliu/ITforums.git">Fork
+                    me on the Github </a></p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
