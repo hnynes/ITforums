@@ -1,0 +1,11 @@
+.navbar-right .dropdown-menu {
+    left: 0;
+}
+
+.navbar .nav>li:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu {
+    min-width: 120px !important;
+}
