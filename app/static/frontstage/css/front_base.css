@@ -1,0 +1,20 @@
+.main-container{
+    width: 1500px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 0;
+    margin-top:75px;
+}
+
+.lg-container{
+    width: 940px;
+    height:270px;
+    float: left;
+    margin-left: 160px;
+}
+
+.sm-container{
+    width: 470px;
+    float: right;
+    margin-right: 160px;
+}

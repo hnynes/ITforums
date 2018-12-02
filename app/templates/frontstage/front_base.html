@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{{ findstatic('common/css/nav.css') }}">
     <link rel="stylesheet" href="{{ findstatic('cms/css/footer1.css') }}">
     <link rel="stylesheet" href="{{ findstatic('common/sweetalert/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ findstatic('frontstage/css/front_base.css') }}">
 
     <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -34,7 +35,7 @@
         <div class="container-fluid col-md-offset-1 col-md-10">
             <div class="navbar-header" style="padding-top:5px;">
                 <a class="navbar-brand" href="/" style="padding:0px">
-                    <img alt="ITforum" src="{{ findstatic('frontstage/images/logo.jpg') }}" style="width:48px;">
+                    <img alt="ITforum" src="{{ findstatic('frontstage/images/head.jpg') }}" style="width:48px;">
                 </a>
                 <div class="navbar-brand" style="padding-top:2;padding-left:16px;margin-top:-12px;">
                     <span style="font-size:20px;color:#EB5424"><b class="text-capitalize">ITforum</b></span>
@@ -67,8 +68,11 @@
             </div>
         </div>
     </nav>
-    {% block maincontent %}{% endblock %}
 
+    <!--论坛系统的据网站顶部的举例为75px-->
+    <div class="main-container">
+    {% block main %}{% endblock %}
+    </div>
     <!--底部版权框-->
     <footer class="footer">
         <div class="container">
