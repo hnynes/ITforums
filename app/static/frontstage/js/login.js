@@ -17,9 +17,8 @@ $(function (){
             'success': function (data){
                 if (data['code'] == 200)
                 {
-                    lgyalert.alertSuccessToast("注册成功");
                     var referer = $("#referer").text();
-                    if (referer){
+                    if (referer & referer != '/register/'){
                         window.location = referer;
                     }
                     else{
@@ -30,7 +29,8 @@ $(function (){
                 {
                     var message = data['message'];
                     lgyalert.alertInfo(message);
-
+                    //密码出现问题，清空密码栏
+                    Epassword.val("");
                 }
             },
             'fail': function (error){

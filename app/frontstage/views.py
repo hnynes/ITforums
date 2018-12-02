@@ -52,14 +52,15 @@ class RegisterView(views.MethodView):
 # 登录视图类
 class LoginView(views.MethodView):
     def get(self):
-        return render_template('frontstage/front_login.html')
+        Referer = request.referrer
+        return render_template('frontstage/front_login.html', Referer=Referer)
 
     def post(self):
         form = LoginForm(request.form)
         if form.validate():
             telephone = form.telephone.data
             password = form.password.data
-            remember = form.remeber.data
+            remember = form.remember.data
             user = FrontUser.query.filter_by(telephone=telephone).first()
             if user and user.check_password(password):
                 # 将用户的id存储起来用作后面判定用户是否登录
