@@ -36,6 +36,12 @@ def index():
 def selfinfo():
     return render_template('cms/cms_info.html')
 
+# 轮播图管理的路由
+@bp.route('/carousel/')
+@login_required
+def carousel():
+    return render_template('cms/cms_carousel.html')
+
 # 版块管理的路由
 @bp.route('/area/')
 @login_required
