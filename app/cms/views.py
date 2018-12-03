@@ -50,7 +50,7 @@ def area():
     return render_template('cms/cms_area.html')
 
 # 管理管理员的路由
-@bp.route('/mancmsuser/')
+@bp.route('/mancms/')
 @login_required
 @power_required(CMSpower.CMSUSER)
 def mancmsuser():

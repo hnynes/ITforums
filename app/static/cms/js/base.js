@@ -25,7 +25,7 @@ $(function () {
     }else if(url.indexOf('user') >= 0){
         var userManage = $('.is_active_user');
         userManage.addClass('active').siblings().removeClass('active');
-    }else if(url.indexOf('mancmsuser') >= 0) {
+    }else if(url.indexOf('mancms') >= 0) {
         var cmsuserManage = $('.is_active_cmsuser');
         cmsuserManage.addClass('active').siblings().removeClass('active');
     }else if(url.indexOf('auth') >= 0){

@@ -1,3 +1,12 @@
 .form-container {
     width: 450px;
 }
+
+.button-box{
+    overflow: hidden;
+    padding: 10px;
+}
+
+.button-box button{
+    float: right;
+}
