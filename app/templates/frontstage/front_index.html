@@ -5,9 +5,14 @@
 ITforum
 {%- endblock %}
 
+
+{% block head -%}
+<link rel="stylesheet" href="{{ findstatic('frontstage/css/front_index.css') }}">
+{%- endblock %}
+
 {% block main %}
 <div class="lg-container">
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+    <div id="carousel-example-generic" class="carousel slide index-banner" data-ride="carousel">
       <!-- Indicators -->
       <ol class="carousel-indicators">
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -18,17 +23,17 @@ ITforum
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
         <div class="item active">
-          <img src="{{ findstatic('common/images/001.png') }}" alt="...">
+          <a href="#"><img src="{{ findstatic('common/images/001.png') }}" alt="picture1"></a>
           <div class="carousel-caption">
           </div>
         </div>
         <div class="item">
-          <img src="{{ findstatic('common/images/002.png') }}" alt="...">
+          <a href="#"><img src="{{ findstatic('common/images/002.png') }}" alt="picture2"></a>
           <div class="carousel-caption">
           </div>
         </div>
         <div class="item">
-          <img src="{{ findstatic('common/images/003.png') }}" alt="...">
+          <a href="#"><img src="{{ findstatic('common/images/003.png') }}" alt="picture3"></a>
           <div class="carousel-caption">
           </div>
         </div>
@@ -43,7 +48,6 @@ ITforum
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
-    </div>    
+    </div>
 </div>
-
 {% endblock %}
