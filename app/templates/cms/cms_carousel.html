@@ -1,13 +1,14 @@
 {% extends "cms/cms_base.html" %}
-
+{% from "common/macro.html" import findstatic %}
 
 {% block title -%}
 轮播图管理
 {%- endblock %}
 
-{% block head %}
 
-{% endblock %}
+{% block head -%}
+<script src="{{ findstatic('cms/js/addcarousel.js') }}"></script>
+{%- endblock %}
 
 
 {% block page_header %}
@@ -16,7 +17,7 @@
 
 {% block main_content %}
 <div class="button-box">
-    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#fixdialog">添加轮播图</button>
+    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#fixdialog">添加轮播图</button>
 </div>
 <table class="table table-striped table-bordered">
     <thead>
@@ -25,12 +26,24 @@
             <th><small>图片地址</small></th>
             <th><small>跳转链接</small></th>
             <th><small>创建时间</small></th>
+            <th><small>权重</small></th>
             <th><small>操作</small></th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-        </tr>
+        {% for carousel in carousellist %}
+            <tr>
+                <td>{{ carousel.name }}</td>
+                <td><a href="{{ carousel.picture_url }}" target="_blank">{{ carousel.picture_url }}</a></td>
+                <td><a href="{{ carousel.next_url }}" target="_blank">{{ carousel.next_url }}</a></td>
+                <td>{{ carousel.create_time }}</td>
+                <td>{{ carousel.weight }}</td>
+                <td>
+                    <button class="btn btn-default btn-xs edit-banner-btn">编辑</button>
+                    <button class="btn btn-danger btn-xs delete-banner-btn">删除</button>
+                </td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
 <!-- Modal -->
@@ -44,34 +57,36 @@
             <div class="modal-body">
                 <form class="form-horizontal" action="">
                     <div class="form-group">
-                        <label for="inputname" class="col-sm-2 control-label">名&nbsp;&nbsp;称&nbsp;&nbsp;</label>
+                        <label for="inputname" class="col-sm-2 control-label">名&nbsp;&nbsp;称&nbsp;&nbsp;:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="inputname" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="picture" class="col-sm-2 control-label">选择图片</label>
-                        <div class="col-sm-10">
+                        <label for="picture" class="col-sm-2 control-label">选择图片:</label>
+                        <div class="col-sm-7">
+                            <!--选择按钮 连接本地文件接口，选择图片文件上传成为轮播图-->
                             <input type="text" class="form-control" id="picture" placeholder="Picture">
                         </div>
+                        <button class="btn btn-info btn-sm col-sm-2" id="upload-btn">添加图片</button>
                     </div>
                     <div class="form-group">
-                        <label for="URL" class="col-sm-2 control-label">跳转链接</label>
+                        <label for="URL" class="col-sm-2 control-label">跳转链接:</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" id="URL" placeholder="URL">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="weight" class="col-sm-2 control-label">权&nbsp;&nbsp;重&nbsp;&nbsp;</label>
+                        <label for="weight" class="col-sm-2 control-label">权&nbsp;&nbsp;重&nbsp;&nbsp;:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="weight" placeholder="Weight">
+                            <input type="number" class="form-control" id="weight" placeholder="Weight">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-sm">Save changes</button>
+                <button type="button" class="btn btn-primary btn-sm" id="commit-btn">Save changes</button>
             </div>
         </div>
     </div>
