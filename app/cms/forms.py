@@ -32,8 +32,8 @@ class ResetPwdForm(BaseForm):
 
 
 class ResetEmailForm(BaseForm):
-    email = StringField(validators=[InputRequired(message=u'必须输入邮箱！'), Email(message=u'邮箱格式不满足！')])
-    captcha = StringField(validators=[InputRequired(message=u'必须输入验证码！')])
+    email = StringField(validators=[InputRequired(message='必须输入邮箱！'), Email(message='邮箱格式不满足！')])
+    captcha = StringField(validators=[InputRequired(message='必须输入验证码！')])
 
     def validate_email(self, field):
         email = field.data
@@ -49,3 +49,9 @@ class ResetEmailForm(BaseForm):
         if not captcha_cache or captcha.lower() != captcha_cache.lower():
             raise ValidationError('邮箱验证码错误！')
         return True
+
+class AddCarouselForm(BaseForm):
+    name = StringField(validators=[InputRequired(message='请输入轮播图的描述信息')])      #轮播图的名称
+    pic_url = StringField(validators=[InputRequired(message='请输入轮播图的地址')])        #轮播图的地址
+    next_url = StringField(validators=[InputRequired(message='请输入轮播图的跳转链接')])   #点击轮播图会跳转到的链接
+    weight = IntegerField(validators=[InputRequired(message='请输入轮播图的权重')])        #轮播图的权重决定轮播图的前后顺序

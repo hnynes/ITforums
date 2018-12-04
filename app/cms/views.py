@@ -12,8 +12,9 @@
 # **************************************************************************
 
 from flask import Blueprint, views, render_template, request, session, redirect, url_for, g, jsonify
-from .forms import LoginForm, ResetPwdForm, ResetEmailForm
+from .forms import LoginForm, ResetPwdForm, ResetEmailForm, AddCarouselForm
 from .models import CMSUser, CMSpower
+from ..models import Carousel
 from .decorators import login_required, power_required
 from config import config
 from flask_login import logout_user
@@ -37,10 +38,12 @@ def selfinfo():
     return render_template('cms/cms_info.html')
 
 # 轮播图管理的路由
+# 从数据库中获取所有的轮播图信息并渲染到html中
 @bp.route('/carousel/')
 @login_required
 def carousel():
-    return render_template('cms/cms_carousel.html')
+    carousellist = Carousel.query.order_by(Carousel.weight.desc()).all()
+    return render_template('cms/cms_carousel.html', carousellist = carousellist)
 
 # 版块管理的路由
 @bp.route('/area/')
@@ -113,6 +116,25 @@ def sendcaptcha():
     return restful.success()
 
 
+# 点击增加轮播图按钮  后台响应将其提交到数据库中,web以post的方式传送数据到后端
+@bp.route('/addcarousel/', methods=['POST'])
+@login_required
+def addcarousel():
+    form = AddCarouselForm(request.form)
+    if form.validate():
+        name = form.name.data
+        picture_url = form.pic_url.data
+        next_url = form.next_url.data
+        weight = form.weight.data
+        carousel = Carousel(name = name, picture_url = picture_url, next_url = next_url, weight = weight)
+        db.session.add(carousel)
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.args_error(form.get_error())
+
+
+
 class LoginView(views.MethodView):
 
     # 获取登录所需的html文件
@@ -180,7 +202,6 @@ class ResetEmailView(views.MethodView):
         else:
             message = form.get_error()
             return restful.args_error(message=message)
-
 
 
 bp.add_url_rule('/login/', view_func=LoginView.as_view('login'))
