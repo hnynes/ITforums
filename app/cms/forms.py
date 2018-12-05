@@ -55,3 +55,11 @@ class AddCarouselForm(BaseForm):
     pic_url = StringField(validators=[InputRequired(message='请输入轮播图的地址')])        #轮播图的地址
     next_url = StringField(validators=[InputRequired(message='请输入轮播图的跳转链接')])   #点击轮播图会跳转到的链接
     weight = IntegerField(validators=[InputRequired(message='请输入轮播图的权重')])        #轮播图的权重决定轮播图的前后顺序
+
+
+class UpdateCarouselForm(AddCarouselForm):
+    carousel_id = IntegerField(validators=[InputRequired(message='请输入轮播图id')])     #继承自AddCarouselForm的更新表单  id用来标识是更新那个轮播图的
+
+
+class DeleteCarouselForm(BaseForm):
+    pass

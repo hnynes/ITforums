@@ -12,7 +12,7 @@
 # **************************************************************************
 
 from flask import Blueprint, views, render_template, request, session, redirect, url_for, g, jsonify
-from .forms import LoginForm, ResetPwdForm, ResetEmailForm, AddCarouselForm
+from .forms import LoginForm, ResetPwdForm, ResetEmailForm, AddCarouselForm, UpdateCarouselForm
 from .models import CMSUser, CMSpower
 from ..models import Carousel
 from .decorators import login_required, power_required
@@ -133,6 +133,36 @@ def addcarousel():
     else:
         return restful.args_error(form.get_error())
 
+# 点击编辑轮播图按钮 后台响应对数据库中的数据进行修改
+@bp.route('/ucarousel/', methods=['POST'])
+@login_required
+def ucarousel():
+    form = UpdateCarouselForm(request.form)
+    if form.validate():
+        name = form.name.data
+        picture_url = form.pic_url.data
+        next_url = form.next_url.data
+        weight = form.weight.data
+        carousel_id = form.carousel_id.data
+        carousel = Carousel.query.get(carousel_id)
+        if carousel:
+            carousel.name = name
+            carousel.picture_url = picture_url
+            carousel.next_url = next_url
+            carousel.weight = weight
+            db.session.commit()
+            return restful.success()
+        else:
+            return restful.args_error("没有这个轮播图")
+    else:
+        return restful.args_error(form.get_error())
+
+
+# 点击删除轮播图按钮 后台路由操作对应数据库中对应信息的删除操作
+@bp.route('/delcarousel/', methods=['POST'])
+@login_required
+def delcarousel():
+    pass
 
 
 class LoginView(views.MethodView):

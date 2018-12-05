@@ -32,15 +32,16 @@
     </thead>
     <tbody>
         {% for carousel in carousellist %}
-            <tr>
+            <!--为标签增加属性记录-->
+            <tr data-name="{{ carousel.name }}" data-picture="{{ carousel.picture_url }}" data-next="{{ carousel.next_url }}" data-weight="{{ carousel.weight }}" data-id="{{ carousel.id }}">
                 <td>{{ carousel.name }}</td>
                 <td><a href="{{ carousel.picture_url }}" target="_blank">{{ carousel.picture_url }}</a></td>
                 <td><a href="{{ carousel.next_url }}" target="_blank">{{ carousel.next_url }}</a></td>
                 <td>{{ carousel.create_time }}</td>
                 <td>{{ carousel.weight }}</td>
                 <td>
-                    <button class="btn btn-default btn-xs edit-banner-btn">编辑</button>
-                    <button class="btn btn-danger btn-xs delete-banner-btn">删除</button>
+                    <button class="btn btn-default btn-xs edit-carousel-btn">编辑</button>
+                    <button class="btn btn-danger btn-xs delete-carousel-btn">删除</button>
                 </td>
             </tr>
         {% endfor %}
@@ -52,7 +53,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">新增轮播图</h4>
+                <h4 class="modal-title" id="myModalLabel">轮播图</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" action="">
@@ -85,8 +86,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-sm" id="commit-btn">Save changes</button>
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary btn-sm " id="commit-btn">保存</button>
             </div>
         </div>
     </div>
