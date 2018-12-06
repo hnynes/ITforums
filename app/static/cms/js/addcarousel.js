@@ -90,4 +90,36 @@ $(function () {
 });
 
 //点击删除按钮触发事件
+$(function () {
+    $(".delete-carousel-btn").click(function (event){
+        event.preventDefault();
+        var self = $(this);
+        var tr = self.parent().parent();
+        var id = tr.attr('data-id');
+        lgyalert.alertConfirm({
+            'msg':"确认要执行删除操作？",
+            'confirmCallback': function(){
+                myajax.post({
+                    'url': '/cms/delcarousel/',
+                    'data':{
+                        'carousel_id': id
+                    },
+                    'success': function(data) {
+                        if (data['code'] == 200){
+                            window.location.reload();
+                        }
+                        else{
+                            lgyalert.alertInfo(data['message']);
+                        }
+                    },
+                    'fail': function(error){
+                        lgyalert.alertError("网络错误")
+                    }
+                });
+            }
+        });
+
+    });
+
+});
 //点击选择图片按钮触发事件

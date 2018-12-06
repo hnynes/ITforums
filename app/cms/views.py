@@ -162,7 +162,14 @@ def ucarousel():
 @bp.route('/delcarousel/', methods=['POST'])
 @login_required
 def delcarousel():
-    pass
+    id = request.form.get('carousel_id')
+    carousel = Carousel.query.get(id)
+    if carousel:
+        db.session.delete(carousel)
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.args_error("没有这个轮播图")
 
 
 class LoginView(views.MethodView):
