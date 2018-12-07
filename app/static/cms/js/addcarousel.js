@@ -122,4 +122,18 @@ $(function () {
     });
 
 });
+
+
 //点击选择图片按钮触发事件
+//首先需要初始化 相关信息
+$(function (){
+    myqiniu.setUp({
+        'domain': 'http://pjchi93q1.bkt.clouddn.com/',
+        'browse_button':'upload-btn',
+        'uptoken_url':'/common/uptoken/',
+        'success': function(up, file, info){
+            var pictinputE = $("#picture");
+            pictinputE.val(file.name);
+        }
+    });
+});

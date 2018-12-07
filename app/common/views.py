@@ -1,4 +1,18 @@
-from flask import Blueprint, render_template, request, make_response
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# **************************************************************************
+# Copyright © superliuliuliu1
+# File Name: manage.py
+# Author: superliuliuliu1
+# Email: superliuliuliu1@gmail.com
+# Created: 2018-12-07 12:54:50 (CST)
+# Last Update:
+#          By:
+# Description: 前端生成验证码 发送短信验证码  上传图片到七牛等功能
+# **************************************************************************
+
+
+from flask import Blueprint, render_template, request, make_response, jsonify
 from utils.picture import Captcha
 from io import BytesIO
 from utils import aliyunmessage, restful, mycache
@@ -6,6 +20,8 @@ import string
 import random
 from .forms import SendmessageForm
 from ..frontstage.models import FrontUser
+from qiniu import Auth, put_file
+from config import config
 
 bp = Blueprint('common', __name__, url_prefix='/common')
 
@@ -45,3 +61,17 @@ def sendmessage():
             return restful.args_error("短信验证码发送失败")
     else:
         return restful.args_error("参数错误")
+
+
+# 生成登录七牛云需要使用的token  在这里选择返回json形式的数据 因为在前端需要用到
+@bp.route('/uptoken/')
+def uptoken():
+    #需要填写你的 Access Key 和 Secret Key 这里通过类来加载
+    access_key = config['development'].QINIUACCESSKEY
+    secret_key = config['development'].QINIUACCESSKEYSECRET
+    #构建鉴权对象
+    q = Auth(access_key, secret_key)
+    #要上传的空间
+    bucket_name = 'forumfor'
+    token = q.upload_token(bucket_name)
+    return jsonify({'uptoken':token})

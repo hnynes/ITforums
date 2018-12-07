@@ -35,4 +35,3 @@ bucket = oss2.Bucket(oss2.Auth(access_key_id, access_key_secret), endpoint, buck
 def upload_picture(pathfile):
     with open(pathfile, 'rb') as fileobj:
         bucket.put_object(pathfile, fileobj)
-# 上传一段字符串。Object名是motto.txt，内容是一段名言。

@@ -50,6 +50,9 @@ class Config:
     ALIYUN_TEMPLATE_CODE = 'SMS_151910651' #阿里云短信模板code
     ALIYUN_SIGN_NAME = '个人学习' #阿里云短信签名名称
 
+    QINIUACCESSKEY = '2zjylSQRNAPj-fa-ma_bXWUukD8eFEcNStWVDepY'
+    QINIUACCESSKEYSECRET = 'SOrvIATcYYy_dsSL0xf7VBm7Uf_1JNJ5Q2b-4edv'
+
     @staticmethod
     def init_app(app):
         pass

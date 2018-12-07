@@ -22,21 +22,15 @@ ITforum
 
       <!-- Wrapper for slides -->
       <div class="carousel-inner" role="listbox">
-        <div class="item active">
-          <a href="#"><img src="{{ findstatic('common/images/001.png') }}" alt="picture1"></a>
-          <div class="carousel-caption">
-          </div>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{ findstatic('common/images/002.png') }}" alt="picture2"></a>
-          <div class="carousel-caption">
-          </div>
-        </div>
-        <div class="item">
-          <a href="#"><img src="{{ findstatic('common/images/003.png') }}" alt="picture3"></a>
-          <div class="carousel-caption">
-          </div>
-        </div>
+        {% for carousel in carousellist %}
+            {% if loop.first %}
+            <div class="item active">
+            {% else %}
+            <div class="item">
+            {% endif %}
+            <a href="{{ carousel.next_url }}"><img src="{{ carousel.picture_url }}" alt="picture"></a>
+            </div>
+        {% endfor %}
       </div>
 
       <!-- Controls -->

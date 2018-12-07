@@ -7,6 +7,11 @@
 
 
 {% block head -%}
+<!--script src="https://unpkg.com/qiniu-js@2.5.3/dist/qiniu.min.js"></script-->
+<script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+<script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+<script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+<script src="{{ findstatic('common/wrapqiniu.js') }}"></script>
 <script src="{{ findstatic('cms/js/addcarousel.js') }}"></script>
 {%- endblock %}
 

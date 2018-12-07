@@ -15,6 +15,7 @@ from .forms import RegisterForm, LoginForm
 from .. import db
 from utils import restful, mycache
 from .models import FrontUser
+from ..models import Carousel
 from config import config
 
 
@@ -23,7 +24,11 @@ bp = Blueprint('frontstage', __name__)
 # 论坛应用系统的首页不需要登录即可访问 指向路由
 @bp.route('/')
 def index():
-    return render_template('frontstage/front_index.html')
+    carousellist = Carousel.query.order_by(Carousel.weight.desc()).limit(3)
+    context = {
+        'carousellist' : carousellist
+    }
+    return render_template('frontstage/front_index.html', **context)
 
 
 # 注册视图类
