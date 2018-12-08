@@ -1,5 +1,3 @@
-
-
 $(function () {
     //获取验证码按钮，当点击之后会触发后台去给输入的邮箱账户发送带有验证码的邮件
     $("#sendcaptcha").click(function (event){
@@ -13,7 +11,7 @@ $(function () {
             return;
         }
         //以get形式向后台发送数据
-        myajax.post({
+        myajax.get({
             'url' :'/cms/sendcaptcha/',
             'data':{
                 'email': newemail

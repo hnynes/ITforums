@@ -15,6 +15,7 @@ from flask import Blueprint, views, render_template, request, session, redirect,
 from .forms import LoginForm, ResetPwdForm, ResetEmailForm, AddCarouselForm, UpdateCarouselForm, AddAreaForm, UpdateAreaForm
 from .models import CMSUser, CMSpower
 from ..models import Carousel, Area
+from ..frontstage.models import FrontUser
 from .decorators import login_required, power_required
 from config import config
 from flask_login import logout_user
@@ -79,7 +80,8 @@ def forum():
 @login_required
 @power_required(CMSpower.FRONTUSER)
 def user():
-    return render_template('cms/cms_frontuser.html')
+    userlist = FrontUser.query.order_by(FrontUser.join_time.desc()).all()
+    return render_template('cms/cms_frontuser.html', userlist = userlist)
 
 # 用户组管理的路由
 @bp.route('/auth/')

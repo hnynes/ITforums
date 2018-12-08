@@ -1,4 +1,4 @@
-.main-container{
+.mains-container{
     width: 1295px;
     margin: 0 auto;
     overflow: hidden;
@@ -6,12 +6,31 @@
     margin-top:85px;
 }
 
-.lg-container{
+
+.lgs-container{
     width: 920px;
     float: left;
 }
 
-.sm-container{
-    width: 470px;
+.rights-container{
+    width: 430px;
+    float: right;
+    margin-top:85px;
+}
+
+.main-container{
+    width: 1150px;
+    margin: 0 auto;
+    overflow: hidden;
+    margin-top: 80px;
+}
+
+.lg-container{
+    width: 840px;
+    float: left;
+}
+
+.right-container{
+    width: 290px;
     float: right;
 }
