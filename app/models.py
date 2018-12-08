@@ -21,3 +21,10 @@ class Carousel(db.Model):
     next_url = db.Column(db.String(256), nullable = False)
     weight = db.Column(db.Integer, default = 0)
     create_time = db.Column(db.DateTime, default = datetime.now)
+
+class Area(db.Model):
+    __tablename__ = 'area'
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    name = db.Column(db.String(256), nullable = False)
+    number = db.Column(db.Integer, default = 0)
+    create_time = db.Column(db.DateTime, default = datetime.now)
