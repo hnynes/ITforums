@@ -6,7 +6,7 @@
 {%- endblock %}
 
 {% block head %}
-
+<script src="{{ findstatic('cms/js/addarea.js') }}"></script>
 {% endblock %}
 
 
@@ -15,5 +15,55 @@
 {% endblock %}
 
 {% block main_content %}
-    这部分是版块管理内容
+<div class="button-box">
+    <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#fixdialog">新增版块</button>
+</div>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th><small>版块</small></th>
+            <th><small>帖子数量</small></th>
+            <th><small>创建时间</small></th>
+            <th><small>操作</small></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for area in arealist %}
+            <tr data-name="{{ area.name }}" data-id="{{ area.id }}">
+                <td>{{ area.name }}</td>
+                <td>{{ area.number }}</td>
+                <td>{{ area.create_time }}</td>
+                <td>
+                    <button class="btn btn-default btn-xs edit-area-btn">编辑</button>
+                    <button class="btn btn-danger btn-xs delete-area-btn">删除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<!-- Modal -->
+<div class="modal fade" id="fixdialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">版块管理</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" action="">
+                    <div class="form-group">
+                        <label for="inputname" class="col-sm-2 control-label">版块名称:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inputname" placeholder="Name">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-primary btn-sm " id="commit-btn">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

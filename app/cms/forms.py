@@ -61,5 +61,8 @@ class UpdateCarouselForm(AddCarouselForm):
     carousel_id = IntegerField(validators=[InputRequired(message='请输入轮播图id')])     #继承自AddCarouselForm的更新表单  id用来标识是更新那个轮播图的
 
 
-class DeleteCarouselForm(BaseForm):
-    pass
+class AddAreaForm(BaseForm):
+    name = StringField(validators=[InputRequired(message='请输入版块的名称')])
+
+class UpdateAreaForm(AddAreaForm):
+    area_id = IntegerField(validators=[InputRequired(message='请输入版块id')]) 

@@ -12,9 +12,9 @@
 # **************************************************************************
 
 from flask import Blueprint, views, render_template, request, session, redirect, url_for, g, jsonify
-from .forms import LoginForm, ResetPwdForm, ResetEmailForm, AddCarouselForm, UpdateCarouselForm
+from .forms import LoginForm, ResetPwdForm, ResetEmailForm, AddCarouselForm, UpdateCarouselForm, AddAreaForm, UpdateAreaForm
 from .models import CMSUser, CMSpower
-from ..models import Carousel
+from ..models import Carousel, Area
 from .decorators import login_required, power_required
 from config import config
 from flask_login import logout_user
@@ -50,7 +50,8 @@ def carousel():
 @login_required
 @power_required(CMSpower.AREA)
 def area():
-    return render_template('cms/cms_area.html')
+    arealist = Area.query.order_by(Area.id.desc()).all()
+    return render_template('cms/cms_area.html', arealist = arealist)
 
 # 管理管理员的路由
 @bp.route('/mancms/')
@@ -170,6 +171,55 @@ def delcarousel():
         return restful.success()
     else:
         return restful.args_error("没有这个轮播图")
+
+# 点击新增版块按钮  后台响应将其提交到数据库中,web以post的方式传送数据到后端
+@bp.route('/addarea/', methods=['POST'])
+@login_required
+@power_required(CMSpower.AREA)
+def addarea():
+    form = AddAreaForm(request.form)
+    if form.validate():
+        name = form.name.data
+        area = Area(name = name)
+        db.session.add(area)
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.args_error(form.get_error())
+
+# 点击编辑版块按钮 后台响应对数据库中的数据进行修改
+@bp.route('/uarea/', methods=['POST'])
+@login_required
+@power_required(CMSpower.AREA)
+def uarea():
+    form = UpdateAreaForm(request.form)
+    if form.validate():
+        name = form.name.data
+        area_id = form.area_id.data
+        area = Area.query.get(area_id)
+        if area:
+            area.name = name
+            db.session.commit()
+            return restful.success()
+        else:
+            return restful.args_error("没有这个版块")
+    else:
+        return restful.args_error(form.get_error())
+
+
+# 点击删除按钮 后台路由操作对应数据库中对应信息的删除操作
+@bp.route('/delarea/', methods=['POST'])
+@login_required
+@power_required(CMSpower.AREA)
+def delarea():
+    id = request.form.get('area_id')
+    area = Area.query.get(id)
+    if area:
+        db.session.delete(area)
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.args_error("没有这个版块")
 
 
 class LoginView(views.MethodView):
