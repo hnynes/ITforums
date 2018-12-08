@@ -15,5 +15,31 @@
 {% endblock %}
 
 {% block main_content %}
-    这部分是评论管理内容
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th><small>评论帖子</small></th>
+            <th><small>评论内容</small></th>
+            <th><small>发布时间</small></th>
+            <th><small>发布用户</small></th>
+            <th><small>操作</small></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for carousel in carousellist %}
+            <!--为标签增加属性记录-->
+            <tr data-name="{{ carousel.name }}" data-picture="{{ carousel.picture_url }}" data-next="{{ carousel.next_url }}" data-weight="{{ carousel.weight }}" data-id="{{ carousel.id }}">
+                <td>{{ carousel.name }}</td>
+                <td><a href="{{ carousel.picture_url }}" target="_blank">{{ carousel.picture_url }}</a></td>
+                <td><a href="{{ carousel.next_url }}" target="_blank">{{ carousel.next_url }}</a></td>
+                <td>{{ carousel.create_time }}</td>
+                <td>{{ carousel.weight }}</td>
+                <td>
+                    <button class="btn btn-default btn-xs edit-carousel-btn">编辑</button>
+                    <button class="btn btn-danger btn-xs delete-carousel-btn">删除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

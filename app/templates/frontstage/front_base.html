@@ -55,9 +55,24 @@
                     <li><a href="https://www.liugaoyang.xin">博客</a></li>
                     <li><a href="#">精华帖子</a></li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" style="margin-left:0px;">
+                <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
+                    {% if g.front_user %}
+                    <!--li id="user-btn"><a href="#"></span>{{ g.front_user.username }}</a></li-->
+                    <li role="presentation" class="dropdown">
+                        <a id="dropdown_user" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true">{{ g.front_user.username }}
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="menu1" class="dropdown-menu" aria-labelledby="dropdown_user">
+                            <li><a href="#">个人信息</a></li>
+                            <li><a href="#">账号设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('frontstage.logout') }}">退出登录</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
                     <a class="btn btn-default btn-sm navbar-btn" href="{{ url_for('frontstage.register') }}">注册</a>
                     <a class="btn btn-default btn-sm navbar-btn" href="{{ url_for('frontstage.login') }}">登录</a>
+                    {% endif %}
                 </ul>
                 <form action="/search" class="navbar-form navbar-right" style="margin-top:10px;">
                     <div class="form-group has-feedback">
@@ -68,11 +83,8 @@
             </div>
         </div>
     </nav>
-
     <!--论坛系统的据网站顶部的举例为85px-->
-    <div class="main-container">
     {% block main %}{% endblock %}
-    </div>
     <!--底部版权框-->
     <footer class="footer">
         <div class="container">
