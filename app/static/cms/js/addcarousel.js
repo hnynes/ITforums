@@ -18,7 +18,7 @@ $(function () {
         var id = self.attr("data-id");
 
         if (!name || !pic_url || !next_url || !weight){
-            lgyalert.alertError("您填写的信息不完整！");
+            lgyalert.alertError("请填入完整的信息！");
             return;
         }
         var url = '';
