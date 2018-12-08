@@ -5,18 +5,19 @@
 # File Name: /frontstage/views.py
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
-# Created: 2018-12-01 23:01:50 (CST)
+# Created: 2018-12-08 17:03:50 (CST)
 # Last Update: 完善前台的登录功能
 #          By:
-# Description: 增加功能，注册完成之后调回原来的页面
+# Description: 论坛首页的角色下的下拉菜单功能实现
 # **************************************************************************
-from flask import Blueprint, views, render_template, url_for, make_response, request, session, g
+from flask import Blueprint, views, render_template, url_for, make_response, request, session, g, redirect
 from .forms import RegisterForm, LoginForm
 from .. import db
 from utils import restful, mycache
 from .models import FrontUser
-from ..models import Carousel
+from ..models import Carousel, Area
 from config import config
+from .decorators import login_required
 
 
 bp = Blueprint('frontstage', __name__)
@@ -25,10 +26,20 @@ bp = Blueprint('frontstage', __name__)
 @bp.route('/')
 def index():
     carousellist = Carousel.query.order_by(Carousel.weight.desc()).limit(3)
+    arealist = Area.query.order_by(Area.number.desc()).limit(5)
     context = {
-        'carousellist' : carousellist
+        'carousellist' : carousellist,
+        'arealist': arealist
     }
     return render_template('frontstage/front_index.html', **context)
+
+# 用户选择注销登录
+# 实现该功能即在服务器端清楚以保存的session
+@bp.route('/logout/')
+@login_required
+def logout():
+    del session[config['development'].FRONTUSERID]
+    return redirect(url_for('frontstage.index'))
 
 
 # 注册视图类
