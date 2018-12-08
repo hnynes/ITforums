@@ -36,7 +36,8 @@ def index():
 @bp.route('/selfinfo/')
 @login_required
 def selfinfo():
-    return render_template('cms/cms_info.html')
+    return render_template('cms/cms_userinfo.html')
+
 
 # 轮播图管理的路由
 # 从数据库中获取所有的轮播图信息并渲染到html中
@@ -294,5 +295,5 @@ class ResetEmailView(views.MethodView):
 
 
 bp.add_url_rule('/login/', view_func=LoginView.as_view('login'))
-bp.add_url_rule('/password/', view_func=ResetPasswordView.as_view('password'))
+bp.add_url_rule('/resetpassword/', view_func=ResetPasswordView.as_view('resetpassword'))
 bp.add_url_rule('/resetemail/', view_func=ResetEmailView.as_view('resetemail'))

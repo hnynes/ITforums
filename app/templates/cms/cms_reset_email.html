@@ -1,34 +1,63 @@
-{% extends "cms/cms_base.html" %}
+{% extends "cms/cms_info.html" %}
 {% from "common/macro.html" import findstatic %}
 
-{% block title %}
-    重置邮箱
+
+{% block changeemail %}
+    class="active"
 {% endblock %}
 
 {% block head %}
 <script src="{{ findstatic('cms/js/resetemail.js') }}"></script>
 {% endblock %}
 
-{% block page_header %}
-    修改邮箱
-{% endblock %}
 
-{% block main_content %}
-<form action="" method="post">
-    <div class="form-container">
-        <div class="form-group">
-            <div class="input-group">
-                <input type="email" name="newemail" class="form-control" placeholder="请输入新的邮箱">
-                <!--将获取验证码区域设置成点击的话出现一个手的图形，并在js代码之中绑定一个事件，如果点击的话就发送ajax的post请求-->
-                <span class="input-group-addon" style="cursor:pointer;" id="sendcaptcha">获取验证码</span>
-            </div>
+{% block inner_content %}
+{% set user = g.cms_user %}
+
+
+    <div id="ipsTabs_elSettingsTabs_setting_email_panel" class="ipsTabs_panel panel" aria-labelledby="setting_email" aria-hidden="false" animating="false" style="display: block;">
+        <h2 class="ipsType_sectionHead">修改您的邮箱</h2>
+        <br><br>
+        <div class="ipsType_textBlock ipsType_normal">
+            <ul class="ipsList_bullets">
+                <li>验证码有效时间为2分钟，请在限制时间内填写</li>
+            </ul>
         </div>
-        <div class="form-group">
-                <input type="text" name="captcha" class="form-control" placeholder="请输入验证码">
-        </div>
-        <div class="form-group">
-            <button type="button" class="btn btn-primary" id="submit">确认修改</button>
-        </div>
+        <br><hr class="ipsHr">
+        <form action="#" method="post" accept-charset="utf-8" enctype="multipart/form-data" data-ipsform="" class="ipsForm ipsForm_collapseTablet AVAST_PAM_nonloginform">
+
+            <ul class="ipsForm">
+                <li class="ipsFieldRow ipsFieldRow_textValue ipsClearfix ">
+                    <label class="ipsFieldRow_label">
+                        当前邮箱地址
+                    </label>
+                    <div class="ipsFieldRow_content">
+                        {{ user.email }}
+                    </div>
+                </li>
+                <li class="ipsFieldRow ipsClearfix " id="form_new_email">
+                    <label class="ipsFieldRow_label" for="new_email">
+                        新邮箱地址
+                    </label>
+                    <div class="ipsFieldRow_content">
+                        <input type="email" name="newemail" value="" id="elInput_new_email" aria-required="true" placeholder="请输入邮箱">
+
+                        <br>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-group">
+                        <input type="text" name="captcha" value="" id="elInput_new_email" aria-required="true" placeholder="请输入验证码">
+                        <span class="input-group-addon" style="cursor:pointer;" id="sendcaptcha">获取验证码</span>
+                   </div>
+                </li>
+
+                <li class="ipsFieldRow">
+                    <div class="ipsFieldRow_content">
+                        <button type="submit" class="ipsButton ipsButton_primary" tabindex="2" accesskey="s" role="button">保存</button>
+                    </div>
+                </li>
+            </ul>
+        </form>
     </div>
-</form>
 {% endblock %}

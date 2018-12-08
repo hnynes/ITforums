@@ -67,6 +67,11 @@ body {
 }
 
 
+.nav-sidebar>li>a:hover{text-decoration:none;background-color:#eee}
+.nav-sidebar li{
+  list-style:none;
+}
+
 /*
  * Main content
  */

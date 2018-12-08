@@ -1,0 +1,54 @@
+{% extends "cms/cms_info.html" %}
+
+{% block userdata %}
+    class="active"
+{% endblock %}
+
+{% block inner_content %}
+{% set user = g.cms_user %}
+    <div id="ipsTabs_elSettingsTabs_setting_password_panel" class="ipsTabs_panel" aria-labelledby="setting_overview" aria-hidden="false">
+        <div class="ipsColumns ipsColumns_collapsePhone">
+    <div class="ipsColumn ipsColumn_fluid">
+        <ul class="ipsDataList">
+            <li class="ipsDataItem">
+                <div class="ipsDataItem_main">
+                    <h4 class="ipsDataItem_title"><strong>账户昵称</strong></h4><br>
+                    {{ user.username }}
+                </div>
+            </li>
+            <li class="ipsDataItem">
+                <div class="ipsDataItem_main">
+                    <a href="{{ url_for('cms.resetemail') }}" class="ipsButton ipsButton_link ipsPos_right">
+                        修改</a>
+                    <h4 class="ipsDataItem_title"><strong>邮箱地址</strong></h4><br>
+                    {{ user.email }}
+                </div>
+            </li>
+            <li class="ipsDataItem">
+                <div class="ipsDataItem_main">
+                    <a href="{{ url_for('cms.resetpassword') }}" class="ipsButton ipsButton_link ipsPos_right">修改</a>
+                    <h4 class="ipsDataItem_title"><strong>密码</strong></h4><br>
+                    ********
+                </div>
+            </li>
+            <li class="ipsDataItem">
+                <div class="ipsDataItem_main">
+                    <h4 class="ipsDataItem_title"><strong>加入时间</strong></h4><br>
+                    {{ user.join_time }}
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="ipsColumn ipsColumn_wide ipsAreaBackground_light">
+        <div class="ipsPad">
+            <h3 class="ipsType_sectionHead">其他设置</h3>
+            <br><br>
+            <ul class="ipsList ipsList_reset ipsType_medium">
+                <li><a href="#">所属组</a></li>
+                <li><a href="#">权限</a></li>
+            </ul>
+        </div>
+    </div>
+        </div>
+    </div>
+{% endblock %}

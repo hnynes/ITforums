@@ -17,6 +17,8 @@ body {
   font-weight: normal;
 }
 .form-signin .form-control {
+  width:85%;
+  margin-left:8px;
   position: relative;
   height: auto;
   -webkit-box-sizing: border-box;
@@ -29,12 +31,30 @@ body {
   z-index: 2;
 }
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
+  margin-right: -1px;
   border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+
 }
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
+  border-bottom-left-radius: 0;
+  margin-right: -1px;
   border-top-left-radius: 0;
-  border-top-right-radius: 0;
+}
+
+.input_form{
+  background-color:white;
+  margin-bottom: 10px;
+    border-radius: 5px;
+border: 1px solid #E6E6E6;
+  display: flex;
+  align-items: center
+}
+
+
+.input_img{
+    width: 30px;
+    height: 30px;
+  margin-left: 8px;
+  align-items: center
 }

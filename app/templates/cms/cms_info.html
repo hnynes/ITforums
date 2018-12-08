@@ -1,52 +1,58 @@
 {% extends "cms/cms_base.html" %}
-
-
+{% from "common/macro.html" import findstatic %}
 {% block title -%}
     用户个人信息
 {%- endblock %}
+
+{% block info %}
+    class="active"
+{% endblock %}
 
 {% block page_header %}
     个人信息
 {% endblock %}
 
+
 {% block main_content %}
 {% set user = g.cms_user %}
-    <table class="table table-bordered table-hover">
-        <tbody>
-            <tr>
-                <td>用户名</td>
-                <td>{{ user.username }}</td>
-            </tr>
-            <tr>
-                <td>邮箱</td>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <td>角色</td>
-                <td>
-                    {% for role in user.roles %}
-                        {{ role.name }}
-                        {% if not loop.last %}，{% endif %}
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <td>权限</td>
-                <td>
-                    {% for role in user.roles %}
-                        {{ role.description }}
-                        {% if not loop.last %}/{% endif %}
-                    {% endfor %}
-                </td>
-            </tr>
-            <tr>
-                <td>加入时间</td>
-                <td>{{ user.join_time }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <p>
-        <a class="btn btn-lg btn-primary" href="{{ url_for('cms.password') }}" role="button">修改密码</a>
-        <a class="btn btn-lg btn-primary" href="{{ url_for('cms.resetemail') }}" role="button">修改邮箱</a>
-    </p>
+
+<div class='ipsBox ipsBox_transparent ipsAreaBackground' id='elSettingsTabs' data-ipsTabBar data-ipsTabBar-contentArea='#elProfileTabContent' data-ipsTabBar-itemSelector='.ipsSideMenu_item' data-ipsTabBar-activeClass='ipsSideMenu_itemActive'>
+    <div class='ipsColumns ipsColumns_collapsePhone ipsColumns_bothSpacing'>
+        <div class='ipsColumn ipsColumn_wide'>
+            <div class='ipsSideMenu' data-ipsSideMenu>
+                <h3 class="ipsSideMenu_mainTitle ipsAreaBackground_light ipsType_medium">
+                    <a href="#modcp_menu" class="ipsPad_double" data-action="openSideMenu">
+                        <i class="fa fa-bars"></i> &nbsp;Settings Area&nbsp;<i class="fa fa-caret-down"></i>
+                    </a>
+                </h3>
+                <ul class="ipsSideMenu_list  nav-sidebar" role="tablist">
+                    <li {% block userdata %}{% endblock %}>
+                        <a href="{{ url_for('cms.selfinfo') }}" id='setting_overview' class='ipsType_normal ipsSideMenu_item' title="Overview" role="tab">
+                            <!-  img src="{{ findstatic('frontstage/images/email.png') }}"/ ->
+                            用户资料
+                        </a>
+                    </li>
+                    <li {% block changeemail %}{% endblock %}>
+                        <a href="{{ url_for('cms.resetemail') }}" id='setting_email' class='ipsType_normal ipsSideMenu_item' title="Email Address" role="tab">
+                            <!- i class='fa fa-envelope-o'></i -> 邮箱地址
+                        </a>
+                    </li>
+                    <li {% block changepassword %}{% endblock %}>
+                        <a href="{{ url_for('cms.resetpassword') }}" id='setting_password' class='ipsType_normal ipsSideMenu_item' title="Password" role="tab">
+                            <!- i class='fa fa-key'></i -> 密码
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class='ipsColumn ipsColumn_fluid'>
+            <section id='elProfileTabContent' class='ipsBox ipsPad'>
+
+                        {% block inner_content %}{% endblock %}
+
+            </section>
+        </div>
+    </div>
+</div>
+</div>
 {% endblock %}

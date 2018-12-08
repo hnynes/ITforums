@@ -19,6 +19,8 @@
     <link href="{{ findstatic('cms/css/dashboard.css') }}" rel="stylesheet">
     <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ findstatic('common/sweetalert/sweetalert.css') }}">
+    <link href="{{ findstatic('cms/css/ipstab.min.css') }}" rel="stylesheet">
+    <link href="{{ findstatic('cms/css/addons.css') }}" rel="stylesheet">
     <script src="{{ findstatic('cms/js/jquery.min.js') }}"></script>
     <!-- 封装的自己的ajax.js文件用来提交表单使用 -->
     <script src="{{ findstatic('common/myajax.js') }}"></script>
@@ -65,7 +67,7 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li {% block index %}{% endblock %}><a href="{{ url_for('cms.index') }}">首页<span class="sr-only">(current)</span></a></li>
-                    <li class="is_active_info"><a href="{{ url_for('cms.selfinfo') }}">个人信息</a></li>
+                    <li {% block info %}{% endblock %} class="is_active_info"><a href="{{ url_for('cms.selfinfo') }}">个人信息</a></li>
                 </ul>
                 <ul class="nav nav-sidebar">
                     <li class="is_active_carousel"><a href="{{ url_for('cms.carousel') }}">轮播图管理</a></li>
