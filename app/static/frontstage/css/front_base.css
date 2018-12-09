@@ -1,36 +1,21 @@
-.mains-container{
-    width: 1295px;
-    margin: 0 auto;
-    overflow: hidden;
-    padding: 0;
-    margin-top:85px;
-}
-
-
-.lgs-container{
-    width: 920px;
-    float: left;
-}
-
-.rights-container{
-    width: 430px;
-    float: right;
-    margin-top:85px;
-}
-
 .main-container{
-    width: 1150px;
-    margin: 0 auto;
+    float: left;
+    width: 83%;
     overflow: hidden;
     margin-top: 80px;
+    margin-left: 8%;
+    margin-right:9%;
 }
 
-.lg-container{
-    width: 840px;
+.up-container{
+    height: 40%;
+    width: 100%;
     float: left;
 }
 
-.right-container{
-    width: 290px;
+.down-container{
+
+    height: 40%;
+    width: 100%;
     float: right;
 }

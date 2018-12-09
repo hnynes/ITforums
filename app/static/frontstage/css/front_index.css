@@ -1,9 +1,56 @@
 .index-banner{
     border-radius: 10px;
     overflow: hidden;
-    height: 240px;
+    height: 100%;
+    width:70%;
+    float:left;
 }
 
-.index-banner img{
-    height: 240px;
+
+
+.carousel-inner {
+    width: 100%;
+   height: 100%;
+}
+
+.front_img{
+     width: 100%;
+}
+
+.forum_info{
+    width:70%;
+   height:1200px;
+    background-color: #00a0e9;
+    margin-top: 50px;
+    float:left;
+}
+.forum_other{
+     width:25%;
+   height:1200px;
+    background-color: #00a0e9;
+    margin-top: 50px;
+    float:right;
+}
+
+.forum_list{
+    float:right;
+    width:25%;
+    height:100%;
+}
+
+.list-group{
+    margin-top:3%;
+    margin-bottom:0;
+    height:81%;
+}
+
+.list-group-item{
+    width: 100%;
+    height:16.6%;
+    padding:5px 10px;
+
+}
+
+.send_btn{
+    height: 18%;
 }

@@ -8,12 +8,13 @@ ITforum
 
 {% block head -%}
 <link rel="stylesheet" href="{{ findstatic('frontstage/css/front_index.css') }}">
+
 {%- endblock %}
 
 {% block main %}
-<div class="main-container">
-    <div class="lg-container">
-        <div id="carousel-example-generic" class="carousel slide index-banner" data-ride="carousel">
+<table class="main-container">
+    <tr class="up-container">
+        <td id="carousel-example-generic" class="carousel slide index-banner" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -29,7 +30,7 @@ ITforum
                     {% else %}
                     <div class="item">
                 {% endif %}
-                        <a href="{{ carousel.next_url }}"><img src="{{ carousel.picture_url }}" alt="picture"></a>
+                        <a href="{{ carousel.next_url }}"><img class="front_img" src="{{ carousel.picture_url }}" alt="picture"></a>
                     </div>
                 {% endfor %}
                 </div>
@@ -44,18 +45,30 @@ ITforum
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-        </div>
-    </div>
-    <div class="right-container">
-        <div style="padding-bottom: 10px;">
-            <a  href="{{ url_for('frontstage.addpost') }}" class="btn btn-warning btn-block" id="post-button">发布帖子</a>
-        </div>
-        <div class="list-group">
-            <a href="#" class="list-group-item active">热门版块</a>
-            {% for area in arealist %}
-            <a href="#" class="list-group-item"><span class="badge">{{ area.number }}</span>{{ area.name }}</a>
-            {% endfor %}
-        </div>
-    </div>
-</div>
+            <td class="forum_list" id="right">
+                <div class="send_btn" style="padding-bottom: 10px;">
+                    <a href="{{ url_for('frontstage.addpost') }}" class="btn btn-warning btn-block" id="post-button">发布帖子</a>
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item active">热门版块</a>
+                        {% for area in arealist %}
+                    <a href="#" class="list-group-item"><span class="badge">{{ area.number }}</span>{{ area.name }}</a>
+                {% endfor %}
+                </div>
+            </td>
+            <script type="text/javascript">
+                document.getElementById("right").style.height = document.getElementById("carousel-example-generic").offsetHeight + "px";
+            </script>
+        </td>
+        <tr class="down-container">
+            <td class="forum_info">
+           帖子概况
+            </td>
+            <td class="forum_other">
+           其他
+            </td>
+        </tr>
+    </tr>
+
+</table>
 {% endblock %}
