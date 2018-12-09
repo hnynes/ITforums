@@ -11,11 +11,11 @@
 # Description: 论坛首页的角色下的下拉菜单功能实现
 # **************************************************************************
 from flask import Blueprint, views, render_template, url_for, make_response, request, session, g, redirect
-from .forms import RegisterForm, LoginForm
+from .forms import RegisterForm, LoginForm, PostForm
 from .. import db
 from utils import restful, mycache
 from .models import FrontUser
-from ..models import Carousel, Area
+from ..models import Carousel, Area, Post
 from config import config
 from .decorators import login_required
 
@@ -33,6 +33,7 @@ def index():
     }
     return render_template('frontstage/front_index.html', **context)
 
+
 # 用户选择注销登录
 # 实现该功能即在服务器端清楚以保存的session
 @bp.route('/logout/')
@@ -40,6 +41,30 @@ def index():
 def logout():
     del session[config['development'].FRONTUSERID]
     return redirect(url_for('frontstage.index'))
+
+
+class PostView(views.MethodView):
+    decorators = [login_required]
+    def get(self):
+        arealist = Area.query.order_by(Area.number.desc()).all()
+        return render_template('frontstage/front_addpost.html', arealist = arealist)
+
+    def post(self):
+        form  = PostForm(request.form)
+        if form.validate():
+            theme = form.theme.data
+            content = form.content.data
+            area_id = form.area_id.data
+            area = Area.query.get(area_id)
+            if not area:
+                return restful.args_error("请输入已存在的版块！")
+            post = Post(theme = theme, content = content)
+            post.area = area
+            db.session.add(post)
+            db.session.commit()
+            return restful.success()
+        else:
+            return restful.args_error(message = form.get_error())
 
 
 # 注册视图类
@@ -92,3 +117,4 @@ class LoginView(views.MethodView):
 
 bp.add_url_rule('/login/', view_func=LoginView.as_view('login'))
 bp.add_url_rule('/register/', view_func=RegisterView.as_view('register'))
+bp.add_url_rule('/addpost/', view_func=PostView.as_view('addpost'))
