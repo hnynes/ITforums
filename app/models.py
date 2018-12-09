@@ -6,9 +6,9 @@
 # Author: superliuliuliu1
 # Email: superliuliuliu1@gmail.com
 # Created: 2018-11-11 10:12:50 (CST)
-# Last Update:
+# Last Update:2018-12-9
 #          By:
-# Description:数据库用来存储轮播图的相关信息
+# Description:新建用来存储帖子信息的模型
 # **************************************************************************
 from . import db
 from datetime import datetime
@@ -28,3 +28,13 @@ class Area(db.Model):
     name = db.Column(db.String(256), nullable = False)
     number = db.Column(db.Integer, default = 0)
     create_time = db.Column(db.DateTime, default = datetime.now)
+
+
+class Post(db.Model):
+    __tablename__ = 'Post'
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    theme = db.Column(db.String(150), nullable = False) #帖子的主题
+    content = db.Column(db.Text, nullable = False )     #帖子的内容
+    create_time = db.Column(db.DateTime, default = datetime.now)
+    area_id = db.Column(db.Integer, db.ForeignKey("area.id")) # 外键
+    area = db.relationship('Area', backref = 'posts')    #定义版块和帖子的双向关系,即使area拥有posts属性能够查看版块下所含的帖子
