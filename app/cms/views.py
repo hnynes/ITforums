@@ -226,7 +226,6 @@ def delarea():
 
 
 class LoginView(views.MethodView):
-
     # 获取登录所需的html文件
     def get(self, message=None):
         return render_template('cms/cms_login.html', message=message)
