@@ -53,6 +53,14 @@ class Config:
     QINIUACCESSKEY = '2zjylSQRNAPj-fa-ma_bXWUukD8eFEcNStWVDepY'
     QINIUACCESSKEYSECRET = 'SOrvIATcYYy_dsSL0xf7VBm7Uf_1JNJ5Q2b-4edv'
 
+    # UEditor编辑器配置
+    UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__),'images')
+    UEDITOR_UPLOAD_TO_QINIU = True
+    UEDITOR_QINIU_ACCESS_KEY = "2zjylSQRNAPj-fa-ma_bXWUukD8eFEcNStWVDepY"
+    UEDITOR_QINIU_SECRET_KEY = "SOrvIATcYYy_dsSL0xf7VBm7Uf_1JNJ5Q2b-4edv"
+    UEDITOR_QINIU_BUCKET_NAME = "forumfor"
+    UEDITOR_QINIU_DOMAIN = "http://pjchi93q1.bkt.clouddn.com/"
+
     @staticmethod
     def init_app(app):
         pass
