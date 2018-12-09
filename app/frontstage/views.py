@@ -43,6 +43,7 @@ def logout():
     return redirect(url_for('frontstage.index'))
 
 
+# 当发布一个帖子时，对应版块下的number+1
 class PostView(views.MethodView):
     decorators = [login_required]
     def get(self):
@@ -55,10 +56,12 @@ class PostView(views.MethodView):
             theme = form.theme.data
             content = form.content.data
             area_id = form.area_id.data
-            area = Area.query.get(area_id)
+            # 根据版块id找到对应的版块
+            area = Area.query.filter_by(id = area_id).first()
             if not area:
                 return restful.args_error("请输入已存在的版块！")
             post = Post(theme = theme, content = content)
+            area.number = area.number + 1
             post.area = area
             db.session.add(post)
             db.session.commit()
