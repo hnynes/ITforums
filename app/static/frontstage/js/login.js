@@ -34,7 +34,7 @@ $(function (){
                 }
             },
             'fail': function (error){
-                lgyalert.alertError("网络错误")
+                lgyalert.alertError("网络错误");
             }
         });
     });
