@@ -47,9 +47,12 @@ def create_app(config_name):
     from .frontstage import bp as front_bp
     from .cms import bp as cms_bp
     from .common import bp as common_bp
+    from .ueditor import bp as ue_bp
+
     # 注册路由
     app.register_blueprint(front_bp)
     app.register_blueprint(cms_bp)
     app.register_blueprint(common_bp)
+    app.register_blueprint(ue_bp)
 
     return app
