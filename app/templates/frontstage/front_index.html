@@ -62,13 +62,25 @@ ITforum
         </td>
         <tr class="down-container">
             <td class="forum_info">
-           帖子概况
+                <div class="post-group">
+                    <ul class="post-group-head">
+                        <li class="active"><a href="#">最新帖子</a></li>
+                        <li><a href="#">精品帖子</a></li>
+                    </ul>
+                    <ul class="post-list">
+                        {% for post in postlist %}
+                        <li><a href="#">{{ post.theme }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </td>
             <td class="forum_other">
-           其他
+                <div class="panel panel-danger">
+                    <div class="panel-heading">公告</div>
+                    <div class="panel-body">&emsp;&emsp;ITforum论坛开放了!!!欢迎大家使用!!!本项目的代码已开源,欢迎star和fork。<code>git clone https://github.com/superliuliuliu/ITforums.git</code></div>
+               </div>
             </td>
         </tr>
     </tr>
-
 </table>
 {% endblock %}

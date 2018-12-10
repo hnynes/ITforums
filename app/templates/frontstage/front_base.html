@@ -63,8 +63,8 @@
                             <span class="caret"></span>
                         </a>
                         <ul id="menu1" class="dropdown-menu" aria-labelledby="dropdown_user">
-                            <li><a href="#">个人信息</a></li>
-                            <li><a href="#">账号设置</a></li>
+                            <li><a href="{{ url_for('frontstage.userinfo') }}">个人信息</a></li>
+                            <li><a href="{{ url_for('frontstage.setting') }}">账号设置</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="{{ url_for('frontstage.logout') }}">退出登录</a></li>
                         </ul>

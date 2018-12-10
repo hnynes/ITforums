@@ -22,6 +22,7 @@ class Carousel(db.Model):
     weight = db.Column(db.Integer, default = 0)
     create_time = db.Column(db.DateTime, default = datetime.now)
 
+
 class Area(db.Model):
     __tablename__ = 'area'
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
@@ -37,4 +38,6 @@ class Post(db.Model):
     content = db.Column(db.Text, nullable = False )     #帖子的内容
     create_time = db.Column(db.DateTime, default = datetime.now)
     area_id = db.Column(db.Integer, db.ForeignKey("area.id")) # 外键
+    author_id = db.Column(db.String(64), db.ForeignKey("front_user.id"))
+    author = db.relationship('FrontUser', backref = 'posts')
     area = db.relationship('Area', backref = 'posts')    #定义版块和帖子的双向关系,即使area拥有posts属性能够查看版块下所含的帖子

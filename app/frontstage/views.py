@@ -27,9 +27,11 @@ bp = Blueprint('frontstage', __name__)
 def index():
     carousellist = Carousel.query.order_by(Carousel.weight.desc()).limit(3)
     arealist = Area.query.order_by(Area.number.desc()).limit(5)
+    postlist = Post.query.all()
     context = {
         'carousellist' : carousellist,
-        'arealist': arealist
+        'arealist': arealist,
+        'postlist': postlist
     }
     return render_template('frontstage/front_index.html', **context)
 
@@ -41,6 +43,17 @@ def index():
 def logout():
     del session[config['development'].FRONTUSERID]
     return redirect(url_for('frontstage.index'))
+
+# 用户个人信息路由
+@bp.route('/userinfo/')
+@login_required
+def userinfo():
+    return render_template('frontstage/front_userinfo.html')
+
+@bp.route('/setting/')
+@login_required
+def setting():
+    return render_template('frontstage/front_setting.html')
 
 
 # 当发布一个帖子时，对应版块下的number+1
@@ -63,6 +76,7 @@ class PostView(views.MethodView):
             post = Post(theme = theme, content = content)
             area.number = area.number + 1
             post.area = area
+            post.author = g.front_user
             db.session.add(post)
             db.session.commit()
             return restful.success()
