@@ -88,7 +88,7 @@ $(function (){
                     lgyalert.alertSuccessToast("注册成功");
                     var referer = $("#referer").text();
                     if (referer){
-                        window.location = referer;
+                        window.location = '/login/';
                     }
                     else{
                         window.location = '/';
