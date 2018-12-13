@@ -10,7 +10,7 @@
 #          By:
 # Description: 论坛首页的角色下的下拉菜单功能实现
 # **************************************************************************
-from flask import Blueprint, views, render_template, url_for, make_response, request, session, g, redirect
+from flask import Blueprint, views, render_template, url_for, make_response, request, session, g, redirect,abort
 from .forms import RegisterForm, LoginForm, PostForm
 from .. import db
 from utils import restful, mycache
@@ -18,6 +18,7 @@ from .models import FrontUser
 from ..models import Carousel, Area, Post
 from config import config
 from .decorators import login_required
+from flask_paginate import Pagination, get_page_parameter
 
 
 bp = Blueprint('frontstage', __name__)
@@ -25,13 +26,29 @@ bp = Blueprint('frontstage', __name__)
 # 论坛应用系统的首页不需要登录即可访问 指向路由
 @bp.route('/')
 def index():
+    #首先获取版块id 然后才将帖子页面跳转到相应的页面
+    area_id = request.args.get('id', type=int, default=None)
     carousellist = Carousel.query.order_by(Carousel.weight.desc()).limit(3)
     arealist = Area.query.order_by(Area.number.desc()).limit(5)
-    postlist = Post.query.all()
+    page = request.args.get(get_page_parameter(), type = int, default = 1)
+    start = (page-1)*8
+    end = start + 8
+    usercount = FrontUser.query.count()
+    if area_id:
+        postlist = Post.query.filter_by(area_id = area_id).order_by(Post.create_time.desc()).slice(start, end)
+        total = Post.query.filter_by(area_id = area_id).count()
+    else:
+        postlist = Post.query.order_by(Post.create_time.desc()).slice(start, end)
+        total = Post.query.count()
+    pagination = Pagination(bs_version=3, page=page, total = total, outer_window=0, inner_window=2)
+
     context = {
         'carousellist' : carousellist,
         'arealist': arealist,
-        'postlist': postlist
+        'postlist': postlist,
+        'pagination':pagination,
+        'current_area': area_id,
+        'usercount': usercount
     }
     return render_template('frontstage/front_index.html', **context)
 
@@ -54,6 +71,15 @@ def userinfo():
 @login_required
 def setting():
     return render_template('frontstage/front_setting.html')
+
+#查看帖子详情的视图函数
+@bp.route('/post/<post_id>/')
+def post_info(post_id):
+    post = Post.query.get(post_id)
+    if post:
+        return render_template('frontstage/front_post.html', post=post)
+    else:
+        abort(404) #跳转到404页面
 
 
 # 当发布一个帖子时，对应版块下的number+1

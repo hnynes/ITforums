@@ -23,3 +23,7 @@ def before_request():
         user = FrontUser.query.get(userid)
         if user:
             g.front_user = user
+
+@bp.errorhandler(404)
+def page_not_found():
+    return render_template('frontstage/404.html'),404
