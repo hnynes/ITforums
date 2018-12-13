@@ -42,7 +42,8 @@ class Config:
     CMS_USER_ID = 'ASDJASJDFFSAD'
     FRONTUSERID = 'SADWFFASDAVAF'
 
-    PER_PAGE = 12
+    # 帖子分页设置一页最多展示八篇帖子
+    PER_PAGE = 8
 
     # 阿里云注册账号通知短信服务接口相关信息
     ACCESSKEY = 'LTAI2cUh4boM8E2f'
