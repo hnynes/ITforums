@@ -1,0 +1,90 @@
+{% from 'common/macro.html' import findstatic %}
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="{{ findstatic('common/images/favicon.ico') }}">
+    <meta name="description" content="ITforum">
+    <meta name="author" content="superliuliuliu1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ findstatic('common/css/nav.css') }}">
+    <link rel="stylesheet" href="{{ findstatic('cms/css/footer1.css') }}">
+    <link rel="stylesheet" href="{{ findstatic('common/sweetalert/sweetalert.css') }}">
+    <link rel="stylesheet" href="{{ findstatic('frontstage/css/front_base.css') }}">
+
+    <script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--ajax方式提交表单的js文件-->
+    <script src="{{ findstatic('common/myajax.js') }}"></script>
+    <!--提示框的js文件-->
+    <script src="{{ findstatic('common/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ findstatic('common/sweetalert/myalert.js') }}"></script>
+    <script src="{{ findstatic('frontstage/js/param.js') }}"></script>
+    {% block head %}{% endblock %}
+
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top" style="background:#fff">
+        <div class="container-fluid col-md-offset-1 col-md-10">
+            <div class="navbar-header" style="padding-top:5px;">
+                <a class="navbar-brand" href="/" style="padding:0px">
+                    <img alt="ITforum" src="{{ findstatic('frontstage/images/head.jpg') }}" style="width:48px;">
+                </a>
+                <div class="navbar-brand" style="padding-top:2;padding-left:16px;margin-top:-12px;">
+                    <span style="font-size:20px;color:#EB5424"><b class="text-capitalize">ITforum</b></span>
+                    <br />
+                    <small style="font-size:10px">综合课题II设计</small>
+                </div>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#collapse-header" aria-expanded="false">
+                    <span class="sr-only"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse" id="collapse-header">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('frontstage.index') }}">社区</a></li>
+                    <li><a href="https://www.liugaoyang.xin">博客</a></li>
+                    <li><a href="#">精华帖子</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
+                    {% if g.front_user %}
+                    <!--li id="user-btn"><a href="#"></span>{{ g.front_user.username }}</a></li-->
+                    <li role="presentation" class="dropdown">
+                        <a id="dropdown_user" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true">{{ g.front_user.username }}
+                            <span class="caret"></span>
+                        </a>
+                        <ul id="menu1" class="dropdown-menu" aria-labelledby="dropdown_user">
+                            <li><a href="{{ url_for('frontstage.userinfo') }}">个人信息</a></li>
+                            <li><a href="{{ url_for('frontstage.setting') }}">账号设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="{{ url_for('frontstage.logout') }}">退出登录</a></li>
+                        </ul>
+                    </li>
+                    {% else %}
+                    <a class="btn btn-default btn-sm navbar-btn" href="{{ url_for('frontstage.register') }}">注册</a>
+                    <a class="btn btn-default btn-sm navbar-btn" href="{{ url_for('frontstage.login') }}">登录</a>
+                    {% endif %}
+                </ul>
+                <form action="/search" class="navbar-form navbar-right" style="margin-top:10px;">
+                    <div class="form-group has-feedback">
+                        <input class="form-control input-sm" name="keyword" placeholder="搜索内容" type="text" value="">
+                        <i class="fa fa-search form-control-feedback"></i>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!--论坛系统的据网站顶部的举例为85px-->
+    {% block main %}{% endblock %}
+</body>
+
+</html>
