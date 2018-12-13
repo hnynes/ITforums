@@ -28,12 +28,16 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
+    background-color:#f7fafb;
 }
 
 .post-group-head{
     overflow: hidden;
     margin: 0 10px;
-    padding-bottom: 10px;
+}
+
+.post-list{
+    background-color:white;
 }
 
 .post-group-head li{
@@ -46,7 +50,7 @@
 }
 
 .post-group-head li.active{
-    background: #ccc;
+    background: white;
 }
 
 .forum_other{
@@ -78,4 +82,25 @@
 
 .send_btn{
     height: 18%;
+}
+
+.forum_item_block{
+    width: 100%;
+    padding:10px 10px 5px 10px;
+    border-bottom: 2px solid #f7fafb
+}
+
+.forum_item_block:hover{
+    background-color: #f7f7f7;
+}
+
+.user_photo{
+    width:40px;
+    height:40px;
+}
+
+.forum_description{
+    margin-left:50px;
+    margin-top:5px;
+    margin-bottom:5px;
 }
