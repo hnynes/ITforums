@@ -15,7 +15,7 @@ import os
 from app import create_app, db
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
-from app.models import Carousel
+from app.models import Carousel, Area, Post
 from app.frontstage import models as front_models
 from app.cms import models as cms_models
 
@@ -63,6 +63,22 @@ def create_role():
     db.session.add_all([Visitor, Admin, Leader, Root])
     db.session.commit()
 
+# 生成测试帖子，以测试前端的设计效果
+@manager.command
+def create_testpost():
+    # 执行一次生成20篇测试帖子
+    for i in range(2, 20):
+        theme = "测试帖子%s" %i
+        content = "这只是测试数据，后期会删除 %s" %i
+        area = Area.query.first()
+        author = FrontUser.query.first()
+        post = Post(theme=theme, content=content)
+        post.area = area
+        area.number = area.number + 1
+        post.author = author
+        db.session.add(post)
+        db.session.commit()
+    print("测试数据添加完成")
 
 # 为用户分配权限
 @manager.option('-e','--email',dest='email')
