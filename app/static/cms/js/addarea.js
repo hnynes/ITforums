@@ -35,11 +35,11 @@ $(function (){
                     window.location.reload();
                 }
                 else{
-                    lgyalert.alertInfo(data['message'])
+                    lgyalert.alertInfo(data['message']);
                 }
             },
             'fail': function(error){
-                lgyalert.alertError("网络错误")
+                lgyalert.alertError("网络错误");
             }
         });
 
