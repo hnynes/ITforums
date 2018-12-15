@@ -14,7 +14,7 @@
 from flask import Blueprint, views, render_template, request, session, redirect, url_for, g, jsonify
 from .forms import LoginForm, ResetPwdForm, ResetEmailForm, AddCarouselForm, UpdateCarouselForm, AddAreaForm, UpdateAreaForm
 from .models import CMSUser, CMSpower
-from ..models import Carousel, Area
+from ..models import Carousel, Area, Post, Plusfine
 from ..frontstage.models import FrontUser
 from .decorators import login_required, power_required
 from config import config
@@ -24,6 +24,7 @@ from utils import restful, mycache
 from ..email import send_mail
 import string
 import random
+from flask_paginate import Pagination, get_page_parameter
 
 bp = Blueprint('cms', __name__, url_prefix='/cms')
 
@@ -31,6 +32,7 @@ bp = Blueprint('cms', __name__, url_prefix='/cms')
 @login_required
 def index():
     return render_template('cms/cms_index.html')
+
 
 # 个人信息的路由
 @bp.route('/selfinfo/')
@@ -47,6 +49,7 @@ def carousel():
     carousellist = Carousel.query.order_by(Carousel.weight.desc()).all()
     return render_template('cms/cms_carousel.html', carousellist = carousellist)
 
+
 # 版块管理的路由
 @bp.route('/area/')
 @login_required
@@ -55,12 +58,14 @@ def area():
     arealist = Area.query.order_by(Area.id.desc()).all()
     return render_template('cms/cms_area.html', arealist = arealist)
 
+
 # 管理管理员的路由
 @bp.route('/mancms/')
 @login_required
 @power_required(CMSpower.CMSUSER)
 def mancmsuser():
     return render_template('cms/cms_cmsuser.html')
+
 
 # 评论管理的路由
 @bp.route('/comment/')
@@ -69,12 +74,65 @@ def mancmsuser():
 def comment():
     return render_template('cms/cms_comment.html')
 
+
 # 帖子管理的路由
 @bp.route('/forum/')
 @login_required
 @power_required(CMSpower.FORUM)
 def forum():
-    return render_template('cms/cms_forum.html')
+    page = request.args.get(get_page_parameter(), type = int, default = 1)
+    start = (page-1)*8
+    end = start + 8
+    postlist = Post.query.order_by(Post.create_time.desc()).slice(start, end)
+    total = Post.query.count()
+    pagination = Pagination(bs_version=3, page=page, total = total, outer_window=0, inner_window=2)
+
+    context = {
+        'postlist': postlist,
+        'pagination':pagination
+    }
+    return render_template('cms/cms_forum.html', **context)
+
+
+# 帖子加精对应的路由
+@bp.route('/fineforum/',methods=['POST'])
+@login_required
+@power_required(CMSpower.FORUM)
+def finefroum():
+    # 帖子加精的话会提交一个含有帖子id的表单
+    post_id = request.form.get("post_id")
+    if post_id:
+        post = Post.query.get(post_id)
+        if not post:
+            return restful.args_error("没有这个帖子")
+        else:
+            plusfine = Plusfine()
+            plusfine.post = post
+            db.session.add(post)
+            db.session.commit()
+            return restful.success()
+    else:
+        return restful.args_error("表单数据传输错误")
+
+
+# 取消帖子的加精
+@bp.route('/disfineforum/',methods=['POST'])
+@login_required
+@power_required(CMSpower.FORUM)
+def disfineforum():
+    post_id = request.form.get("post_id")
+    if post_id:
+        post = Post.query.get(post_id)
+        if not post:
+            return restful.args_error("没有这个帖子")
+        else:
+            plusfine = Plusfine.query.filter_by(post_id = post_id).first()
+            db.session.delete(plusfine)
+            db.session.commit()
+            return restful.success()
+    else:
+        return restful.args_error("表单数据传输错误")
+
 
 # 用户管理的路由
 @bp.route('/user/')
@@ -83,6 +141,7 @@ def forum():
 def user():
     userlist = FrontUser.query.order_by(FrontUser.join_time.desc()).all()
     return render_template('cms/cms_frontuser.html', userlist = userlist)
+
 
 # 用户组管理的路由
 @bp.route('/auth/')
@@ -98,6 +157,7 @@ def auth():
 def logout():
     logout_user()
     return redirect(url_for('cms.login'))
+
 
 # 发送邮箱验证码 此路由对应 修改邮箱页面点击发送验证码的逻辑  并将生成的邮箱和对应的验证码存储到memcached中，设置过期时间为60秒
 @bp.route('/sendcaptcha/')
@@ -137,6 +197,7 @@ def addcarousel():
     else:
         return restful.args_error(form.get_error())
 
+
 # 点击编辑轮播图按钮 后台响应对数据库中的数据进行修改
 @bp.route('/ucarousel/', methods=['POST'])
 @login_required
@@ -175,6 +236,7 @@ def delcarousel():
     else:
         return restful.args_error("没有这个轮播图")
 
+
 # 点击新增版块按钮  后台响应将其提交到数据库中,web以post的方式传送数据到后端
 @bp.route('/addarea/', methods=['POST'])
 @login_required
@@ -189,6 +251,7 @@ def addarea():
         return restful.success()
     else:
         return restful.args_error(form.get_error())
+
 
 # 点击编辑版块按钮 后台响应对数据库中的数据进行修改
 @bp.route('/uarea/', methods=['POST'])
@@ -249,6 +312,7 @@ class LoginView(views.MethodView):
             #利用popitem获取列表中的第一个错误信息[1]代表错误信息的value,[0]代表将错误信息以字符串的形式提取出来
             return self.get(message=message)
 
+
 # 重置密码的视图类
 class ResetPasswordView(views.MethodView):
     decorators = [login_required]
@@ -275,6 +339,7 @@ class ResetPasswordView(views.MethodView):
         else:
             message = form.get_error()
             return restful.args_error(message=message)
+
 
 class ResetEmailView(views.MethodView):
     decorators = [login_required]
