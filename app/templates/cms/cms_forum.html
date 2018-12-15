@@ -1,4 +1,5 @@
 {% extends "cms/cms_base.html" %}
+{% from 'common/macro.html' import findstatic %}
 
 
 {% block title -%}
@@ -6,7 +7,7 @@
 {%- endblock %}
 
 {% block head %}
-
+<script src="{{ findstatic('cms/js/manposts.js') }}"></script>
 {% endblock %}
 
 
@@ -25,5 +26,27 @@
             <th><small>操作</small></th>
         </tr>
     </thead>
+    <tbody>
+        {% for post in postlist %}
+            <tr data-id="{{ post.id }}" data-jingpin="{{ 1 if post.plusfine else 0 }}">
+                <td><a target="_blank" href="#">{{ post.theme }}</a></td><!--能直接跳转到帖子的详情页面-->
+                <td>{{ post.create_time }}</td>
+                <td>{{ post.area.name }}</td>
+                <td>{{ post.author.username }}</td>
+                <td>
+                    <!--因为一个页面下有很多个帖子，所以是使用类来标明-->
+                    {% if post.plusfine %}
+                    <button class="btn btn-default btn-xs fine-btn">取消加精</button>
+                    {% else %}
+                    <button class="btn btn-default btn-xs fine-btn">加精</button>
+                    {% endif %}
+                    <button class="btn btn-danger btn-xs delete-btn">删除</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    <div style="text-align:center;">
+        {{ pagination.links }}
+    </div>
 </table>
 {% endblock %}
