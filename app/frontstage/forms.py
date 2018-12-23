@@ -40,6 +40,11 @@ class LoginForm(BaseForm):
 
 # 发布帖子使用的表单
 class PostForm(BaseForm):
-    theme = StringField(validators=[InputRequired(message="请输入帖子的主题！")])
-    content = StringField(validators=[InputRequired(message="请输入正文！")])
+    theme = StringField(validators=[InputRequired(message="缺少帖子主题！")])
+    content = StringField(validators=[InputRequired(message="缺少帖子正文！")])
     area_id = IntegerField(validators=[InputRequired(message="请指定帖子所属版块！")])
+
+
+class CommentForm(BaseForm):
+    content = StringField(validators=[InputRequired(message="缺少评论正文！")])
+    post_id = IntegerField(validators=[InputRequired(message="缺少帖子ID")])

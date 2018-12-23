@@ -42,6 +42,7 @@ class Post(db.Model):
     author = db.relationship('FrontUser', backref = 'posts')
     area = db.relationship('Area', backref = 'posts')    #定义版块和帖子的双向关系,即使area拥有posts属性能够查看版块下所含的帖子
 
+
 # 新建一个数据库表单用来记录帖子的加精时间
 class Plusfine(db.Model):
     __tablename__ = 'fineforums'
@@ -49,3 +50,14 @@ class Plusfine(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey("Post.id"))
     create_time = db.Column(db.DateTime, default = datetime.now)
     post = db.relationship('Post', backref = 'plusfine')
+
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key = True, autoincrement = True)
+    content = db.Column(db.Text, nullable = False )
+    create_time = db.Column(db.DateTime, default = datetime.now)
+    author_id = db.Column(db.String(64), db.ForeignKey("front_user.id"))
+    author = db.relationship('FrontUser', backref = 'comments')
+    post_id = db.Column(db.Integer, db.ForeignKey("Post.id"))
+    post = db.relationship('Post', backref = 'comments')

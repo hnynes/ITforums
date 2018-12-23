@@ -12,7 +12,7 @@
 # **************************************************************************
 
 from .views import bp
-from flask import g, session
+from flask import g, session, render_template
 from .models import FrontUser
 from config import config
 
@@ -24,6 +24,7 @@ def before_request():
         if user:
             g.front_user = user
 
+
 @bp.errorhandler(404)
-def page_not_found():
-    return render_template('frontstage/404.html'),404
+def page_not_found(self):
+    return render_template('frontstage/404.html'), 404
