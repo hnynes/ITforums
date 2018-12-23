@@ -11,11 +11,11 @@
 # Description: 论坛首页的角色下的下拉菜单功能实现
 # **************************************************************************
 from flask import Blueprint, views, render_template, url_for, make_response, request, session, g, redirect,abort
-from .forms import RegisterForm, LoginForm, PostForm
+from .forms import RegisterForm, LoginForm, PostForm, CommentForm
 from .. import db
 from utils import restful, mycache
 from .models import FrontUser
-from ..models import Carousel, Area, Post
+from ..models import Carousel, Area, Post, Comment
 from config import config
 from .decorators import login_required
 from flask_paginate import Pagination, get_page_parameter
@@ -79,7 +79,29 @@ def post_info(post_id):
     if post:
         return render_template('frontstage/front_post.html', post=post)
     else:
-        abort(404) #跳转到404页面
+        abort(404)
+
+
+#用户在帖子下面发表评论
+@bp.route('/addcomment/', methods=['POST'])
+@login_required
+def addcomment():
+    form = CommentForm(request.form)
+    if form.validate():
+        content = form.content.data
+        post_id = form.post_id.data
+        post = Post.query.get(post_id)
+        if post:
+            comment = Comment(content = content)
+            comment.author = g.front_user
+            comment.post = post
+            db.session.add(comment)
+            db.sessiom.commit()
+            return restful.success()
+        else:
+            return restful.args_error("帖子不存在！")
+    else:
+        return restful.args_error(form.get_error())
 
 
 # 当发布一个帖子时，对应版块下的number+1
@@ -90,7 +112,7 @@ class PostView(views.MethodView):
         return render_template('frontstage/front_addpost.html', arealist = arealist)
 
     def post(self):
-        form  = PostForm(request.form)
+        form = PostForm(request.form)
         if form.validate():
             theme = form.theme.data
             content = form.content.data

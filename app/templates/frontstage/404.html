@@ -1,13 +1,26 @@
 {% from 'common/macro.html' import findstatic %}
-{% extends "frontstage/front_base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>404 Error</title>
+    <link rel="icon" href="{{ findstatic('common/images/favicon.ico') }}">
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ findstatic('common/css/style.css') }}" type="text/css">
+</head>
+<body>
+<main class="container">
+    <header>
+        <h1 class="text-center display-4">
+            <a href="{{ url_for('frontstage.index') }}" class="text-success"><strong>404 </strong></a>
+            <small class="text-muted sub-title">Page not find!</small>
+        </h1>
+    </header>
+</main>
+<script src="http://cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+<script src="http://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ findstatic('common/js/popper.min.js') }}"></script>
+</body>
 
-
-{% block title %}404{% endblock %}
-
-{% block head -%}
-{%- endblock %}
-
-
-{% block main %}
-<h1>Page not find!</h1>
-{% endblock %}
+</html>
