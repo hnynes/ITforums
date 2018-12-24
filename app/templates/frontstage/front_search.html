@@ -1,0 +1,33 @@
+{% extends "frontstage/front_base.html" %}
+{% from 'common/macro.html' import findstatic %}
+
+{% block title %}Search: {{ keyword }}{% endblock %}
+
+{% block main %}
+    <div class="page-header">
+        <h1>Search: {{ keyword }}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="nav nav-pills flex-column" role="tablist" aria-orientation="vertical">
+                <a class="nav-item nav-link {% if category == 'post' %}active{% endif %}"
+                   href="{{ url_for('.search', keyword=keyword, category='post') }}">Post</a>
+                <a class="nav-item nav-link {% if category == 'user' %}active{% endif %}"
+                   href="{{ url_for('.search', keyword=keyword, category='user') }}">User</a>
+                <a class="nav-item nav-link {% if category == 'area' %}active{% endif %}"
+                   href="{{ url_for('.search', keyword=keyword, category='area') }}">Area</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            {% if total != 0 %}
+               <h5>{{ total }} results</h5>
+           {% else %}
+               <h5 class="tip">No results.</h5>
+               <h5>{{ keyword }}</h5>
+           {% endif %}
+           <div style="text-align:center;">
+               {{ pagination.links }}
+           </div>
+        </div>
+    </div>
+{% endblock %}
