@@ -67,14 +67,14 @@ def search():
     category = request.args.get('category', 'post')
     # 判断用户要在哪个指定区域查询
     if category == 'user':
-        resultlist = FrontUser.query.whooshee_search(keyword).order_by(FrontUser.join_time.desc()).slice(start, end)
-        total = FrontUser.query.whooshee_search(keyword).count()
+        resultlist = FrontUser.query.whoosh_search(keyword).order_by(FrontUser.join_time.desc()).slice(start, end)
+        total = FrontUser.query.whoosh_search(keyword).count()
     elif category == 'area':
-        resultlist = Area.query.whooshee_search(keyword).order_by(Area.number.desc()).slice(start, end)
-        total = Area.query.whooshee_search(keyword).count()
+        resultlist = Area.query.whoosh_search(keyword).order_by(Area.number.desc()).slice(start, end)
+        total = Area.query.whoosh_search(keyword).count()
     else:
-        resultlist = Post.query.whooshee_search(keyword).order_by(Post.create_time.desc()).slice(start, end)
-        total = Post.query.whooshee_search(keyword).count()
+        resultlist = Post.query.whoosh_search(keyword).order_by(Post.create_time.desc()).slice(start, end)
+        total = Post.query.whoosh_search(keyword).count()
 
     pagination = Pagination(bs_version=3, page=page, total = total, outer_window=0, inner_window=2)
 
@@ -153,6 +153,8 @@ class PostView(views.MethodView):
             post.area = area
             post.author = g.front_user
             db.session.add(post)
+            import flask_whooshalchemyplus
+            flask_whooshalchemyplus.index_one_model(Post)
             db.session.commit()
             return restful.success()
         else:
@@ -178,6 +180,8 @@ class RegisterView(views.MethodView):
             user = FrontUser(telephone = telephone, username = username, password = password)
             db.session.add(user)
             db.session.commit()
+            import flask_whooshalchemyplus
+            flask_whooshalchemyplus.index_one_model(FrontUser)
             return restful.success()
         else:
             return restful.args_error(message = form.get_error())

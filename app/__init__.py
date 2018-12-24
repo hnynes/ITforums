@@ -18,6 +18,7 @@ from flask_mail import Mail
 from flask_login import LoginManager
 from config import config #导入的即congfig.py中的数据字典
 from flask_wtf import CSRFProtect
+import flask_whooshalchemyplus
 
 
 #导入使用的应用扩展，由于应用实例还未创建所以在这里创建扩展类的时候并没有向构造函数传入参数
@@ -35,14 +36,13 @@ def create_app(config_name):
     app = Flask(__name__)
     #将配置文件加载到app之中
     app.config.from_object(config[config_name])
-
     config[config_name].init_app(app)
-
     bootstrap.init_app(app)
     mail.init_app(app)
     db.init_app(app)
     login_manager.init_app(app)
     CSRFProtect(app)
+    flask_whooshalchemyplus.init_app(app)
 
     #在此处添加路由
     from .frontstage import bp as front_bp

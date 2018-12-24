@@ -16,6 +16,7 @@ import shortuuid
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import enum
+from jieba.analyse.analyzer import ChineseAnalyzer
 
 # 定义一个枚举变量
 class Gender(enum.Enum):
@@ -26,6 +27,8 @@ class Gender(enum.Enum):
 
 class FrontUser(db.Model):
     __tablename__ = 'front_user'
+    __searchable__ = ['telephone', 'username']
+    __analyzer__ = ChineseAnalyzer()
     id = db.Column(db.String(30), primary_key = True, default = shortuuid.uuid)
     telephone = db.Column(db.String(20),nullable = False, unique=True, index = True) # 手机号码
     username = db.Column(db.String(64), nullable = False, unique = True, index = True)

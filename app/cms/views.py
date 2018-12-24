@@ -247,6 +247,8 @@ def addarea():
         name = form.name.data
         area = Area(name = name)
         db.session.add(area)
+        import flask_whooshalchemyplus
+        flask_whooshalchemyplus.index_one_model(Area)
         db.session.commit()
         return restful.success()
     else:

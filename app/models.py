@@ -8,10 +8,11 @@
 # Created: 2018-11-11 10:12:50 (CST)
 # Last Update:2018-12-9
 #          By:
-# Description:为了实现全站搜索功能向数据库模型中增加索引
+# Description:为了实现全站中文搜索功能 增加jieba中文分词的使用
 # **************************************************************************
 from . import db
 from datetime import datetime
+from jieba.analyse.analyzer import ChineseAnalyzer
 
 
 class Carousel(db.Model):
@@ -26,6 +27,8 @@ class Carousel(db.Model):
 
 class Area(db.Model):
     __tablename__ = 'area'
+    __searchable__ = ['name']
+    __analyzer__ = ChineseAnalyzer()
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     name = db.Column(db.String(256), nullable = False, unique = True, index = True)
     number = db.Column(db.Integer, default = 0)
@@ -34,6 +37,8 @@ class Area(db.Model):
 
 class Post(db.Model):
     __tablename__ = 'Post'
+    __searchable__ = ['theme', 'content']
+    __analyzer__ = ChineseAnalyzer()
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
     theme = db.Column(db.String(150), nullable = False, unique = True, index = True) #帖子的主题
     content = db.Column(db.Text, nullable = False)     #帖子的内容
