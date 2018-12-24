@@ -12,7 +12,6 @@
 # **************************************************************************
 from . import db
 from datetime import datetime
-from . import whooshee
 
 
 class Carousel(db.Model):
