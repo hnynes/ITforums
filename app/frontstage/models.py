@@ -12,6 +12,7 @@
 # ***************************************************************************
 
 from .. import db
+from .. import whooshee
 import shortuuid
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -24,11 +25,12 @@ class Gender(enum.Enum):
     SECRET = 3
     UNKOWN = 4 #对应用户注册时没有填写的情况
 
+@whooshee.register_model('telephone', 'username')
 class FrontUser(db.Model):
     __tablename__ = 'front_user'
     id = db.Column(db.String(30), primary_key = True, default = shortuuid.uuid)
-    telephone = db.Column(db.String(20),nullable=False,unique=True) # 手机号码
-    username = db.Column(db.String(64), nullable = False, unique = True)
+    telephone = db.Column(db.String(20),nullable = False, unique=True, index = True) # 手机号码
+    username = db.Column(db.String(64), nullable = False, unique = True, index = True)
     password_hash = db.Column(db.String(100), nullable = False)
     email = db.Column(db.String(64), unique = True)
     join_time = db.Column(db.DateTime, default = datetime.now)
