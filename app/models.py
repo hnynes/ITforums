@@ -25,7 +25,6 @@ class Carousel(db.Model):
     create_time = db.Column(db.DateTime, default = datetime.now)
 
 
-@whooshee.register_model('name')
 class Area(db.Model):
     __tablename__ = 'area'
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
@@ -34,7 +33,6 @@ class Area(db.Model):
     create_time = db.Column(db.DateTime, default = datetime.now)
 
 
-@whooshee.register_model('theme')
 class Post(db.Model):
     __tablename__ = 'Post'
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)

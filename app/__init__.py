@@ -18,7 +18,6 @@ from flask_mail import Mail
 from flask_login import LoginManager
 from config import config #导入的即congfig.py中的数据字典
 from flask_wtf import CSRFProtect
-from flask_whooshee import Whooshee
 
 
 #导入使用的应用扩展，由于应用实例还未创建所以在这里创建扩展类的时候并没有向构造函数传入参数
@@ -26,7 +25,6 @@ bootstrap = Bootstrap()
 db = SQLAlchemy()
 mail = Mail()
 login_manager = LoginManager()
-whooshee = Whooshee()
 
 #当有匿名用户想要访问受保护的页面之时
 login_manager.login_view = 'frontstage.login'
@@ -45,7 +43,6 @@ def create_app(config_name):
     db.init_app(app)
     login_manager.init_app(app)
     CSRFProtect(app)
-    whooshee.init_app(app)
 
     #在此处添加路由
     from .frontstage import bp as front_bp

@@ -25,7 +25,6 @@ class Gender(enum.Enum):
     SECRET = 3
     UNKOWN = 4 #对应用户注册时没有填写的情况
 
-@whooshee.register_model('telephone', 'username')
 class FrontUser(db.Model):
     __tablename__ = 'front_user'
     id = db.Column(db.String(30), primary_key = True, default = shortuuid.uuid)
