@@ -8,10 +8,12 @@
 # Created: 2018-11-11 10:12:50 (CST)
 # Last Update:2018-12-9
 #          By:
-# Description:新建用来存储帖子信息的模型
+# Description:为了实现全站搜索功能向数据库模型中增加索引
 # **************************************************************************
 from . import db
 from datetime import datetime
+from . import whooshee
+
 
 class Carousel(db.Model):
     __tablename__ = 'Carousel'
@@ -23,19 +25,21 @@ class Carousel(db.Model):
     create_time = db.Column(db.DateTime, default = datetime.now)
 
 
+@whooshee.register_model('name')
 class Area(db.Model):
     __tablename__ = 'area'
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    name = db.Column(db.String(256), nullable = False)
+    name = db.Column(db.String(256), nullable = False, unique = True, index = True)
     number = db.Column(db.Integer, default = 0)
     create_time = db.Column(db.DateTime, default = datetime.now)
 
 
+@whooshee.register_model('theme')
 class Post(db.Model):
     __tablename__ = 'Post'
     id = db.Column(db.Integer, primary_key = True, autoincrement = True)
-    theme = db.Column(db.String(150), nullable = False) #帖子的主题
-    content = db.Column(db.Text, nullable = False )     #帖子的内容
+    theme = db.Column(db.String(150), nullable = False, unique = True, index = True) #帖子的主题
+    content = db.Column(db.Text, nullable = False)     #帖子的内容
     create_time = db.Column(db.DateTime, default = datetime.now)
     area_id = db.Column(db.Integer, db.ForeignKey("area.id")) # 外键
     author_id = db.Column(db.String(64), db.ForeignKey("front_user.id"))
