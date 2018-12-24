@@ -65,16 +65,16 @@ def search():
     start = (page-1)*8
     end = start + 8
     category = request.args.get('category', 'post')
-    # 判断用户要在哪个指定区域查询
+    # 判断用户要在哪个指定区域查询(支持模糊搜索)
     if category == 'user':
-        resultlist = FrontUser.query.whoosh_search(keyword).order_by(FrontUser.join_time.desc()).slice(start, end)
-        total = FrontUser.query.whoosh_search(keyword).count()
+        resultlist = FrontUser.query.whoosh_search(keyword, like=True).order_by(FrontUser.join_time.desc()).slice(start, end)
+        total = FrontUser.query.whoosh_search(keyword, like=True).count()
     elif category == 'area':
-        resultlist = Area.query.whoosh_search(keyword).order_by(Area.number.desc()).slice(start, end)
-        total = Area.query.whoosh_search(keyword).count()
+        resultlist = Area.query.whoosh_search(keyword, like=True).order_by(Area.number.desc()).slice(start, end)
+        total = Area.query.whoosh_search(keyword, like=True).count()
     else:
-        resultlist = Post.query.whoosh_search(keyword).order_by(Post.create_time.desc()).slice(start, end)
-        total = Post.query.whoosh_search(keyword).count()
+        resultlist = Post.query.whoosh_search(keyword, like=True).order_by(Post.create_time.desc()).slice(start, end)
+        total = Post.query.whoosh_search(keyword, like=True).count()
 
     pagination = Pagination(bs_version=3, page=page, total = total, outer_window=0, inner_window=2)
 
