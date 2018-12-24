@@ -33,15 +33,15 @@ def index():
     page = request.args.get(get_page_parameter(), type = int, default = 1)
     start = (page-1)*8
     end = start + 8
-    usercount = FrontUser.query.count()
+    usercount = FrontUser.query.count() #用于统计网站的注册人数
     if area_id:
         postlist = Post.query.filter_by(area_id = area_id).order_by(Post.create_time.desc()).slice(start, end)
         total = Post.query.filter_by(area_id = area_id).count()
     else:
         postlist = Post.query.order_by(Post.create_time.desc()).slice(start, end)
         total = Post.query.count()
+    # 第一个参数指代的是bootstarp的版本为v3
     pagination = Pagination(bs_version=3, page=page, total = total, outer_window=0, inner_window=2)
-
     context = {
         'carousellist' : carousellist,
         'arealist': arealist,
@@ -52,6 +52,33 @@ def index():
     }
     return render_template('frontstage/front_index.html', **context)
 
+
+# 全站的搜索功能，此功能无需登录就能使用
+@bp.route('/search')
+def search():
+    # 从输入框中获取数据，数据默认为空
+    keyword = request.args.get('keyword', '')
+    if keyword == '':
+        # 如果输入框的内容为空则跳过不做处理
+        pass
+    page = request.args.get(get_page_parameter(), type = int, default = 1)
+    start = (page-1)*8
+    end = start + 8
+    category = request.args.get('category', 'post')
+    # 判断用户要在哪个指定区域查询
+    if category == 'user':
+        resultlist = FrontUser.query.whooshee_search(keyword).order_by(FrontUser.join_time.desc()).slice(start, end)
+        total = FrontUser.query.whooshee_search(keyword).count()
+    elif category == 'area':
+        resultlist = Area.query.whooshee_search(keyword).order_by(Area.number.desc()).slice(start, end)
+        total = Area.query.whooshee_search(keyword).count()
+    else:
+        resultlist = Post.query.whooshee_search(keyword).order_by(Post.create_time.desc()).slice(start, end)
+        total = Post.query.whooshee_search(keyword).count()
+
+    pagination = Pagination(bs_version=3, page=page, total = total, outer_window=0, inner_window=2)
+
+    return render_template('frontstage/front_search.html', resultlist=resultlist, keyword=keyword, total=total, category=category, pagination=pagination)
 
 # 用户选择注销登录
 # 实现该功能即在服务器端清楚以保存的session
