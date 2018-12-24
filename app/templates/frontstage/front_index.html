@@ -55,7 +55,7 @@ ITforum
                             {% if area.id == current_area %}
                         <a href="{{ url_for('frontstage.index', id = area.id) }}" class="list-group-item list-group-item-warning"><span class="badge">{{ area.number }}</span>{{ area.name }}</a>
                             {% else %}
-                        <a href="{{ url_for('frontstage.index', id = area.id) }}" class="list-group-item"><span class="badge">{{ area.number }}</span>{{ area.name }}</a>
+                        <a href="{{ url_for('frontstage.index', id = area.id) }}" class="list-group-item">{{ area.name }}<span class="badge">{{ area.number }}</span></a>
                             {% endif %}
                         {% endfor %}
                 </div>
@@ -79,7 +79,7 @@ ITforum
                                     <img class="user_photo" src="{{ findstatic('frontstage/images/head.jpg') }}">                       <!- 此处为用户头像以及空间跳转链接->
                                 </a>
                                 <h3 style="display: inline-block;vertical-align: top;"><a style="margin-left: 5px" href="#">{{ post.theme }}</a>
-                                {% if post.plusfine %}<span class="label label-danger">精</span>{% endif %}
+                                {% if post.plusfine %}<span style="padding: .2em .3em .3em; font-weight:100;font-size: 70%;" class="label label-danger">精</span>{% endif %}
                                 </h3>
                             </div>
                             <div class="forum_description">

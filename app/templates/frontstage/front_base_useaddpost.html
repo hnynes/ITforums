@@ -59,8 +59,7 @@
                     {% if g.front_user %}
                     <!--li id="user-btn"><a href="#"></span>{{ g.front_user.username }}</a></li-->
                     <li role="presentation" class="dropdown">
-                        <a id="dropdown_user" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                            <span class="glyphicon glyphicon-user" aria-hidden="true">{{ g.front_user.username }}</span>
+                        <a id="dropdown_user" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true">{{ g.front_user.username }}
                             <span class="caret"></span>
                         </a>
                         <ul id="menu1" class="dropdown-menu" aria-labelledby="dropdown_user">
@@ -75,7 +74,7 @@
                     <a class="btn btn-default btn-sm navbar-btn" href="{{ url_for('frontstage.login') }}">登录</a>
                     {% endif %}
                 </ul>
-                <form action="{{ url_for('frontstage.search') }}" class="navbar-form navbar-right" style="margin-top:10px;">
+                <form action="/search" class="navbar-form navbar-right" style="margin-top:10px;">
                     <div class="form-group has-feedback">
                         <input class="form-control input-sm" name="keyword" placeholder="搜索内容" type="text" value="">
                         <i class="fa fa-search form-control-feedback"></i>
@@ -86,14 +85,6 @@
     </nav>
     <!--论坛系统的据网站顶部的举例为85px-->
     {% block main %}{% endblock %}
-    <!--底部版权框-->
-    <footer class="footer">
-        <div class="container">
-            <p style="text-align: center;" class="text-muted">Copyright &copy; 2018 ITforum <a href="https://github.com/superliuliuliu/ITforums.git">Fork
-                    me on the Github </a></p>
-        </div>
-    </footer>
-
 </body>
 
 </html>

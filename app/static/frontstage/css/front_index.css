@@ -17,7 +17,7 @@
 
 .forum_info{
     width:70%;
-   height:1200px;
+   height:100%;
     background-color: #FFFFFF;
     margin-top: 40px;
     float:left;
@@ -28,7 +28,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
-    background-color:#f7fafb;
+    background-color:white;
 }
 
 .post-group-head{
@@ -50,14 +50,14 @@
 }
 
 .post-group-head li.active{
-    background: white;
+    background: lightgray;
 }
 
 .forum_other{
     width:25%;
     height:1200px;
     background-color: #FFFFFF;
-    margin-top: 50px;
+    margin-top: 40px;
     float:right;
 }
 
@@ -76,9 +76,19 @@
 .list-group-item{
     width: 100%;
     height:16.6%;
-    padding:5px 10px;
-
+    padding:0px 10px;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    justify-content: space-between;
 }
+
+.list-group-type{
+    margin-left:5px;
+    width:95%
+}
+
+
 
 .send_btn{
     height: 18%;
@@ -105,18 +115,17 @@
     margin-bottom:5px;
 }
 
-.pagination-page-info {
-    padding: .6em;
-    padding-left: 0;
-    width: 40em;
-    margin: .5em;
-    margin-left: 0;
-    font-size: 12px;
+.forum_count{
+    height:200px;
+    margin-top:50px;
+    border-radius: 7px;
+    background-color: #00a0e9;
 }
-.pagination-page-info b {
-    color: black;
-    background: #6aa6ed;
-    padding-left: 2px;
-    padding: .1em .25em;
-    font-size: 150%;
+
+.forum_count_head{
+    padding:10px 0;
+    text-align:center;
+    height:30px;
+    line-heght:30px;
+    vertical-align: middle;
 }
