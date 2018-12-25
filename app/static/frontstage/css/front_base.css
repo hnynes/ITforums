@@ -7,11 +7,10 @@ a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, bo
 }
 
 .main-container{
-    float: left;
-    width: 83%;
+    width: 1200px;
     margin-top: 80px;
-    margin-left: 6%;
-    margin-right:8%;
+    margin-left: auto;
+    margin-right:auto;
 }
 
 .up-container{
