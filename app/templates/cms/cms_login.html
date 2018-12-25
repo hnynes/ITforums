@@ -1,64 +1,66 @@
 {% from "common/macro.html" import findstatic %}
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="{{ findstatic('common/images/favicon.ico') }}">
 
-    <title>ITFORUM论坛后台登录</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="{{ findstatic('common/images/favicon.ico') }}">
 
-    <!-- Bootstrap core CSS -->
-    <link href="{{ findstatic('cms/css/bootstrap.min.css') }}" rel="stylesheet">
+  <title>ITFORUM论坛后台登录</title>
 
-    <!-- Custom styles for this template -->
-    <link href="{{ findstatic('cms/css/signin.css') }}" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="{{ findstatic('cms/css/bootstrap.min.css') }}" rel="stylesheet">
 
-    <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="{{ findstatic('cms/css/signin.css') }}" rel="stylesheet">
 
-    <script src="{{ findstatic('cms/js/ie-emulation-modes-warning.js') }}"></script>
+  <link href="{{ findstatic('cms/css/footer.css') }}" rel="stylesheet">
 
-  </head>
+  <script src="{{ findstatic('cms/js/ie-emulation-modes-warning.js') }}"></script>
 
-  <body>
+</head>
 
+<body>
+
+  <div class="container">
+    <form class="form-signin" method="post">
+      <h2 class="form-signin-heading" style="text-align: center;">后台登录</h2>
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <div class="input_form">
+        <img class="input_img" src="{{ findstatic('frontstage/images/email.png') }}">
+        <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email" required autofocus>
+      </div>
+      <div class="input_form">
+        <img class="input_img" src="{{ findstatic('frontstage/images/password.png') }}">
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+      </div>
+      <div class="checkbox">
+        <label>
+          <input type="checkbox" value="1" name="remember"> 记住密码
+        </label>
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
+    </form>
+    {% if message %}
+    <p style="text-align: center;" class="text-danger"> {{ message }}</p>
+    {% endif %}
+
+  </div> <!-- /container -->
+
+  <footer class="footer">
     <div class="container">
-      <form class="form-signin" method="post">
-        <h2 class="form-signin-heading" style="text-align: center;">后台登录</h2>
-          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <div class="input_form">
-            <img class="input_img" src="{{ findstatic('frontstage/images/email.png') }}">
-          <input type="email" id="inputEmail" class="form-control" placeholder="Email" name="email" required autofocus>
-        </div>
-        <div class="input_form">
-            <img class="input_img" src="{{ findstatic('frontstage/images/password.png') }}">
-          <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-         </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="1" name="remember"> 记住密码
-          </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
-      </form>
-      {% if message %}
-          <p style="text-align: center;" class="text-danger"> {{ message }}</p>
-      {% endif %}
+      <p style="text-align: center;" class="text-muted">Copyright &copy; 2018 ITforum <a href="https://github.com/superliuliuliu/ITforums.git">Fork
+          me on the Github </a></p>
+    </div>
+  </footer>
 
-    </div> <!-- /container -->
-
-    <footer class="footer">
-     <div class="container">
-       <p style="text-align: center;" class="text-muted">Copyright &copy; 2018 ITforum  <a href="https://github.com/superliuliuliu/ITforums.git">Fork me on the Github </a></p>
-     </div>
-    </footer>
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="{{ findstatic('cms/js/ie10-viewport-bug-workaround.js') }}"></script>
-  </body>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="{{ findstatic('cms/js/ie10-viewport-bug-workaround.js') }}"></script>
+</body>
 
 </html>

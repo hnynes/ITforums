@@ -30,7 +30,7 @@ ITforum
                     {% else %}
                     <div class="item">
                 {% endif %}
-                        <a href="{{ carousel.next_url }}"><img class="front_img" src="{{ carousel.picture_url }}" alt="picture"></a>
+                        <a href="{{ carousel.next_url }}" target="_blank"><img class="front_img" src="{{ carousel.picture_url }}" alt="picture"></a>
                     </div>
                 {% endfor %}
                 </div>
@@ -78,16 +78,18 @@ ITforum
                                 <a  style="line-height: 0;display: inline-block;" href="#">
                                     <img class="user_photo" src="{{ findstatic('frontstage/images/head.jpg') }}">                       <!- 此处为用户头像以及空间跳转链接->
                                 </a>
-                                <h3 style="display: inline-block;vertical-align: top;"><a style="margin-left: 5px" href="#">{{ post.theme }}</a>
+                                <h4 style="display: inline-block;vertical-align: top;"><a style="margin-left: 5px" href="#">{{ post.theme }}</a>
+                                <!--判断帖子是否是精品，若是则增加精标签-->
                                 {% if post.plusfine %}<span style="padding: .2em .3em .3em; font-weight:100;font-size: 70%;" class="label label-danger">精</span>{% endif %}
-                                </h3>
+                                </h4>
                             </div>
                             <div class="forum_description">
-                                <a href="#" class='user_name'
+                                <a href="{{ url_for('frontstage.userinfo') }}" class='user_name'
 									   target="_blank" rel="noopener noreferrer">{{ post.author.username }}</a>
                                 <span class="post-time">发布于: {{ post.create_time }}</span>
-                                <a href="#" class='area_name'
+                                <a href="{{ url_for('frontstage.index', id = post.area.id) }}" class='area_name'
 									   target="_blank" rel="noopener noreferrer">{{ post.area.name }}</a>
+                                <span class='numb msg'><i>评论数:</i>100</span>
                             </div>
                         </li>
                         {% endfor %}
