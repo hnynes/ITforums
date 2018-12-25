@@ -5,12 +5,57 @@
 {% block title %}帖子详情{% endblock %}
 
 {% block head -%}
+<link rel="stylesheet" href="{{ findstatic('frontstage/css/front_content.css') }}">
 {%- endblock %}
 
 
 {% block main %}
-<div class="main-container">
-    
+<div class="main-container"  style="margin-top:56px; height:100%">
+    <div class="container_left">
+        <div class="content_head">
+             <h2 style="color: #ff8b3d;">{{ post.theme }} </h2>
 
-</div>
+            <div style=" color: #8c8c8c;display:   flex;justify-content:  space-around;  margin-top: 15px;">
+                {% if post.plusfine %}<span style="color: #ff4c4c;
+    margin-right: 7px;">精华帖</span>{% endif %}
+                <span>发布时间：{{ post.create_time }}</span>
+                <span>作者：{{ post.author.username }}</span>
+                <span>版块：{{ post.area.name }}</span>
+            </div>
+        </div>
+           <div class="content_inner" style="margin:30px 30px;">
+               {{ post.content|safe }}
+               <div class="faster_reply">
+                   <a href="#"  style="float: left;" target="_blank" rel="noopener noreferrer">
+                       <img src="/static/frontstage/images/head.jpg">                           <!- 用户图像->
+                   </a>
+                   <input placeholder="说说你的看法" id="input">
+                   <span class="btn" id="">发表</span>
+               </div>
+           </div>
+    </div>
+    <div class="container_right">
+        <div class="author_msg" style="padding: 40px 0;">
+            <a href="http://bbs.xiaomi.cn/u-detail-2202111934" class="author_head" >
+                <img src="/static/frontstage/images/head.jpg"  class="author_pic">     <!- 作者图像->
+            </a>
+            <div class="author_msg">
+                <span>
+                    <a href="#" style="font-size: 15px;" class="author_name">{{ post.author.username }}</a>
+                </span>
+                <p>
+                    <span style="color: #8c8c8c; font-size: 15px;">加入时间：{{ post.author.join_time }}</span>
+                </p>
+            </div>
+        </div>
+        <a class="btn" href="#" style="float:left; margin-left: 10px" target="_blank" rel="noopener noreferrer">Ta的主页</a>
+        <span class="btn" style="background-color: #6999ee; border-color: #6999ee; color: #fff; float:right; margin-right: 10px">发消息</span>
+    </div>
+      <div class="container_left" style="padding:20px 20px">
+          <div class="comment_area_head">
+              <span style="font-size: 18px;margin-left: 20px;">评论区</span>
+              <a herf="#">只看楼主</a>
+          </div>
+      </div>
+  </div>
 {% endblock %}

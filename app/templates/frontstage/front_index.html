@@ -78,7 +78,7 @@ ITforum
                                 <a  style="line-height: 0;display: inline-block;" href="#">
                                     <img class="user_photo" src="{{ findstatic('frontstage/images/head.jpg') }}">                       <!- 此处为用户头像以及空间跳转链接->
                                 </a>
-                                <h4 style="display: inline-block;vertical-align: top;"><a style="margin-left: 5px" href="#">{{ post.theme }}</a>
+                                <h4 style="display: inline-block;vertical-align: top;"><a style="margin-left: 5px" href="{{ url_for('frontstage.post_info', post_id=post.id) }}">{{ post.theme }}</a>
                                 <!--判断帖子是否是精品，若是则增加精标签-->
                                 {% if post.plusfine %}<span style="padding: .2em .3em .3em; font-weight:100;font-size: 70%;" class="label label-danger">精</span>{% endif %}
                                 </h4>

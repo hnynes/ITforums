@@ -1,0 +1,135 @@
+.container_left{
+    float:left;
+    width:900px;
+    background-color: #fff;
+    margin-top:30px;
+    height:auto;
+}
+
+.container_right{
+     float:right;
+     width:290px;
+    background-color: #fff;
+    margin-top:30px;
+
+     height:300px;
+    padding: 0 30px 25px 30px;
+}
+
+
+.navbar{
+    margin-bottom: 0px;
+}
+
+.content_head{
+    height:100px;
+    margin:0 15px;
+    border-bottom: 1px solid #e6e6e6;
+    /*display:flex;*/
+    /*align-items: center;*/
+    /*white-space: nowrap;*/
+    /*justify-content: space-between;*/
+
+}
+
+.content_head h2{
+    padding-top: 25px;
+    width: 870px;
+    font-size: 22px;
+    word-wrap: break-word;
+    word-break: normal;
+    overflow: hidden;
+    text-align: left;
+}
+
+body{
+   background: #f3f3f3;
+}
+
+a{
+    text-decoration: none;
+    cursor:pointer
+}
+
+.author_head{
+    padding-top: 8px;
+    text-align: center;
+    line-height: 20px;
+}
+
+.author_msg{
+    padding-top: 8px;
+    text-align: center;
+    line-height: 20px;
+}
+
+.author_pic{
+    display: block;
+    width: 90px;
+    height: 90px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    margin: 5px auto;
+    padding: 5px;
+    border: 1px solid #e3e3e3;
+}
+
+.btn{
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    font-size: 14px;
+    margin: 0 4px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    background-color: #ff8b3d;
+    border: 1px solid #ff8b3d;
+    color: #fff;
+    padding: 0;
+}
+
+.faster_reply{
+    padding-top: 40px;
+    margin-top:40px;
+    border-top:1px solid #e6e6e6;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.faster_reply img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.faster_reply input {
+    resize: none;
+    outline: 0;
+    float: left;
+    padding: 10px 10px;
+    margin: 0px 10px;
+    width: 500px;
+    height: 35px;
+    border: 1px solid #e6e6e6;
+    text-indent: 10px;
+    font-size: 16px;
+}
+
+.comment_area_head{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.comment_area_head a{
+    font-size: 12px;
+    color:#c1c1c1;
+    margin-right: 10px;
+}
+.comment_area_head a:hover{
+    color:orange;
+    text-decoration: none;
+}
