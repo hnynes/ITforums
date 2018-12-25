@@ -22,13 +22,21 @@
             {% if total != 0 %}
                <h5>{{ total }} results</h5>
                {% if category == 'post' %}
-               {% for item in resultlist %}
-               <h5>{{ item.theme }}</h5>
-               {% endfor %}
-               {% endif %}
+                   {% for item in resultlist %}
+                   <h5>{{ item.theme }}</h5>
+                   {% endfor %}
+               {% elif category == 'user' %}
+                   {% for item in resultlist %}
+                   <h5>{{ item.username }}</h5>
+                   <h5>{{ item.telephone }}</h5>
+                   {% endfor %}
+               {% elif category == 'area' %}
+                   {% for item in resultlist %}
+                   <h5>{{ item.name }}</h5>
+                   {% endfor %}
+              {% endif %}
            {% else %}
                <h5 class="tip">No results.</h5>
-               <h5>{{ keyword }}</h5>
            {% endif %}
            <div style="text-align:center;">
                {{ pagination.links }}
