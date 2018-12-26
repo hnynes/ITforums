@@ -3,44 +3,85 @@
 
 {% block title %}Search: {{ keyword }}{% endblock %}
 
+{% block head %}
+    <link href="{{ findstatic('frontstage/css/front_search.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ findstatic('frontstage/css/front_index.css') }}">
+{% endblock %}
+
 {% block main %}
+  <div class="main-container"  style="height:100%">
     <div class="page-header">
         <h1>Search: {{ keyword }}</h1>
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <div class="nav nav-pills flex-column" role="tablist" aria-orientation="vertical">
-                <a class="nav-item nav-link {% if category == 'post' %}active{% endif %}"
-                   href="{{ url_for('.search', keyword=keyword, category='post') }}">Post</a>
-                <a class="nav-item nav-link {% if category == 'user' %}active{% endif %}"
-                   href="{{ url_for('.search', keyword=keyword, category='user') }}">User</a>
-                <a class="nav-item nav-link {% if category == 'area' %}active{% endif %}"
-                   href="{{ url_for('.search', keyword=keyword, category='area') }}">Area</a>
+            <div class="serch_type" role="tablist" aria-orientation="vertical">
+                <a class="serch_type_item {% if category == 'post' %}active{% endif %}"
+                   href="{{ url_for('.search', keyword=keyword, category='post') }}">帖子</a>
+                <a class="serch_type_item {% if category == 'user' %}active{% endif %}"
+                   href="{{ url_for('.search', keyword=keyword, category='user') }}">用户名</a>
+                <a class="serch_type_item {% if category == 'area' %}active{% endif %}"
+                   href="{{ url_for('.search', keyword=keyword, category='area') }}">板块</a>
             </div>
-        </div>
         <div class="col-md-9">
             {% if total != 0 %}
-               <h5>{{ total }} results</h5>
+               <h3 style="margin-bottom: 20px;">{{ total }} results</h3>
                {% if category == 'post' %}
                    {% for item in resultlist %}
-                   <h5>{{ item.theme }}</h5>
+                       <li class="forum_item_block">
+                            <div class="forum_head">
+                                <a  style="line-height: 0;display: inline-block;" href="#">
+                                    <img class="user_photo" src="{{ findstatic('frontstage/images/head.jpg') }}">                       <!- 此处为用户头像以及空间跳转链接->
+                                </a>
+                                <h4 style="display: inline-block;vertical-align: top;"><a style="margin-left: 5px" href="{{ url_for('frontstage.post_info', post_id=item.id) }}">{{ item.theme }}</a>
+                                <!--判断帖子是否是精品，若是则增加精标签-->
+                                {% if item.plusfine %}<span style="padding: .2em .3em .3em; font-weight:100;font-size: 70%;" class="label label-danger">精</span>{% endif %}
+                                </h4>
+                            </div>
+                            <div class="forum_description">
+                                <a href="{{ url_for('frontstage.userinfo') }}" class='user_name'
+									   target="_blank" rel="noopener noreferrer">{{ item.author.username }}</a>
+                                <span class="post-time">发布于: {{ item.create_time }}</span>
+                                <a href="{{ url_for('frontstage.index', id = item.area.id) }}" class='area_name'
+									   target="_blank" rel="noopener noreferrer">{{ item.area.name }}</a>
+                                <span class='numb msg'><i>评论数:</i>100</span>
+                            </div>
+                        </li>
+
                    {% endfor %}
+                   <div style="text-align:center;">
+                            {{ pagination.links }}
+                   </div>
                {% elif category == 'user' %}
                    {% for item in resultlist %}
-                   <h5>{{ item.username }}</h5>
-                   <h5>{{ item.telephone }}</h5>
+                       <div class="user_infomation">
+                       <div >
+                           <a href="#" class="author_head" >
+                             <img style="margin:0;display: inline-block;width: 60px;height: 60px;" src="/static/frontstage/images/head.jpg"  class="author_pic">     <!- user头像->
+                           </a>
+                           <h4 class="user_result_info"><a href="#">{{ item.username }}</a></h4>                               <!- 用户空间跳转->
+                       </div>
+                           <h4 class="user_result_info">电话：{{ item.telephone }}</h4>
+                       </div>
+
                    {% endfor %}
                {% elif category == 'area' %}
                    {% for item in resultlist %}
-                   <h5>{{ item.name }}</h5>
+                       <div class="user_infomation">
+                       <div >
+                           <h4 style="margin-left: -15px;"  class="user_result_info"><a href="#">{{ item.name }}</a></h4>                               <!- 用户空间跳转->
+                       </div>
+                           <h4 class="user_result_info">一些其他的信息</h4>
+                       </div>
                    {% endfor %}
               {% endif %}
            {% else %}
-               <h5 class="tip">No results.</h5>
+                <div>
+                  <h3 class="tip">No results.</h3>
+                </div>
            {% endif %}
-           <div style="text-align:center;">
-               {{ pagination.links }}
-           </div>
+
         </div>
     </div>
+  </div>
+
 {% endblock %}

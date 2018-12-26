@@ -71,7 +71,7 @@
             </a>
             <div class="author_msg">
                 <span>
-                    <a href="#" style="font-size: 15px;" class="author_name">{{ post.author.username }}</a>
+                    <a href="{{ url_for('frontstage.userinfo') }}" style="font-size: 15px;" class="author_name">{{ post.author.username }}</a>
                 </span>
                 <p>
                     <span style="color: #8c8c8c; font-size: 15px;">加入时间：{{ post.author.join_time }}</span>

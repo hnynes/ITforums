@@ -17,7 +17,7 @@
 
 .forum_info{
     width:70%;
-   height:100%;
+    height:auto;
     background-color: #FFFFFF;
     margin-top: 40px;
     float:left;
@@ -55,7 +55,7 @@
 
 .forum_other{
     width:25%;
-    height:1200px;
+    height:auto;
     background-color: #FFFFFF;
     margin-top: 40px;
     float:right;
