@@ -103,8 +103,9 @@ def setting():
 @bp.route('/post/<post_id>/')
 def post_info(post_id):
     post = Post.query.get(post_id)
+    commentlist = Comment.query.filter_by(post_id=post_id).all()
     if post:
-        return render_template('frontstage/front_post.html', post=post)
+        return render_template('frontstage/front_post.html', post=post, commentlist=commentlist)
     else:
         abort(404)
 
@@ -123,7 +124,7 @@ def addcomment():
             comment.author = g.front_user
             comment.post = post
             db.session.add(comment)
-            db.sessiom.commit()
+            db.session.commit()
             return restful.success()
         else:
             return restful.args_error("帖子不存在！")

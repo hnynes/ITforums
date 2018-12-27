@@ -6,6 +6,9 @@
 
 {% block head -%}
 <link rel="stylesheet" href="{{ findstatic('frontstage/css/front_content.css') }}">
+<script src="{{ findstatic('ueditor/ueditor.config.js') }}"></script>
+<script src="{{ findstatic('ueditor/ueditor.all.min.js') }}"></script>
+<script src="{{ findstatic('frontstage/js/addcomment.js') }}"></script>
 {%- endblock %}
 
 
@@ -24,14 +27,15 @@
                 <span>版块：{{ post.area.name }}</span>
             </div>
         </div>
-           <div class="content_inner" style="margin:30px 30px;">
+           <div class="content_inner" style="margin:30px 30px;" data-id="{{ post.id }}" id="post-content">
+               <!--渲染帖子正文内容-->
                {{ post.content|safe }}
+               <!--评论内容输入框-->
                <div class="faster_reply">
-                   <a href="#"  style="float: left;" target="_blank" rel="noopener noreferrer">
-                       <img src="/static/frontstage/images/head.jpg">                           <!- 用户图像->
-                   </a>
-                   <input placeholder="说说你的看法" id="input">
-                   <span class="btn_1" id="">发表</span>
+                   <script id="editor" type="text/plain" style="height:100px;"></script>
+               </div>
+               <div class="form-group">
+                   <button class="btn btn-danger" id="btn-comment">评论一下</button>
                </div>
            </div>
     </div>
@@ -44,21 +48,23 @@
         <ul class="reply_list">
 
            <li class="comment_word">
+               {% for comment in commentlist %}
                <div class="comment_img">
                    <a href="http://bbs.xiaomi.cn/u-detail-386531535" class="headportrait" target="_blank" rel="noopener noreferrer">
-                       <img class="user_head"  src="/static/frontstage/images/head.jpg" style="display: block;">                    <!- 评论者头像->
+                       <img class="user_head"  src="{{ findstatic('frontstage/images/head.jpg') }}" style="display: block;">                    <!- 评论者头像->
                    </a>
                </div>
                <div class="comment_inner_word">
                    <div class="author_info">
-                       <a href="#" class="auth_name" target="_blank" rel="noopener noreferrer" style="margin-right: 5px;font-size: 14px;color: #ff8b3d;">评论者名字</a>            <!- 评论空间跳转->
+                       <a href="#" class="auth_name" target="_blank" rel="noopener noreferrer" style="margin-right: 5px;font-size: 14px;color: #ff8b3d;">{{ comment.author.username }}</a>            <!- 评论空间跳转->
                        <span style="margin-right: 5px;"> 发表于</span>
-                       <span style="margin-right: 5px;">12-16 23:59:37</span>
+                       <span style="margin-right: 5px;">{{ comment.create_time }}</span>
                        <a class="only_read_auth" href="#">只看该作者</a>
                        <span class="comment_number">评论楼层数</span>
                    </div>
-                   <div class="comment_text">#这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论这是一条评论</div>
+                   <div class="comment_text">{{ comment.content|safe }}</div>
                </div>
+               {% endfor %}
            </li>
 
         </ul>

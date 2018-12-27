@@ -57,6 +57,8 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
                     {% if g.front_user %}
+                    <!--下面的标签为简单的验证用户是否登录，只有登录才能发送评论-->
+                    <span id="login-tag" style="display:none;" userlogin="1"></span>
                     <!--li id="user-btn"><a href="#"></span>{{ g.front_user.username }}</a></li-->
                     <li role="presentation" class="dropdown">
                         <a id="dropdown_user" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
