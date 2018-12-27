@@ -109,7 +109,7 @@ def setting():
 @bp.route('/post/<post_id>/')
 def post_info(post_id):
     post = Post.query.get(post_id)
-    commentlist = Comment.query.filter_by(post_id=post_id)order_by(Comment.create_time).all()
+    commentlist = Comment.query.filter_by(post_id=post_id).order_by(Comment.create_time).all()
     if post:
         return render_template('frontstage/front_post.html', post=post, commentlist=commentlist)
     else:
