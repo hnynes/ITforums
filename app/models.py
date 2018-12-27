@@ -43,6 +43,7 @@ class Post(db.Model):
     theme = db.Column(db.String(150), nullable = False, unique = True, index = True) #帖子的主题
     content = db.Column(db.Text, nullable = False)     #帖子的内容
     create_time = db.Column(db.DateTime, default = datetime.now)
+    cnumber = db.Column(db.Integer, default = 0)
     area_id = db.Column(db.Integer, db.ForeignKey("area.id")) # 外键
     author_id = db.Column(db.String(64), db.ForeignKey("front_user.id"))
     author = db.relationship('FrontUser', backref = 'posts')

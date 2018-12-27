@@ -31,9 +31,15 @@ def index():
     carousellist = Carousel.query.order_by(Carousel.weight.desc()).limit(3)
     arealist = Area.query.order_by(Area.number.desc()).limit(5)
     page = request.args.get(get_page_parameter(), type = int, default = 1)
+    # 获取帖子的排序方式 默认是按照帖子的发布时间
+    sort = request.args.get('sort', type=int, default=1)
     start = (page-1)*8
     end = start + 8
     usercount = FrontUser.query.count() #用于统计网站的注册人数
+    if sort == 1:
+        pass
+    elif sort == 2:
+        pass
     if area_id:
         postlist = Post.query.filter_by(area_id = area_id).order_by(Post.create_time.desc()).slice(start, end)
         total = Post.query.filter_by(area_id = area_id).count()
@@ -103,7 +109,7 @@ def setting():
 @bp.route('/post/<post_id>/')
 def post_info(post_id):
     post = Post.query.get(post_id)
-    commentlist = Comment.query.filter_by(post_id=post_id).all()
+    commentlist = Comment.query.filter_by(post_id=post_id)order_by(Comment.create_time).all()
     if post:
         return render_template('frontstage/front_post.html', post=post, commentlist=commentlist)
     else:
@@ -123,6 +129,7 @@ def addcomment():
             comment = Comment(content = content)
             comment.author = g.front_user
             comment.post = post
+            post.cnumber = post.cnumber + 1
             db.session.add(comment)
             db.session.commit()
             return restful.success()

@@ -68,8 +68,9 @@ ITforum
             <td class="forum_info">
                 <div class="post-group">
                     <ul class="post-group-head">
-                        <li class="active"><a href="#">最新帖子</a></li>
-                        <li><a href="#">精品帖子</a></li>
+                        <li class="active"><a href="/">最新帖子</a></li>
+                        <li><a href="{{ url_for('frontstage.index' sort=2) }}">精品帖子</a></li>
+                        <!--可扩展展示帖子的方式，比如还可以按照评论数排序-->
                     </ul>
                     <ul class="post-list">
                         {% for post in postlist %}
@@ -89,7 +90,7 @@ ITforum
                                 <span class="post-time">发布于: {{ post.create_time }}</span>
                                 <a href="{{ url_for('frontstage.index', id = post.area.id) }}" class='area_name'
 									   target="_blank" rel="noopener noreferrer">{{ post.area.name }}</a>
-                                <span class='numb msg'><i>评论数:</i>100</span>
+                                <span class='numb msg'><i>评论数:</i>{{ post.cnumber }}</span>
                             </div>
                         </li>
                         {% endfor %}
