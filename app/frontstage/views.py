@@ -15,7 +15,7 @@ from .forms import RegisterForm, LoginForm, PostForm, CommentForm
 from .. import db
 from utils import restful, mycache
 from .models import FrontUser
-from ..models import Carousel, Area, Post, Comment
+from ..models import Carousel, Area, Post, Comment, Plusfine
 from config import config
 from .decorators import login_required
 from flask_paginate import Pagination, get_page_parameter
@@ -37,15 +37,17 @@ def index():
     end = start + 8
     usercount = FrontUser.query.count() #用于统计网站的注册人数
     if sort == 1:
-        pass
+        postobject = Post.query.order_by(Post.create_time.desc())
     elif sort == 2:
-        pass
+        # 内连接
+        postobject = db.session.query(Post).outerjoin(Plusfine).order_by(Plusfine.create_time.desc(), Post.create_time.desc())
+
     if area_id:
-        postlist = Post.query.filter_by(area_id = area_id).order_by(Post.create_time.desc()).slice(start, end)
-        total = Post.query.filter_by(area_id = area_id).count()
+        postlist = postobject.filter_by(area_id = area_id).slice(start, end)
+        total = postobject.filter_by(area_id = area_id).count()
     else:
-        postlist = Post.query.order_by(Post.create_time.desc()).slice(start, end)
-        total = Post.query.count()
+        postlist = postobject.slice(start, end)
+        total = postobject.count()
     # 第一个参数指代的是bootstarp的版本为v3
     pagination = Pagination(bs_version=3, page=page, total = total, outer_window=0, inner_window=2)
     context = {

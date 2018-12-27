@@ -53,7 +53,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url_for('frontstage.index') }}">社区</a></li>
                     <li><a href="https://www.liugaoyang.xin">博客</a></li>
-                    <li><a href="#">精华帖子</a></li>
+                    <li><a href="{{ url_for('frontstage.index', sort=2)}}">精华帖子</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
                     {% if g.front_user %}
