@@ -68,8 +68,8 @@ ITforum
             <td class="forum_info">
                 <div class="post-group">
                     <ul class="post-group-head">
-                        <li class="{% if sort == 1 %}active{% endif %}"><a href="/">最新帖子</a></li>
-                        <li class="{% if sort == 2 %}active{% endif %}"><a href="{{ url_for('frontstage.index', sort=2) }}">精品帖子</a></li>
+                        <li class="{% if sort == '1' %}active{% endif %}"><a href="/">最新帖子</a></li>
+                        <li class="{% if sort == '2' %}active{% endif %}"><a href="{{ url_for('frontstage.index', sort=2) }}">精品帖子</a></li>
                         <!--可扩展展示帖子的方式，比如还可以按照评论数排序-->
                     </ul>
                     <ul class="post-list">

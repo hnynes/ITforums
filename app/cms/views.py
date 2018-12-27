@@ -14,7 +14,7 @@
 from flask import Blueprint, views, render_template, request, session, redirect, url_for, g, jsonify
 from .forms import LoginForm, ResetPwdForm, ResetEmailForm, AddCarouselForm, UpdateCarouselForm, AddAreaForm, UpdateAreaForm
 from .models import CMSUser, CMSpower
-from ..models import Carousel, Area, Post, Plusfine
+from ..models import Carousel, Area, Post, Plusfine, Comment
 from ..frontstage.models import FrontUser
 from .decorators import login_required, power_required
 from config import config
@@ -72,7 +72,8 @@ def mancmsuser():
 @login_required
 @power_required(CMSpower.COMMOENT)
 def comment():
-    return render_template('cms/cms_comment.html')
+    commentlist = Comment.query.order_by(Comment.create_time).all()
+    return render_template('cms/cms_comment.html', commentlist=commentlist)
 
 
 # 帖子管理的路由
@@ -133,6 +134,20 @@ def disfineforum():
     else:
         return restful.args_error("表单数据传输错误")
 
+
+# 删除帖子的路由
+# 点击删除轮播图按钮 后台路由操作对应数据库中对应信息的删除操作
+@bp.route('/delpost/', methods=['POST'])
+@login_required
+def delpost():
+    id = request.form.get('post_id')
+    post = Post.query.get(id)
+    if post:
+        db.session.delete(post)
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.args_error("没有这个帖子")
 
 # 用户管理的路由
 @bp.route('/user/')
