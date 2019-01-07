@@ -128,7 +128,7 @@ $(function () {
 //首先需要初始化 相关信息
 $(function (){
     myqiniu.setUp({
-        'domain': 'http://pjchi93q1.bkt.clouddn.com/',
+        'domain': 'http://qiniu.liugaoyang.xin/',
         'browse_button':'upload-btn',
         'uptoken_url':'/common/uptoken/',
         'success': function(up, file, info){

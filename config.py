@@ -60,7 +60,7 @@ class Config:
     UEDITOR_QINIU_ACCESS_KEY = "2zjylSQRNAPj-fa-ma_bXWUukD8eFEcNStWVDepY"
     UEDITOR_QINIU_SECRET_KEY = "SOrvIATcYYy_dsSL0xf7VBm7Uf_1JNJ5Q2b-4edv"
     UEDITOR_QINIU_BUCKET_NAME = "forumfor"
-    UEDITOR_QINIU_DOMAIN = "http://pjchi93q1.bkt.clouddn.com/"
+    UEDITOR_QINIU_DOMAIN = "http://qiniu.liugaoyang.xin/"
 
     @staticmethod
     def init_app(app):
