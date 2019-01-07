@@ -158,6 +158,33 @@ def user():
     return render_template('cms/cms_frontuser.html', userlist = userlist)
 
 
+# 通过用户的手机号来查询用户对用户做出禁言处理
+@bp.route('/lock/user/<telephone>', methods=['POST'])
+@login_required
+@power_required(CMSpower.FRONTUSER)
+def lock(telephone):
+    user = FrontUser.query.filter_by(telephone=telephone).first()
+    if user:
+        user.locked = True
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.args_error("出现了小错误！")
+
+
+@bp.route('/unlock/user/<telephone>', methods=['POST'])
+@login_required
+@power_required(CMSpower.FRONTUSER)
+def unlock(telephone):
+    user = FrontUser.query.filter_by(telephone=telephone).first()
+    if user:
+        user.locked = False
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.args_error("出现了小错误！")
+
+
 # 用户组管理的路由
 @bp.route('/auth/')
 @login_required

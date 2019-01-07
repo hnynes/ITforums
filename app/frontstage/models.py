@@ -8,7 +8,7 @@
 # Created: 2018-11-25 16:17:50 (CST)
 # Last Update:
 #          By:
-# Description:前台用户重构
+# Description:前台用户重构 针对恶意用户的封禁处理
 # ***************************************************************************
 
 from .. import db
@@ -36,6 +36,7 @@ class FrontUser(db.Model):
     email = db.Column(db.String(64), unique = True)
     join_time = db.Column(db.DateTime, default = datetime.now)
     gender = db.Column(db.Enum(Gender), default = Gender.UNKOWN)
+    locked = db.Column(db.Boolean, default=False)
 
     # **kwargs代表所有参数的含义，在这里是一个字典的形式
     def __init__(self, *args, **kwargs):
