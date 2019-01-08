@@ -214,6 +214,9 @@ class LoginView(views.MethodView):
                 session[config['development'].FRONTUSERID] = user.id
                 if remember:
                     session.permanent = True
+                # 用户密码验证成功成功之后需要验证用户是否被封禁 若用户被封禁 则登录失败
+                if  user.locked:
+                    return restful.args_error("此账号已被封禁，若误封请联系管理员邮箱superliuliuliu1@gmail.com")
                 return restful.success()
             else:
                 return restful.args_error("手机号或者密码错误！")
