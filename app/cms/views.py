@@ -159,10 +159,11 @@ def user():
 
 
 # 通过用户的手机号来查询用户对用户做出禁言处理
-@bp.route('/lock/user/<telephone>', methods=['POST'])
+@bp.route('/lock/user/', methods=['POST'])
 @login_required
 @power_required(CMSpower.FRONTUSER)
-def lock(telephone):
+def lock():
+    telephone = request.form.get('telephone')
     user = FrontUser.query.filter_by(telephone=telephone).first()
     if user:
         user.locked = True
@@ -172,10 +173,11 @@ def lock(telephone):
         return restful.args_error("出现了小错误！")
 
 
-@bp.route('/unlock/user/<telephone>', methods=['POST'])
+@bp.route('/unlock/user/', methods=['POST'])
 @login_required
 @power_required(CMSpower.FRONTUSER)
-def unlock(telephone):
+def unlock():
+    telephone = request.form.get('telephone')
     user = FrontUser.query.filter_by(telephone=telephone).first()
     if user:
         user.locked = False
