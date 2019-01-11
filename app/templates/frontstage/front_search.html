@@ -43,7 +43,7 @@
                                 <span class="post-time">发布于: {{ item.create_time }}</span>
                                 <a href="{{ url_for('frontstage.index', id = item.area.id) }}" class='area_name'
 									   target="_blank" rel="noopener noreferrer">{{ item.area.name }}</a>
-                                <span class='numb msg'><i>评论数:</i>100</span>
+                                <span class='numb msg'><i>评论数:</i>{{ item.cnumber }}</span>
                             </div>
                         </li>
 

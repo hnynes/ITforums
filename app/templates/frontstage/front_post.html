@@ -34,7 +34,7 @@
                    <script id="editor" type="text/plain" style="height:100px;"></script>
                </div>
                <div class="form-group">
-                   <button class="btn btn-danger" id="btn-comment">评论一下</button>
+                   <button class="btn btn-danger" id="btn-comment" style="margin-top:5px">评论一下</button>
                </div>
            </div>
     </div>
@@ -45,9 +45,9 @@
               <a herf="#">只看楼主</a>
         </div>
         <ul class="reply_list">
-
+           {% for comment in commentlist %}
            <li class="comment_word">
-               {% for comment in commentlist %}
+
                <div class="comment_img">
                    <a href="http://bbs.xiaomi.cn/u-detail-386531535" class="headportrait" target="_blank" rel="noopener noreferrer">
                        <img class="user_head"  src="{{ findstatic('frontstage/images/head.jpg') }}" style="display: block;">                    <!- 评论者头像->
@@ -63,9 +63,9 @@
                    </div>
                    <div class="comment_text">{{ comment.content|safe }}</div>
                </div>
-               {% endfor %}
-           </li>
 
+           </li>
+           {% endfor %}
         </ul>
     </div>
  </div>

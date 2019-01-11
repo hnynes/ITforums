@@ -76,6 +76,21 @@ def comment():
     return render_template('cms/cms_comment.html', commentlist=commentlist)
 
 
+# 管理员删除评论
+@bp.route('/delcomment/', methods=['POST'])
+@login_required
+@power_required(CMSpower.COMMOENT)
+def delcomment():
+    com_id = request.form.get("com_id")
+    comment = Comment.query.filter_by(id=com_id).first()
+    if comment:
+        db.session.delete(comment)
+        db.session.commit()
+        return restful.success()
+    else:
+        return restful.args_error("出了点小问题")
+
+
 # 帖子管理的路由
 @bp.route('/forum/')
 @login_required
@@ -87,7 +102,6 @@ def forum():
     postlist = Post.query.order_by(Post.create_time.desc()).slice(start, end)
     total = Post.query.count()
     pagination = Pagination(bs_version=3, page=page, total = total, outer_window=0, inner_window=2)
-
     context = {
         'postlist': postlist,
         'pagination':pagination

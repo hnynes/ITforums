@@ -6,7 +6,7 @@
 {%- endblock %}
 
 {% block head %}
-
+<script src="{{ findstatic('cms/js/comment.js') }}"></script>
 {% endblock %}
 
 
@@ -28,13 +28,13 @@
     <tbody>
         {% for comment in commentlist %}
             <!--为标签增加属性记录-->
-            <tr>
+            <tr data-id="{{ comment.id }}">
                 <td>{{ comment.post.theme }}</td>
                 <td>{{ comment.content|safe }}</td>
                 <td>{{ comment.create_time }}</td>
                 <td>{{ comment.author.username }}</td>
                 <td>
-                    <button class="btn btn-danger btn-xs delete-carousel-btn">删除</button>
+                    <button class="btn btn-danger btn-xs delete-comment-btn">删除</button>
                 </td>
             </tr>
         {% endfor %}

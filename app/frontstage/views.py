@@ -8,7 +8,7 @@
 # Created: 2018-12-08 17:03:50 (CST)
 # Last Update: 完善前台的登录功能
 #          By:
-# Description: 论坛首页的角色下的下拉菜单功能实现
+# Description: 禁止被禁言用户发帖评论
 # **************************************************************************
 from flask import Blueprint, views, render_template, url_for, make_response, request, session, g, redirect,abort
 from .forms import RegisterForm, LoginForm, PostForm, CommentForm
@@ -127,7 +127,11 @@ def addcomment():
         content = form.content.data
         post_id = form.post_id.data
         post = Post.query.get(post_id)
+        # 先判断帖子是否存在
         if post:
+            # 若帖子存在则判断用户是否被锁定
+            if  g.front_user.locked:
+                return restful.args_error("此账号已被封禁，若误封请联系管理员邮箱superliuliuliu1@gmail.com")
             comment = Comment(content = content)
             comment.author = g.front_user
             comment.post = post
@@ -158,6 +162,8 @@ class PostView(views.MethodView):
             area = Area.query.filter_by(id = area_id).first()
             if not area:
                 return restful.args_error("请输入已存在的版块！")
+            if  g.front_user.locked:
+                return restful.args_error("此账号已被封禁，若误封请联系管理员邮箱superliuliuliu1@gmail.com")
             post = Post(theme = theme, content = content)
             area.number = area.number + 1
             post.area = area
@@ -214,9 +220,6 @@ class LoginView(views.MethodView):
                 session[config['development'].FRONTUSERID] = user.id
                 if remember:
                     session.permanent = True
-                # 用户密码验证成功成功之后需要验证用户是否被封禁 若用户被封禁 则登录失败
-                if  user.locked:
-                    return restful.args_error("此账号已被封禁，若误封请联系管理员邮箱superliuliuliu1@gmail.com")
                 return restful.success()
             else:
                 return restful.args_error("手机号或者密码错误！")
