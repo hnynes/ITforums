@@ -29,9 +29,9 @@ class Config:
     MAIL_PORT = 465
     MAIL_USE_SSL = True
     #用户名和密码采取导入环境变量的形式防止密码泄露
-    MAIL_USERNAME = '734190426@qq.com'
-    MAIL_PASSWORD = 'irptfbwxnrvkbcig'
-    FLASKY_MAIL_SENDER = '734190426@qq.com'  # this is the sender email
+    MAIL_USERNAME = 'xxx'
+    MAIL_PASSWORD = 'xxx'
+    FLASKY_MAIL_SENDER = 'xxx'  # this is the sender email
     FLASKY_MAIL_SUBJECT_PREFIX = '[FORUMIT]' # the part of the subject of the mail
     FLASKY_ADMIN = os.environ.get('FLASKY_ADMIN')
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True # 在视图函数中设置自动提交session 这个参数有点争议先用着试试
@@ -46,21 +46,21 @@ class Config:
     PER_PAGE = 8
 
     # 阿里云注册账号通知短信服务接口相关信息
-    ACCESSKEY = 'LTAI2cUh4boM8E2f'
-    ACCESSKEYSECRET = 'OHcT62tFGTXdgkF5eaibaUpaDyHRKK'
-    ALIYUN_TEMPLATE_CODE = 'SMS_151910651' #阿里云短信模板code
-    ALIYUN_SIGN_NAME = '个人学习' #阿里云短信签名名称
+    ACCESSKEY = 'xxx'
+    ACCESSKEYSECRET = 'xxx'
+    ALIYUN_TEMPLATE_CODE = 'xxx' #阿里云短信模板code
+    ALIYUN_SIGN_NAME = 'xxx' #阿里云短信签名名称
 
-    QINIUACCESSKEY = '2zjylSQRNAPj-fa-ma_bXWUukD8eFEcNStWVDepY'
-    QINIUACCESSKEYSECRET = 'SOrvIATcYYy_dsSL0xf7VBm7Uf_1JNJ5Q2b-4edv'
+    QINIUACCESSKEY = 'xxx'
+    QINIUACCESSKEYSECRET = 'xxx'
 
     # UEditor编辑器配置
     UEDITOR_UPLOAD_PATH = os.path.join(os.path.dirname(__file__),'images')
     UEDITOR_UPLOAD_TO_QINIU = True
-    UEDITOR_QINIU_ACCESS_KEY = "2zjylSQRNAPj-fa-ma_bXWUukD8eFEcNStWVDepY"
-    UEDITOR_QINIU_SECRET_KEY = "SOrvIATcYYy_dsSL0xf7VBm7Uf_1JNJ5Q2b-4edv"
+    UEDITOR_QINIU_ACCESS_KEY = "xxx"
+    UEDITOR_QINIU_SECRET_KEY = "xxx"
     UEDITOR_QINIU_BUCKET_NAME = "forumfor"
-    UEDITOR_QINIU_DOMAIN = "http://qiniu.liugaoyang.xin/"
+    UEDITOR_QINIU_DOMAIN = "xxx"
 
     @staticmethod
     def init_app(app):
@@ -69,16 +69,16 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://lgy:test-lgy-734190L@47.94.211.34:3306/forumit?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'xxx'
 
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://lgy:test-lgy-734190L@47.94.211.34:3306/test_forum?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'xxx'
 
 
 class ProductionConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://lgy:test-lgy-734190L@47.94.211.34:3306/forumit?charset=utf8'
+    SQLALCHEMY_DATABASE_URI = 'xxx'
 
 
 # 创建一个json形式的数据字典 在导入环境配置时使用

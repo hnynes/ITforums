@@ -29,7 +29,7 @@ def index():
     #首先获取版块id 然后才将帖子页面跳转到相应的页面
     area_id = request.args.get('id', type=int, default=None)
     carousellist = Carousel.query.order_by(Carousel.weight.desc()).limit(3)
-    arealist = Area.query.order_by(Area.number.desc()).limit(5)
+    arealist = Area.query.order_by(Area.number.desc()).all()
     page = request.args.get(get_page_parameter(), type = int, default = 1)
     # 获取帖子的排序方式 默认是按照帖子的发布时间
     sort = request.args.get('sort', type=int, default=1)

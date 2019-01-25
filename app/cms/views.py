@@ -72,7 +72,7 @@ def mancmsuser():
 @login_required
 @power_required(CMSpower.COMMOENT)
 def comment():
-    commentlist = Comment.query.order_by(Comment.create_time).all()
+    commentlist = Comment.query.order_by(Comment.create_time.desc()).all()
     return render_template('cms/cms_comment.html', commentlist=commentlist)
 
 
@@ -83,7 +83,9 @@ def comment():
 def delcomment():
     com_id = request.form.get("com_id")
     comment = Comment.query.filter_by(id=com_id).first()
+    post = Post.query.filter_by(id = comment.post_id).first()
     if comment:
+        post.cnumber = post.cnumber - 1
         db.session.delete(comment)
         db.session.commit()
         return restful.success()
@@ -157,8 +159,11 @@ def delpost():
     id = request.form.get('post_id')
     post = Post.query.get(id)
     if post:
+        area = post.area
+        area.number = area.number - 1
         db.session.delete(post)
         db.session.commit()
+
         return restful.success()
     else:
         return restful.args_error("没有这个帖子")
