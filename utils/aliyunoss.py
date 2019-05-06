@@ -3,7 +3,7 @@
 import os
 import shutil
 import oss2
-# from config import config
+from config import config
 
 
 # 以下代码展示了基本的文件上传、下载、罗列、删除用法。
@@ -16,9 +16,9 @@ import oss2
 #   http://oss-cn-hangzhou.aliyuncs.com
 #   https://oss-cn-hangzhou.aliyuncs.com
 # 分别以HTTP、HTTPS协议访问。
-access_key_id = 'LTAIWzOzpEYTIHIN'
-access_key_secret = 'hOb8gy9gadIE84MkQhfcQKTrTnoAp9'
-bucket_name = 'forumfor'
+access_key_id = config['development'].ACCESSKEY
+access_key_secret = config['development'].ACCESSKEYSECRET
+bucket_name = config['development'].ALIYUNBUCKETNAME
 endpoint = 'https://oss-cn-beijing.aliyuncs.com'
 
 

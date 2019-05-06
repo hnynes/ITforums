@@ -68,12 +68,3 @@ def send_sms(phone_numbers, code):
 
     return smsResponse
 
-
-"""
-if __name__ == '__main__':
-    __business_id = uuid.uuid1()
-    #print(__business_id)
-    params = "{\"code\":\"12345\"}"
-	#params = u'{"name":"wqb","code":"12345678","address":"bz","phone":"13000000000"}'
-    print(send_sms(__business_id, "15837562085", "个人学习", "SMS_151910651", params))
-"""

@@ -48,6 +48,7 @@ class Config:
     # 阿里云注册账号通知短信服务接口相关信息
     ACCESSKEY = 'xxx'
     ACCESSKEYSECRET = 'xxx'
+    ALIYUNBUCKETNAME = 'XXX'
     ALIYUN_TEMPLATE_CODE = 'xxx' #阿里云短信模板code
     ALIYUN_SIGN_NAME = 'xxx' #阿里云短信签名名称
 
